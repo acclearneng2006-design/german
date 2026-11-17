@@ -384,7 +384,25 @@
       cursor: pointer;
       transition: 0.15s;
     }
-    .quiz-opt.correct {
+    .lesson-practice-prompt { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+    .lesson-textarea { width: 100%; min-height: 96px; resize: vertical; direction: ltr; text-align: left; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 12px; font: inherit; }
+    .lesson-feedback { display: none; margin-top: 10px; padding: 12px; border-radius: 12px; background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.3); white-space: pre-wrap; font-size: 13px; line-height: 1.8; }
+    .quiz-feedback { margin-top: 10px; min-height: 24px; font-size: 13px; font-weight: 700; }    .lesson-stage { display:none; animation:fadeIn .18s ease; }
+    .lesson-stage.active { display:block; }
+    .lesson-nav { display:flex; gap:10px; margin:12px 0 24px; }
+    .lesson-nav .btn-primary { flex:1; }
+    .lesson-nav .btn-ghost { min-width:100px; }
+    .lesson-hero { background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(59,130,246,.16)); border: 1px solid rgba(34,197,94,.35); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+    .lesson-hero-top { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
+    .lesson-steps { display:flex; gap:6px; margin-top:12px; }
+    .lesson-step { flex:1; height:6px; border-radius:99px; background:var(--surface-2); }
+    .lesson-step.active { background:var(--success); }
+    .lesson-step-labels { display:flex; justify-content:space-between; gap:4px; color:var(--muted); font-size:10px; margin-top:5px; }
+    .practice-question { border:1px solid var(--border); border-radius:14px; padding:12px; margin-top:10px; }
+    .practice-choice { width:100%; text-align:right; background:var(--surface-2); color:var(--text); border:1px solid var(--border); border-radius:11px; padding:10px 12px; margin-top:7px; cursor:pointer; }
+    .practice-choice.correct { border-color:var(--success); background:rgba(16,185,129,.18); }
+    .practice-choice.wrong { border-color:var(--danger); background:rgba(239,68,68,.18); }
+    .practice-choice-feedback { min-height:20px; margin-top:7px; font-size:12px; font-weight:700; }    .quiz-opt.correct {
       background: rgba(16, 185, 129, 0.2);
       border-color: var(--success);
       color: #fff;
@@ -937,7 +955,7 @@
             grammar: "استخدام الأفعال المنفصلة (Trennbare Verben): Der Zug fährt um 10 Uhr ab (القطار يتحرك الساعة 10).",
             vocab: [
               { de: "Eine Fahrkarte nach Berlin, bitte.", ar: "تذكرة إلى برلين من فضلك." },
-              { de: "Wوان Wann fährt der nächste Zug?", ar: "متى يتحرك القطار القادم؟" },
+              { de: "Wann fährt der nächste Zug?", ar: "متى يتحرك القطار القادم؟" },
               { de: "Gleis 3.", ar: "رصيف رقم 3." }
             ],
             quiz: { q: "ما الفعل المنفصل المناسب لحركة القطار؟", opts: ["abfahren", "wohnen", "sprechen"], ans: 0 }
@@ -950,6 +968,204 @@
             starterDe: "Guten Tag! Wohin möchten Sie reisen?",
             starterAr: "نهارك سعيد! إلى أين تود أن تسافر؟",
             systemPrompt: "أنت موظف محطة القطار. ساعد المسافر في حجز التذكرة، معرفة الرصيف، ووقت القيام بدقة لمستوى A1."
+          }
+        ]
+      }
+      ,{
+        unit: "الوحدة الرابعة: الأسرة والروتين والعمل والمدينة (Familie & Alltag)",
+        nodes: [
+          {
+            id: "l11", type: "lesson", icon: "👨‍👩‍👧", title: "1. الأسرة والأصدقاء",
+            desc: "Familie, Geschwister, verheiratet, allein", xp: 30,
+            grammar: "للتحدث عن الملكية نستخدم mein / meine حسب الاسم: mein Bruder (أخي)، meine Schwester (أختي). وللسؤال نقول: Hast du Geschwister?",
+            vocab: [
+              { de: "Das ist meine Familie.", ar: "هذه عائلتي." },
+              { de: "Ich habe einen Bruder und eine Schwester.", ar: "لدي أخ وأخت." },
+              { de: "Bist du verheiratet?", ar: "هل أنت متزوج؟" },
+              { de: "Meine Eltern wohnen in Ägypten.", ar: "والداي يسكنان في مصر." }
+            ],
+            quiz: { q: "اختر الجملة الصحيحة: لدي أخت.", opts: ["Ich habe eine Schwester.", "Ich bin eine Schwester.", "Ich wohne Schwester."], ans: 0 }
+          },
+          {
+            id: "l12", type: "lesson", icon: "⏰", title: "2. الوقت وأيام الأسبوع",
+            desc: "Uhrzeit, Wochentage, Termine", xp: 30,
+            grammar: "للسؤال عن الوقت نقول: Wie spät ist es? وللمواعيد نستخدم um مع الساعة: Der Kurs beginnt um neun Uhr.",
+            vocab: [
+              { de: "Wie spät ist es?", ar: "كم الساعة؟" },
+              { de: "Es ist halb acht.", ar: "الساعة السابعة والنصف." },
+              { de: "Am Montag habe ich einen Deutschkurs.", ar: "لدي درس ألماني يوم الاثنين." },
+              { de: "Der Termin ist um 10 Uhr.", ar: "الموعد الساعة العاشرة." }
+            ],
+            quiz: { q: "كيف تقول: الموعد الساعة الثالثة؟", opts: ["Der Termin ist um drei Uhr.", "Der Termin ist drei Jahre.", "Ich bin um drei Uhr."], ans: 0 }
+          },
+          {
+            id: "l13", type: "lesson", icon: "🏃", title: "3. الروتين اليومي",
+            desc: "aufstehen, arbeiten, frühstücken, schlafen", xp: 30,
+            grammar: "بعض الأفعال تنفصل في الجملة، مثل aufstehen: Ich stehe um sieben Uhr auf. الفعل المصرف يأتي في المركز الثاني والبادئة في آخر الجملة.",
+            vocab: [
+              { de: "Ich stehe um sieben Uhr auf.", ar: "أستيقظ الساعة السابعة." },
+              { de: "Dann frühstücke ich.", ar: "بعد ذلك أتناول الإفطار." },
+              { de: "Ich gehe um acht Uhr zur Arbeit.", ar: "أذهب إلى العمل الساعة الثامنة." },
+              { de: "Am Abend sehe ich fern.", ar: "أشاهد التلفاز في المساء." }
+            ],
+            quiz: { q: "أين تأتي بادئة الفعل aufstehen؟", opts: ["في نهاية الجملة: Ich stehe früh auf.", "قبل الفاعل دائماً.", "تحذف من الجملة."], ans: 0 }
+          },
+          {
+            id: "l14", type: "lesson", icon: "💼", title: "4. العمل والمهن",
+            desc: "Beruf, Arbeitsplatz, arbeiten, suchen", xp: 30,
+            grammar: "للسؤال عن المهنة نقول: Was sind Sie von Beruf? وللإجابة: Ich bin Arzt / Ärztin. ويمكن قول: Ich arbeite als Lehrer.",
+            vocab: [
+              { de: "Was sind Sie von Beruf?", ar: "ما مهنتك؟" },
+              { de: "Ich bin Ingenieur.", ar: "أنا مهندس." },
+              { de: "Wo arbeiten Sie?", ar: "أين تعمل؟" },
+              { de: "Ich suche eine Arbeit.", ar: "أبحث عن عمل." }
+            ],
+            quiz: { q: "كيف تسأل شخصاً عن مهنته؟", opts: ["Was sind Sie von Beruf?", "Wie alt sind Sie?", "Wo wohnen Sie?"], ans: 0 }
+          },
+          {
+            id: "l15", type: "lesson", icon: "🧭", title: "5. الاتجاهات والأماكن في المدينة",
+            desc: "links, rechts, geradeaus, neben", xp: 30,
+            grammar: "للسؤال عن مكان نقول: Wo ist ...? ولإعطاء اتجاهات بسيطة: Gehen Sie geradeaus, dann links (امشِ للأمام ثم يساراً).",
+            vocab: [
+              { de: "Entschuldigung, wo ist der Bahnhof?", ar: "عذراً، أين محطة القطار؟" },
+              { de: "Gehen Sie geradeaus.", ar: "امشِ إلى الأمام." },
+              { de: "Dann links oder rechts.", ar: "ثم يساراً أو يميناً." },
+              { de: "Die Apotheke ist neben dem Supermarkt.", ar: "الصيدلية بجوار السوبرماركت." }
+            ],
+            quiz: { q: "ما معنى geradeaus؟", opts: ["إلى الأمام", "إلى اليمين", "إلى الخلف"], ans: 0 }
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الخامسة: الحروف والنطق (Alphabet & Aussprache)",
+        nodes: [
+          {
+            id: "l16", type: "lesson", icon: "🔤", title: "1. الأبجدية الألمانية وتهجئة الاسم",
+            desc: "الحروف A–Z، أسماء الحروف، وتهجئة الاسم", xp: 35,
+            grammar: "الألمانية تستخدم 26 حرفاً لاتينياً، ومعها Ä/Ö/Ü و ß.\nلتهجئة اسمك قل: Wie schreibt man das? (كيف تُكتب؟) ثم انطق أسماء الحروف. مثال: A = آ، B = بي، C = تسي، D = دي، E = إيه.\nحروف العلة: A, E, I, O, U. تمرّن ببطء ثم اكتب اسمك حرفاً حرفاً.",
+            vocab: [
+              { de: "A B C D E", ar: "آ، بي، تسي، دي، إيه" },
+              { de: "F G H I J", ar: "إف، جي، ها، إي، يوت" },
+              { de: "K L M N O", ar: "كا، إل، إم، إن، أو" },
+              { de: "P Q R S T", ar: "پي، كو، إر، إس، تي" },
+              { de: "U V W X Y Z", ar: "أو، فاو، ڤيه، إكس، إبسيلون، تسِت" },
+              { de: "Wie schreibt man Ihren Namen?", ar: "كيف يُكتب اسم حضرتك؟" },
+              { de: "Mein Name ist Sara: S-A-R-A.", ar: "اسمي سارة: إس-آ-إر-آ." }
+            ],
+            quiz: { q: "أي مجموعة تمثل حروف العلة الألمانية؟", opts: ["A, E, I, O, U", "B, C, D, F, G", "K, L, M, N, P"], ans: 0 }
+          },
+          {
+            id: "l17", type: "lesson", icon: "🗣️", title: "2. الحروف الخاصة وأصوات الألمانية",
+            desc: "Ä, Ö, Ü, ß، و ch / sch / ei / ie", xp: 35,
+            grammar: "Ä صوته قريب من e، Ö و Ü صوتان أماميان لا يوجد لهما مقابل مطابق بالعربية؛ قرّب الشفتين مع نطق إيه/إي. ß يُسمى Eszett ويُنطق مثل ss.\nsch = ش مثل Schule، ei = آي مثل mein، ie = إي طويلة مثل sieben، و ch له صوتان: خفيف في ich وأقوى في Bach. استمع للنطق وكرره، فالنطق العربي هنا تقريب تقريبي.",
+            vocab: [
+              { de: "Ä ä – Mädchen", ar: "Ä: مثل صوت قريب من e — فتاة" },
+              { de: "Ö ö – schön", ar: "Ö: صوت أمامي — جميل" },
+              { de: "Ü ü – fünf", ar: "Ü: صوت أمامي — خمسة" },
+              { de: "ß – Straße", ar: "ß يُنطق ss — شارع" },
+              { de: "Schule / mein / sieben", ar: "شوله / ماين / زيبن" },
+              { de: "Ich spreche Deutsch.", ar: "أنا أتحدث الألمانية." }
+            ],
+            quiz: { q: "كيف يُنطق المقطع sch غالباً؟", opts: ["ش", "ف", "ك"], ans: 0 }
+          }
+        ]
+      },
+      {
+        unit: "الوحدة السادسة: قواعد البداية خطوة خطوة (Grammatik A1)",
+        nodes: [
+          {
+            id: "l18", type: "lesson", icon: "🧩", title: "1. الضمائر وتصريف sein و haben",
+            desc: "ich, du, er/sie/es, wir, ihr, sie/Sie", xp: 35,
+            grammar: "ضمائر الفاعل: ich أنا، du أنت، er هو، sie هي، es هو/هي لغير العاقل، wir نحن، ihr أنتم، sie هم، Sie حضرتك/حضراتكم.\nsein (يكون): ich bin، du bist، er/sie/es ist، wir sind، ihr seid، sie/Sie sind.\nhaben (يملك/لديه): ich habe، du hast، er/sie/es hat، wir haben، ihr habt، sie/Sie haben. احفظ الفعل مع الضمير؛ ستستخدمهما كثيراً.",
+            vocab: [
+              { de: "Ich bin müde.", ar: "أنا متعب." },
+              { de: "Du bist freundlich.", ar: "أنت ودود." },
+              { de: "Wir sind hier.", ar: "نحن هنا." },
+              { de: "Ich habe Zeit.", ar: "لدي وقت." },
+              { de: "Sie hat einen Termin.", ar: "لديها موعد." }
+            ],
+            quiz: { q: "أكمل: Wir ___ in Berlin.", opts: ["sind", "bin", "seid"], ans: 0 }
+          },
+          {
+            id: "l19", type: "lesson", icon: "🧱", title: "2. ترتيب الجملة وتصريف الأفعال",
+            desc: "الفعل في المركز الثاني والجمل البسيطة", xp: 35,
+            grammar: "في الجملة الخبرية يأتي الفعل المصرف عادةً في المركز الثاني: Ich lerne heute Deutsch. إذا بدأت بظرف، يبقى الفعل ثانياً: Heute lerne ich Deutsch.\nتصريف lernen: ich lerne، du lernst، er lernt، wir lernen، ihr lernt، sie lernen. احذف -en من المصدر ثم أضف النهاية المناسبة.\nمع الفعل المنفصل يذهب الجزء المنفصل لنهاية الجملة: Ich kaufe heute ein.",
+            vocab: [
+              { de: "Ich lerne Deutsch.", ar: "أنا أتعلم الألمانية." },
+              { de: "Heute arbeitet Ali.", ar: "علي يعمل اليوم." },
+              { de: "Wir wohnen in Kairo.", ar: "نحن نسكن في القاهرة." },
+              { de: "Ich kaufe im Supermarkt ein.", ar: "أتسوق في السوبرماركت." }
+            ],
+            quiz: { q: "أين يأتي الفعل المصرف غالباً في الجملة الخبرية؟", opts: ["المركز الثاني", "آخر الجملة دائماً", "أول الجملة دائماً"], ans: 0 }
+          },
+          {
+            id: "l20", type: "lesson", icon: "❓", title: "3. تكوين الأسئلة: W والأسئلة بنعم أو لا",
+            desc: "wer, was, wo, woher, wohin, wann, wie", xp: 35,
+            grammar: "أسئلة W تبدأ بأداة السؤال ثم الفعل ثم الفاعل: Wo wohnen Sie? / Wann kommt der Bus?\nأما سؤال نعم/لا فيبدأ بالفعل: Sprechen Sie Deutsch? الإجابة: Ja, ich spreche Deutsch. أو Nein, ich spreche kein Deutsch. انتبه إلى الفرق بين Wo (أين) و Woher (من أين) و Wohin (إلى أين).",
+            vocab: [
+              { de: "Wer? Was? Wo?", ar: "مَن؟ ماذا؟ أين؟" },
+              { de: "Woher kommen Sie?", ar: "من أين حضرتك؟" },
+              { de: "Wohin fahren Sie?", ar: "إلى أين تسافر؟" },
+              { de: "Wann beginnt der Film?", ar: "متى يبدأ الفيلم؟" },
+              { de: "Haben Sie eine Frage?", ar: "هل لديك سؤال؟" }
+            ],
+            quiz: { q: "أي سؤال يبدأ بالفعل وإجابته غالباً نعم أو لا؟", opts: ["Sprechen Sie Deutsch?", "Wo wohnen Sie?", "Wie heißen Sie?"], ans: 0 }
+          },
+          {
+            id: "l21", type: "lesson", icon: "🚫", title: "4. النفي بـ nicht و kein",
+            desc: "كيف تقول لا أو ليس عندي", xp: 35,
+            grammar: "نستخدم kein قبل الاسم النكرة أو الاسم بلا أداة: Ich habe kein Auto (ليس لدي سيارة). تتغير نهايته حسب الاسم: keine Zeit، keinen Bruder.\nنستخدم nicht لنفي فعل أو صفة أو اسم معرف: Ich komme heute nicht. / Das Zimmer ist nicht groß. / Das ist nicht der Bus.\nتذكّر: kein ينفي اسماً، وnicht ينفي بقية المعنى غالباً.",
+            vocab: [
+              { de: "Ich spreche nicht schnell.", ar: "أنا لا أتحدث بسرعة." },
+              { de: "Ich habe kein Auto.", ar: "ليس لدي سيارة." },
+              { de: "Wir haben keine Kinder.", ar: "ليس لدينا أطفال." },
+              { de: "Das Essen ist nicht teuer.", ar: "الطعام ليس غاليًا." }
+            ],
+            quiz: { q: "أكمل: Ich habe ___ Schwester.", opts: ["keine", "nicht", "kein"], ans: 0 }
+          },
+          {
+            id: "l22", type: "lesson", icon: "📦", title: "5. أدوات التعريف والنكرة والجمع",
+            desc: "der, die, das / ein, eine / kein", xp: 35,
+            grammar: "لكل اسم ألماني جنس نحوي: der مذكر، die مؤنث، das محايد. احفظ الاسم مع أداته ومع الجمع: der Tisch – die Tische.\nأدوات النكرة: ein للمذكر والمحايد، وeine للمؤنث. في المفعول المباشر Akkusativ يتغير المذكر: der/ein يصبح den/einen، بينما المؤنث والمحايد لا يتغيران هنا: Ich sehe einen Mann, eine Frau, ein Kind.\nالجمع غالباً أداته die، ولا توجد أداة نكرة للجمع.",
+            vocab: [
+              { de: "der Mann – die Männer", ar: "الرجل – الرجال" },
+              { de: "die Frau – die Frauen", ar: "المرأة – النساء" },
+              { de: "das Kind – die Kinder", ar: "الطفل – الأطفال" },
+              { de: "Ich kaufe einen Apfel.", ar: "أشتري تفاحة." },
+              { de: "Ich sehe eine Tasche.", ar: "أرى حقيبة." }
+            ],
+            quiz: { q: "اختر الصيغة الصحيحة: Ich kaufe ___ Stuhl. (der Stuhl)", opts: ["einen", "eine", "ein"], ans: 0 }
+          }
+        ]
+      },
+      {
+        unit: "الوحدة السابعة: الطعام والطلبات والمواعيد (Essen & Termine)",
+        nodes: [
+          {
+            id: "l23", type: "lesson", icon: "🍽️", title: "1. الطعام والوجبات والتفضيلات",
+            desc: "الأطعمة، الوجبات، mögen و essen", xp: 35,
+            grammar: "mögen للتفضيل: Ich mag Tee. ومع اسم أو فعل بصيغة المصدر نستخدم gern: Ich esse gern Reis (أحب أكل الأرز).\nessen فعل غير منتظم: ich esse، du isst، er isst، wir essen. للسؤال عن الرغبة بأدب: Möchten Sie etwas trinken?",
+            vocab: [
+              { de: "Was essen Sie gern?", ar: "ماذا تحب أن تأكل؟" },
+              { de: "Ich esse gern Reis und Gemüse.", ar: "أحب أكل الأرز والخضار." },
+              { de: "Ich trinke keinen Kaffee.", ar: "لا أشرب القهوة." },
+              { de: "Die Speisekarte, bitte.", ar: "قائمة الطعام من فضلك." },
+              { de: "Zahlen, bitte!", ar: "الحساب من فضلك!" }
+            ],
+            quiz: { q: "كيف تقول: أحب شرب الشاي؟", opts: ["Ich trinke gern Tee.", "Ich bin gern Tee.", "Ich wohne gern Tee."], ans: 0 }
+          },
+          {
+            id: "l24", type: "lesson", icon: "📅", title: "2. المواعيد والدعوات والاعتذار",
+            desc: "Termin, einladen, können, müssen", xp: 35,
+            grammar: "الفعلان المساعدان können (يستطيع) و müssen (يجب) يأتيان مصرفين في المركز الثاني، والفعل الآخر في المصدر آخر الجملة: Ich kann am Freitag kommen. / Ich muss heute arbeiten.\nللاقتراح: Hast du am Samstag Zeit? وللقبول: Ja, gern. وللاعتذار: Leider kann ich nicht.",
+            vocab: [
+              { de: "Hast du am Freitag Zeit?", ar: "هل لديك وقت يوم الجمعة؟" },
+              { de: "Wir können zusammen lernen.", ar: "يمكننا أن نتعلم معاً." },
+              { de: "Ich muss heute arbeiten.", ar: "يجب أن أعمل اليوم." },
+              { de: "Leider kann ich nicht.", ar: "للأسف لا أستطيع." },
+              { de: "Bis morgen!", ar: "أراك غداً!" }
+            ],
+            quiz: { q: "أين يأتي الفعل الثاني في جملة modal؟", opts: ["مصدر في نهاية الجملة", "مصرفاً قبل الفاعل", "يحذف دائماً"], ans: 0 }
           }
         ]
       }
@@ -1096,44 +1312,114 @@
       `).join("");
 
       let optsHtml = lesson.quiz.opts.map((opt, idx) => `
-        <button class="quiz-opt ltr" onclick="checkQuiz(this, ${idx === lesson.quiz.ans})">${opt}</button>
+        <button class="quiz-opt ltr" data-correct="${idx === lesson.quiz.ans}" onclick="checkQuiz(this)">${opt}</button>
       `).join("");
+      const practiceWords = lesson.vocab.slice(0, 3).map(v => v.de).join("، ");
+      const reviewHtml = lesson.vocab.slice(0, Math.min(3, lesson.vocab.length)).map((v, i) => {
+        const choices = lesson.vocab.filter((_, j) => j !== i).slice(0, 2).map(x => x.ar);
+        choices.splice(i % 3, 0, v.ar);
+        return `<div class="practice-question"><p class="ltr" style="font-weight:800;font-size:16px">${v.de}</p><p style="font-size:12px;color:var(--muted);margin-top:3px">اختار المعنى الصحيح:</p>${choices.map(choice => `<button class="practice-choice" data-correct="${choice === v.ar}" onclick="checkPracticeChoice(this)">${choice}</button>`).join("")}<div class="practice-choice-feedback" aria-live="polite"></div></div>`;
+      }).join("");
 
       body.innerHTML = `
-        <div class="card">
-          <h4>
-            <span>📖 القاعدة الأساسية</span>
-            <button class="btn-ghost" style="padding:4px 10px;font-size:12px" onclick="explainGrammarAI('${lesson.id}')">✨ اشرح لي بعمق</button>
-          </h4>
-          <p style="font-size:14px">${lesson.grammar}</p>
-          <div id="grammar-ai-box" class="ai-box" style="display:none"></div>
+        <div class="lesson-hero">
+          <div class="lesson-hero-top"><strong>🎮 درس تفاعلي قصير</strong><span class="node-badge">+${lesson.xp} XP</span></div>
+          <div id="lessonStageTitle" style="font-size:13px;font-weight:700">المرحلة 1 من 5 • افهم الدرس</div>
+          <div class="lesson-steps"><span class="lesson-step active"></span><span class="lesson-step"></span><span class="lesson-step"></span><span class="lesson-step"></span><span class="lesson-step"></span></div>
+          <div class="lesson-step-labels"><span>شرح</span><span>كلمات</span><span>تدريب</span><span>كتابة</span><span>تحدي</span></div>
         </div>
-
-        <div class="card">
-          <h4>🗣️ أهم الجمل والكلمات</h4>
-          ${vocabHtml}
-        </div>
-
-        <div class="card">
-          <h4>🎯 اختبار سريع</h4>
-          <p style="font-size:14px;font-weight:600">${lesson.quiz.q}</p>
-          ${optsHtml}
-        </div>
-
-        <button class="btn-primary ${isDone ? "success" : ""}" onclick="completeNode('${lesson.id}', ${lesson.xp})">
-          ${isDone ? "✅ تم إكمال الدرس (اضغط للمتابعة)" : "🎉 إتمام الدرس وحفظ التقدم"}
-        </button>
+        <section class="lesson-stage active" data-stage="0">
+          <div class="card"><h4>🧭 هدف الدرس</h4><p style="font-size:14px;line-height:1.9">${lesson.desc}. بعد الدرس هتقدر تستخدم <strong>${lesson.title}</strong> في جمل ألمانية بسيطة.</p><p style="font-size:13px;color:var(--muted);margin-top:6px">اقرأ الشرح والأمثلة. لما تخلص اضغط «التالي» عشان تبدأ الكلمات.</p></div>
+          <div class="card"><h4><span>📖 افهم القاعدة</span><button class="btn-ghost" style="padding:4px 10px;font-size:12px" onclick="explainGrammarAI('${lesson.id}')">✨ اسأل المدرّب</button></h4><p style="font-size:14px;white-space:pre-line;line-height:1.95">${lesson.grammar}</p><div id="grammar-ai-box" class="ai-box" style="display:none"></div></div>
+        </section>
+        <section class="lesson-stage" data-stage="1">
+          <div class="card"><h4>🗣️ اسمع واتعلم الكلمات</h4><p class="lesson-practice-prompt">اسمع كل جملة وكررها بصوت عالٍ. اضغط ✨ لو عايز مثال إضافي.</p>${vocabHtml}</div>
+          <div class="card" style="background:rgba(59,130,246,.08)"><strong>💡 طريقة مذاكرة سريعة</strong><p style="margin-top:6px;font-size:13px">غطّي الترجمة بإيدك، حاول تفتكر المعنى، وبعدها اسمع الجملة مرة تانية.</p></div>
+        </section>
+        <section class="lesson-stage" data-stage="2">
+          <div class="card"><h4>🧠 اختار معنى الجملة</h4><p class="lesson-practice-prompt">جاوب على الأسئلة الثلاثة. لازم تصحح كل إجابة قبل الانتقال للكتابة.</p>${reviewHtml}</div>
+        </section>
+        <section class="lesson-stage" data-stage="3">
+          <div class="card"><h4>✍️ استخدم اللي اتعلمته</h4><p class="lesson-practice-prompt">اكتب جملتين بالألماني عن موضوع الدرس، وحاول تستخدم كلمتين على الأقل: <span class="ltr">${practiceWords}</span></p><textarea id="lessonPracticeInput" class="lesson-textarea" placeholder="Schreib deine Sätze hier..."></textarea><button class="btn-primary" style="margin-top:10px" onclick="checkLessonPractice('${lesson.id}')">🤖 راجع إجابتي</button><div id="lessonPracticeFeedback" class="lesson-feedback"></div></div>
+        </section>
+        <section class="lesson-stage" data-stage="4">
+          <div class="card"><h4>🏁 التحدي الأخير</h4><p style="font-size:14px;font-weight:600;margin-bottom:10px">${lesson.quiz.q}</p>${optsHtml}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>
+          <button id="completeLessonBtn" class="btn-primary ${isDone ? "success" : ""}" ${isDone ? "" : "disabled"} onclick="completeNode('${lesson.id}', ${lesson.xp})">${isDone ? "✅ تم إكمال الدرس (اضغط للمتابعة)" : "🎉 إتمام الدرس وحفظ التقدم"}</button>
+        </section>
+        <div class="lesson-nav"><button id="lessonPrevBtn" class="btn-ghost" onclick="moveLessonStep(-1)" disabled>رجوع</button><button id="lessonNextBtn" class="btn-primary" onclick="moveLessonStep(1)">التالي ←</button></div>
       `;
-
-      document.getElementById("lessonOverlay").classList.add("open");
+      document.getElementById("overlayBody").dataset.lessonId = lesson.id;      document.getElementById("lessonOverlay").classList.add("open");
     }
 
-    function checkQuiz(btn, isCorrect) {
+    function showLessonStep(step) {
+      const stages = Array.from(document.querySelectorAll("#overlayBody .lesson-stage"));
+      const nextStep = Math.max(0, Math.min(stages.length - 1, step));
+      stages.forEach((stage, index) => stage.classList.toggle("active", index === nextStep));
+      document.querySelectorAll(".lesson-step").forEach((bar, index) => bar.classList.toggle("active", index <= nextStep));
+      const titles = ["افهم الدرس", "اسمع واتعلم الكلمات", "تدريب المفردات", "اكتب جملك", "التحدي الأخير"];
+      document.getElementById("lessonStageTitle").textContent = `المرحلة ${nextStep + 1} من ${stages.length} • ${titles[nextStep]}`;
+      document.getElementById("lessonPrevBtn").disabled = nextStep === 0;
+      document.getElementById("lessonNextBtn").style.display = nextStep === stages.length - 1 ? "none" : "block";
+      document.getElementById("lessonPrevBtn").style.visibility = nextStep === stages.length - 1 ? "hidden" : "visible";
+      document.getElementById("overlayBody").dataset.stage = String(nextStep);
+      document.getElementById("lessonOverlay").scrollTop = 0;
+    }
+
+    function moveLessonStep(direction) {
+      const body = document.getElementById("overlayBody");
+      const current = Number(body.dataset.stage || 0);
+      if (direction > 0 && current === 2) {
+        const questions = Array.from(document.querySelectorAll(".practice-question"));
+        if (questions.some(q => q.dataset.solved !== "true")) { alert("جاوب صح على أسئلة المفردات الثلاثة الأول."); return; }
+      }
+      if (direction > 0 && current === 3 && !document.getElementById("lessonPracticeInput").value.trim()) { alert("اكتب جملة واحدة على الأقل قبل ما تكمل."); return; }
+      showLessonStep(current + direction);
+    }
+    function checkPracticeChoice(btn) {
+      const card = btn.closest(".practice-question");
+      const buttons = card.querySelectorAll(".practice-choice");
+      buttons.forEach(b => b.classList.remove("correct", "wrong"));
+      const correct = Array.from(buttons).find(b => b.dataset.correct === "true");
+      const feedback = card.querySelector(".practice-choice-feedback");
+      if (btn.dataset.correct === "true") {
+        btn.classList.add("correct");
+        card.dataset.solved = "true";
+        feedback.innerHTML = `<span style="color:var(--success)">✅ Genau! إجابة صحيحة.</span>`;
+      } else {
+        btn.classList.add("wrong");
+        if (correct) correct.classList.add("correct");
+        feedback.innerHTML = `<span style="color:var(--danger)">قريب! الصحيح: ${correct ? correct.textContent : ""}</span>`;
+      }
+    }
+    function checkQuiz(btn) {
       const parent = btn.parentElement;
-      parent.querySelectorAll(".quiz-opt").forEach(b => b.classList.remove("correct", "wrong"));
-      btn.classList.add(isCorrect ? "correct" : "wrong");
+      const options = parent.querySelectorAll(".quiz-opt");
+      options.forEach(b => b.classList.remove("correct", "wrong"));
+      const correct = Array.from(options).find(b => b.dataset.correct === "true");
+      const feedback = document.getElementById("quizFeedback");
+      if (btn.dataset.correct === "true") {
+        btn.classList.add("correct");
+        document.getElementById("completeLessonBtn").disabled = false;
+        feedback.innerHTML = `<span style="color:var(--success)">✅ إجابة صحيحة! ممتاز.</span>`;
+      } else {
+        btn.classList.add("wrong");
+        if (correct) correct.classList.add("correct");
+        feedback.innerHTML = `<span style="color:var(--danger)">لسه مش دي. الإجابة الصحيحة: <span class="ltr">${correct ? correct.textContent : ""}</span>. راجع الشرح وجرب تاني.</span>`;
+      }
     }
 
+    async function checkLessonPractice(lessonId) {
+      const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
+      const input = document.getElementById("lessonPracticeInput");
+      const output = document.getElementById("lessonPracticeFeedback");
+      const answer = input.value.trim();
+      output.style.display = "block";
+      if (!answer) { output.textContent = "اكتب جملة أو جملتين بالألماني الأول، وبعدها أراجعهم لك."; return; }
+      output.textContent = "⏳ المدرّب بيراجع إجابتك...";
+      const prompt = `الدرس: ${lesson.title}\\nالشرح: ${lesson.grammar}\\nالكلمات: ${lesson.vocab.map(v => v.de).join(", ")}\\nإجابة المتعلم: ${answer}`;
+      const result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني لمتعلم عربي في مستوى A1. راجع إجابة المتعلم بلطف: اكتب الجملة المصححة، اشرح كل خطأ بالعربية البسيطة، ثم أعطه مثالاً واحداً مشابهاً. لا تستخدم قواعد أعلى من A1.");
+      output.textContent = result;
+    }
     async function explainGrammarAI(lessonId) {
       const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
       const box = document.getElementById("grammar-ai-box");
@@ -1554,3 +1840,9 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
