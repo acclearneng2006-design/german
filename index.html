@@ -1,567 +1,1556 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-tap-highlight-color: transparent;
-}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Deutsch A1 Coach</title>
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Deutsch%20A1%20Coach%22%2C%22short_name%22%3A%22Deutsch%20A1%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230f172a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Fxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%25230f172a%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27136%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523111827%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27216%27%20width%3D%27320%27%20height%3D%2780%27%20fill%3D%27%2523dc2626%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27296%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523facc15%27%2F%253E%253Ctext%20x%3D%27256%27%20y%3D%27282%27%20font-family%3D%27sans-serif%27%20font-size%3D%2796%27%20font-weight%3D%27bold%27%20fill%3D%27white%27%20text-anchor%3D%27middle%27%253EA1%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D" />
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #131c31;
+      --surface-2: #1c2842;
+      --border: #273554;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-glow: rgba(59, 130, 246, 0.25);
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 16px;
+    }
 
-body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
-  background-color: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  min-height: 100vh;
-  padding-bottom: 88px;
-  overflow-x: hidden;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-.ltr {
-  direction: ltr;
-  text-align: left;
-  unicode-bidi: isolate;
-}
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 88px;
+      overflow-x: hidden;
+    }
 
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(11, 17, 32, 0.92);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
-}
+    .ltr {
+      direction: ltr;
+      text-align: left;
+      unicode-bidi: isolate;
+    }
 
-.header-top {
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(11, 17, 32, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+    }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+    .header-top {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-.flag-badge {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, #111827 33%, #dc2626 33% 66%, #facc15 66%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 12px;
-  color: #fff;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-  border: 1px solid rgba(255,255,255,0.15);
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-.brand h1 {
-  font-size: 16px;
-  font-weight: 700;
-}
+    .flag-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #111827 33%, #dc2626 33% 66%, #facc15 66%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 12px;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
 
-.stats-pills {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .brand h1 {
+      font-size: 16px;
+      font-weight: 700;
+    }
 
-.pill {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+    .stats-pills {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.sync-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--muted);
-}
-.sync-dot.ok { background: var(--success); }
-.sync-dot.busy { background: var(--accent); animation: pulse 1s infinite; }
-.sync-dot.err { background: var(--danger); }
+    .pill {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .sync-dot.ok { background: var(--success); }
+    .sync-dot.busy { background: var(--accent); animation: pulse 1s infinite; }
+    .sync-dot.err { background: var(--danger); }
 
-.progress-track {
-  max-width: 720px;
-  margin: 10px auto 0;
-  height: 6px;
-  background: var(--surface-2);
-  border-radius: 999px;
-  overflow: hidden;
-}
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
 
-.progress-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--primary), var(--success));
-  transition: width 0.35s ease;
-}
+    .progress-track {
+      max-width: 720px;
+      margin: 10px auto 0;
+      height: 6px;
+      background: var(--surface-2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
 
-.container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 16px;
-}
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      transition: width 0.35s ease;
+    }
 
-.view {
-  display: none;
-  animation: fadeIn 0.2s ease;
-}
-.view.active {
-  display: block;
-}
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 16px;
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    .view {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+    .view.active {
+      display: block;
+    }
 
-.unit-header {
-  margin: 24px 0 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.unit-header:first-child { margin-top: 4px; }
-.unit-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--accent);
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.node-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .unit-header {
+      margin: 24px 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .unit-header:first-child { margin-top: 4px; }
+    .unit-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
 
-.node-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  cursor: pointer;
-  transition: transform 0.15s, border-color 0.15s;
-}
-.node-card:active { transform: scale(0.985); }
-.node-card:hover { border-color: var(--primary); }
+    .node-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
 
-.node-card.checkpoint {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(245, 158, 11, 0.12));
-  border-color: rgba(245, 158, 11, 0.45);
-}
-.node-card.done { border-color: rgba(16, 185, 129, 0.45); }
+    .node-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+    .node-card:active {
+      transform: scale(0.985);
+    }
+    .node-card:hover {
+      border-color: var(--primary);
+    }
 
-.node-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    .node-card.checkpoint {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(245, 158, 11, 0.12));
+      border-color: rgba(245, 158, 11, 0.45);
+    }
 
-.node-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: var(--surface-2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.node-card.checkpoint .node-icon { background: rgba(245, 158, 11, 0.2); }
-.node-card.done .node-icon { background: rgba(16, 185, 129, 0.18); }
+    .node-card.done {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
 
-.node-info h3 {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-.node-info p {
-  font-size: 12.5px;
-  color: var(--muted);
-}
+    .node-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-.node-badge {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--muted);
-  white-space: nowrap;
-}
-.node-card.done .node-badge { background: rgba(16, 185, 129, 0.18); color: var(--success); }
-.node-card.checkpoint .node-badge { background: rgba(245, 158, 11, 0.2); color: var(--accent); }
+    .node-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .node-card.checkpoint .node-icon {
+      background: rgba(245, 158, 11, 0.2);
+    }
+    .node-card.done .node-icon {
+      background: rgba(16, 185, 129, 0.18);
+    }
 
-.lesson-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  background: var(--bg);
-  overflow-y: auto;
-  display: none;
-  padding-bottom: 40px;
-}
-.lesson-overlay.open { display: block; }
+    .node-info h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .node-info p {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
 
-.lesson-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(11, 17, 32, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
+    .node-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .node-card.done .node-badge {
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--success);
+    }
+    .node-card.checkpoint .node-badge {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--accent);
+    }
 
-.btn-ghost {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 7px 14px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-}
+    .lesson-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: var(--bg);
+      overflow-y: auto;
+      display: none;
+      padding-bottom: 40px;
+    }
+    .lesson-overlay.open {
+      display: block;
+    }
 
-.lesson-body {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 18px 16px;
-}
+    .lesson-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 17, 32, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 14px;
-}
+    .btn-ghost {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
 
-.card h4 {
-  font-size: 14px;
-  color: var(--accent);
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    .lesson-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 18px 16px;
+    }
 
-.vocab-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-.vocab-item:last-child { border-bottom: none; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
 
-.vocab-de { font-weight: 700; font-size: 15px; color: #fff; }
-.vocab-ar { font-size: 13px; color: var(--muted); }
+    .card h4 {
+      font-size: 14px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.vocab-actions { display: flex; gap: 6px; }
+    .vocab-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .vocab-item:last-child { border-bottom: none; }
 
-.icon-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 15px;
-}
-.icon-btn:active { transform: scale(0.92); }
+    .vocab-de {
+      font-weight: 700;
+      font-size: 15px;
+      color: #fff;
+    }
+    .vocab-ar {
+      font-size: 13px;
+      color: var(--muted);
+    }
 
-.ai-box {
-  background: rgba(59, 130, 246, 0.08);
-  border: 1px solid rgba(59, 130, 246, 0.35);
-  border-radius: 12px;
-  padding: 12px;
-  margin-top: 10px;
-  font-size: 13.5px;
-  white-space: pre-wrap;
-}
+    .vocab-actions {
+      display: flex;
+      gap: 6px;
+    }
 
-.quiz-opt {
-  width: 100%;
-  text-align: right;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 11px 14px;
-  border-radius: 12px;
-  margin-top: 8px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.15s;
-}
-.quiz-opt.correct { background: rgba(16, 185, 129, 0.2); border-color: var(--success); color: #fff; }
-.quiz-opt.wrong { background: rgba(239, 68, 68, 0.2); border-color: var(--danger); }
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .icon-btn:active { transform: scale(0.92); }
 
-.btn-primary {
-  width: 100%;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 13px 16px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 8px;
-  box-shadow: 0 4px 14px var(--primary-glow);
-}
-.btn-primary.success { background: var(--success); }
+    .ai-box {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+      font-size: 13.5px;
+      white-space: pre-wrap;
+    }
 
-.chat-box {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 210px);
-  min-height: 400px;
-  overflow: hidden;
-}
+    .quiz-opt {
+      width: 100%;
+      text-align: right;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 12px;
+      margin-top: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--success);
+      color: #fff;
+    }
+    .quiz-opt.wrong {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--danger);
+    }
 
-.chat-context-banner {
-  background: rgba(245, 158, 11, 0.12);
-  border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-  padding: 10px 14px;
-  font-size: 12.5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
+    .btn-primary {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px var(--primary-glow);
+    }
+    .btn-primary.success { background: var(--success); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+    .chat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 210px);
+      min-height: 400px;
+      overflow: hidden;
+    }
 
-.msg {
-  max-width: 86%;
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.55;
-}
-.msg.ai {
-  align-self: flex-start;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  border-bottom-right-radius: 4px;
-}
-.msg.user {
-  align-self: flex-end;
-  background: var(--primary);
-  color: #fff;
-  border-bottom-left-radius: 4px;
-}
+    .chat-context-banner {
+      background: rgba(245, 158, 11, 0.12);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 10px 14px;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
 
-.msg-de { direction: ltr; text-align: left; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
-.msg-ar { font-size: 12.5px; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4px; margin-top: 4px; }
-.msg-speak { margin-top: 6px; display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.08); border: none; color: #fff; padding: 4px 9px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-.chat-input-area {
-  border-top: 1px solid var(--border);
-  padding: 10px;
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+    .msg {
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.55;
+      position: relative;
+    }
+    .msg.ai {
+      align-self: flex-start;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: #fff;
+      border-bottom-left-radius: 4px;
+    }
 
-.chat-input {
-  flex: 1;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 12px;
-  font-size: 14px;
-  outline: none;
-}
+    .msg-de {
+      direction: ltr;
+      text-align: left;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .msg-ar {
+      font-size: 12.5px;
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 4px;
+      margin-top: 4px;
+    }
+    .msg-speak {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      color: #fff;
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
 
-.mic-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: var(--surface-2);
-  color: var(--text);
-  font-size: 18px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.mic-btn.recording { background: var(--danger); border-color: var(--danger); color: #fff; animation: pulse 1s infinite; }
+    .chat-input-area {
+      border-top: 1px solid var(--border);
+      padding: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.send-btn {
-  height: 42px;
-  padding: 0 14px;
-  border-radius: 12px;
-  border: none;
-  background: var(--primary);
-  color: #fff;
-  font-weight: 700;
-  font-size: 14px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
+    .chat-input {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+    }
 
-.form-group { margin-bottom: 12px; }
-.form-group label { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 5px; }
-.form-control { width: 100%; background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 10px 12px; border-radius: 10px; font-size: 13.5px; outline: none; }
-.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.status-text { font-size: 12.5px; margin-top: 8px; min-height: 18px; }
+    .mic-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .mic-btn.recording {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+      animation: pulse 1s infinite;
+    }
 
-.bottom-nav {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  z-index: 50;
-  background: rgba(19, 28, 49, 0.96);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border);
-  display: flex;
-  justify-content: space-around;
-  padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
-}
+    .send-btn {
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
 
-.nav-item {
-  flex: 1; max-width: 160px;
-  background: none; border: none;
-  color: var(--muted);
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  font-size: 11.5px; font-weight: 600; cursor: pointer; padding: 4px; border-radius: 10px;
-}
-.nav-item span.ico { font-size: 20px; }
-.nav-item.active { color: var(--primary); background: rgba(59, 130, 246, 0.1); }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .form-control {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      outline: none;
+    }
 
-.chip-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; }
-.chip { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 999px; font-size: 12px; white-space: nowrap; cursor: pointer; }
-.chip.active { background: var(--primary); border-color: var(--primary); }
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
 
+    .status-text {
+      font-size: 12.5px;
+      margin-top: 8px;
+      min-height: 18px;
+    }
 
-<!-- TAB 2: CHAT -->
-<section id="view-chat" class="view">
-  <div class="chip-row" id="scenarioChips">
-    <button class="chip active" data-topic="محادثة عامة حرة بمستوى A1">🗣️ محادثة عامة</button>
-    <button class="chip" data-topic="في السوبر ماركت وشراء البقالة والخضروات">🛒 السوبر ماركت</button>
-    <button class="chip" data-topic="في المطعم وطلب الوجبات والمشروبات">🍽️ في المطعم</button>
-    <button class="chip" data-topic="البحث عن شقة ووصف الغرف والأثاث">🏠 السكن والشقة</button>
-    <button class="chip" data-topic="عند الطبيب ووصف الأعراض والصحة">🩺 الصحة والطبيب</button>
-    <button class="chip" data-topic="شراء الملابس والسؤال عن المقاسات والألوان">👕 الملابس والألوان</button>
-    <button class="chip" data-topic="الطقس، السفر، وحجز تذاكر القطارات">🚆 السفر والطقس</button>
-  </div>
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(19, 28, 49, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+    }
 
-  <div class="chat-box">
-    <div class="chat-context-banner">
-      <span>🎯 المدرب يركز على كلماتك وقواعدك المدروسة</span>
-      <button class="btn-ghost" style="padding:4px 8px;font-size:11px" onclick="resetFreeChat()">محادثة جديدة</button>
-    </div>
-    <div class="chat-messages" id="freeChatMessages"></div>
-    <div class="chat-input-area">
-      <button class="mic-btn" id="freeMicBtn" onclick="toggleMic('free')" title="تحدث بالألمانية">🎙️</button>
-      <input type="text" id="freeChatInput" class="chat-input ltr" placeholder="Schreib auf Deutsch..." onkeydown="if(event.key==='Enter') sendFreeChat()" />
-      <button class="send-btn" onclick="sendFreeChat()">إرسال</button>
-    </div>
-  </div>
-</section>
+    .nav-item {
+      flex: 1;
+      max-width: 160px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .nav-item span.ico {
+      font-size: 20px;
+    }
+    .nav-item.active {
+      color: var(--primary);
+      background: rgba(59, 130, 246, 0.1);
+    }
 
-<!-- TAB 3: SETTINGS -->
-<section id="view-settings" class="view">
-  <div class="card">
-    <h4>🤖 إعدادات الذكاء الاصطناعي (AI)</h4>
-    <div class="form-group">
-      <label>وضع التشغيل</label>
-      <select id="aiMode" class="form-control">
-        <option value="auto">🔄 تلقائي (Ollama للكمبيوتر / Gemini للموبايل)</option>
-        <option value="gemini">☁️ سحابي فقط (Google Gemini API)</option>
-        <option value="ollama">💻 محلي فقط (Ollama PC)</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>مفتاح Google Gemini API (مجاني من Google AI Studio)</label>
-      <input type="password" id="geminiKey" class="form-control ltr" placeholder="AIzaSy..." />
-    </div>
-    <div class="form-group">
-      <label>موديل Gemini (مع تبديل تلقائي عند الضغط)</label>
-      <input type="text" id="geminiModel" class="form-control ltr" value="gemini-2.5-flash" />
-    </div>
-    <div class="row-2">
-      <div class="form-group">
-        <label>رابط Ollama المحلي</label>
-        <input type="text" id="ollamaUrl" class="form-control ltr" value="http://localhost:11434" />
+    .chip-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .chip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="flag-badge">A1</div>
+        <div>
+          <h1>Deutsch A1 Coach</h1>
+        </div>
       </div>
-      <div class="form-group">
-        <label>موديل Ollama</label>
-        <input type="text" id="ollamaModel" class="form-control ltr" value="qwen3:14b" />
+      <div class="stats-pills">
+        <div class="pill" title="نقاط الخبرة">⚡ <span id="xpCount">0</span> XP</div>
+        <div class="pill" title="حالة المزامنة السحابية">
+          <span class="sync-dot" id="syncDot"></span>
+          <span id="syncLabel">محلي</span>
+        </div>
       </div>
     </div>
-    <div class="row-2">
-      <button class="btn-primary" onclick="saveSettings()">💾 حفظ الإعدادات</button>
-      <button class="btn-ghost" style="margin-top:8px" onclick="testAI()">🧪 اختبار الاتصال</button>
+    <div class="progress-track">
+      <div class="progress-fill" id="globalProgress"></div>
     </div>
-    <div class="status-text" id="aiStatus"></div>
+  </header>
+
+  <main class="container">
+
+    <section id="view-path" class="view active">
+      <div id="pathContainer"></div>
+    </section>
+
+    <section id="view-chat" class="view">
+      <div class="chip-row" id="scenarioChips">
+        <button class="chip active" data-topic="محادثة عامة حرة بمستوى A1 باستخدام كل ما تعلمه الطالب">🗣️ محادثة عامة</button>
+        <button class="chip" data-topic="في المقهى والمطعم: طلب قهوة وطعام والسؤال عن الحساب">☕ في المقهى</button>
+        <button class="chip" data-topic="التعارف لأول مرة: الاسم، البلد، السكن، العمر، والعمل">👋 تعارف جديد</button>
+        <button class="chip" data-topic="في التسوق وسوبر ماركت: السؤال عن الأسعار والملابس والمقاسات">🛒 التسوق والملابس</button>
+        <button class="chip" data-topic="السؤال عن الاتجاهات والمواصلات في المدينة">🚆 المواصلات</button>
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-context-banner">
+          <span>🎯 المدرب يركز على كلماتك وقواعدك المدروسة</span>
+          <button class="btn-ghost" style="padding:4px 8px;font-size:11px" onclick="resetFreeChat()">محادثة جديدة</button>
+        </div>
+        <div class="chat-messages" id="freeChatMessages"></div>
+        <div class="chat-input-area">
+          <button class="mic-btn" id="freeMicBtn" onclick="toggleMic('free')" title="تحدث بالألمانية">🎙️</button>
+          <input type="text" id="freeChatInput" class="chat-input ltr" placeholder="Schreib auf Deutsch..." onkeydown="if(event.key==='Enter') sendFreeChat()" />
+          <button class="send-btn" onclick="sendFreeChat()">إرسال</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-settings" class="view">
+      <div class="card">
+        <h4>🤖 إعدادات الذكاء الاصطناعي (AI)</h4>
+        <div class="form-group">
+          <label>وضع التشغيل</label>
+          <select id="aiMode" class="form-control">
+            <option value="auto">🔄 تلقائي (Ollama للكمبيوتر / Gemini للموبايل)</option>
+            <option value="gemini">☁️ سحابي فقط (Google Gemini API)</option>
+            <option value="ollama">💻 محلي فقط (Ollama PC)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>مفتاح Google Gemini API (مجاني من Google AI Studio)</label>
+          <input type="password" id="geminiKey" class="form-control ltr" placeholder="AIzaSy..." />
+        </div>
+        <div class="form-group">
+          <label>موديل Gemini</label>
+          <input type="text" id="geminiModel" class="form-control ltr" value="gemini-2.5-flash" />
+        </div>
+        <div class="row-2">
+          <div class="form-group">
+            <label>رابط Ollama المحلي</label>
+            <input type="text" id="ollamaUrl" class="form-control ltr" value="http://localhost:11434" />
+          </div>
+          <div class="form-group">
+            <label>موديل Ollama</label>
+            <input type="text" id="ollamaModel" class="form-control ltr" value="qwen3:14b" />
+          </div>
+        </div>
+        <div class="row-2">
+          <button class="btn-primary" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+          <button class="btn-ghost" style="margin-top:8px" onclick="testAI()">🧪 اختبار الاتصال</button>
+        </div>
+        <div class="status-text" id="aiStatus"></div>
+      </div>
+
+      <div class="card">
+        <h4>☁️ المزامنة السحابية (GitHub Gist)</h4>
+        <div class="form-group">
+          <label>GitHub Personal Access Token (صلاحية gist)</label>
+          <input type="password" id="gistToken" class="form-control ltr" placeholder="ghp_..." />
+        </div>
+        <div class="form-group">
+          <label>Gist ID</label>
+          <input type="text" id="gistId" class="form-control ltr" placeholder="معرّف الـ Gist..." />
+        </div>
+        <div class="row-2">
+          <button class="btn-primary success" onclick="syncNow(true)">🔄 حفظ ومزامنة الآن</button>
+          <button class="btn-ghost" style="margin-top:8px" onclick="createNewGist()">✨ إنشاء Gist جديد</button>
+        </div>
+        <div class="status-text" id="syncStatus"></div>
+      </div>
+
+      <div class="card">
+        <h4>📊 ملخص تقدمك</h4>
+        <p style="font-size:13.5px; color:var(--muted)" id="summaryStats"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="lesson-overlay" id="lessonOverlay">
+    <div class="lesson-topbar">
+      <button class="btn-ghost" onclick="closeOverlay()">✕ رجوع للمسار</button>
+      <strong id="overlayTitle" style="font-size:14px"></strong>
+      <span class="pill" id="overlayXp">+20 XP</span>
+    </div>
+    <div class="lesson-body" id="overlayBody"></div>
   </div>
 
-  <div class="card">
-    <h4>☁️ المزامنة السحابية (GitHub Gist)</h4>
-    <div class="form-group">
-      <label>GitHub Personal Access Token (صلاحية gist)</label>
-      <input type="password" id="gistToken" class="form-control ltr" placeholder="ghp_..." />
-    </div>
-    <div class="form-group">
-      <label>Gist ID</label>
-      <input type="text" id="gistId" class="form-control ltr" placeholder="معرّف الـ Gist..." />
-    </div>
-    <div class="row-2">
-      <button class="btn-primary success" onclick="syncNow(true)">🔄 حفظ ومزامنة الآن</button>
-      <button class="btn-ghost" style="margin-top:8px" onclick="createNewGist()">✨ إنشاء Gist جديد</button>
-    </div>
-    <div class="status-text" id="syncStatus"></div>
-  </div>
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="path" onclick="switchTab('path')">
+      <span class="ico">📚</span>
+      <span>المسار</span>
+    </button>
+    <button class="nav-item" data-tab="chat" onclick="switchTab('chat')">
+      <span class="ico">🎙️</span>
+      <span>محادثة AI</span>
+    </button>
+    <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
+      <span class="ico">⚙️</span>
+      <span>الإعدادات</span>
+    </button>
+  </nav>
 
-  <div class="card">
-    <h4>📊 ملخص تقدمك</h4>
-    <p style="font-size:13.5px; color:var(--muted)" id="summaryStats"></p>
-  </div>
-</section>
+  <script>
+    const CURRICULUM = [
+      {
+        unit: "الوحدة الأولى: البداية والتعارف (Erste Kontakte)",
+        nodes: [
+          {
+            id: "l1", type: "lesson", icon: "👋", title: "1. التحية وتقديم النفس",
+            desc: "Hallo, Guten Tag, Ich heiße..., Wie geht's?", xp: 20,
+            grammar: "للتعريف عن النفس نستخدم: Ich heiße أو Ich bin. للسؤال باحترام نستخدم Sie.",
+            vocab: [
+              { de: "Hallo / Guten Tag", ar: "مرحباً / نهارك سعيد" },
+              { de: "Ich heiße Ahmed.", ar: "أنا اسمي أحمد." },
+              { de: "Wie heißen Sie?", ar: "ما اسم حضرتك؟" },
+              { de: "Wie geht es dir?", ar: "كيف حالك؟" }
+            ],
+            quiz: { q: "كيف تسأل شخصاً عن اسمه باحترام؟", opts: ["Wie heißen Sie?", "Wie heißt du?", "Woher kommst du?"], ans: 0 }
+          },
+          {
+            id: "l2", type: "lesson", icon: "🌍", title: "2. البلد واللغة والسكن",
+            desc: "kommen aus, wohnen in, sprechen", xp: 20,
+            grammar: "الفعل دائماً في المركز الثاني: Ich komme aus Ägypten. Ich wohne in Mansoura.",
+            vocab: [
+              { de: "Woher kommen Sie?", ar: "من أين حضرتك؟" },
+              { de: "Ich komme aus Ägypten.", ar: "أنا من مصر." },
+              { de: "Wo wohnen Sie?", ar: "أين تسكن حضرتك؟" }
+            ],
+            quiz: { q: "ما الترجمة الصحيحة لـ: أنا أسكن في مصر؟", opts: ["Ich komme in Ägypten.", "Ich wohne in Ägypten.", "Ich spreche Ägypten."], ans: 1 }
+          },
+          {
+            id: "cp1", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #1: لقاء تعارف حقيقي",
+            desc: "طبق التحية والاسم والبلد والسكن مع المدرب", xp: 40,
+            scenarioTitle: "تعارف في كورس اللغة بألمانيا",
+            scenarioGoal: "رحب بالمدرب، اذكر اسمك، بلدك، ومكان سكنك.",
+            starterDe: "Hallo! Ich bin Lukas. Wie heißt du und woher kommst du?",
+            starterAr: "مرحباً! أنا لوكاس. ما اسمك ومن أين أنت؟",
+            systemPrompt: "أنت لوكاس، زميل ألماني ودود في كورس A1. حاوره بجمل قصيرة جداً ومناسبة لمستوى A1 فقط."
+          },
+          {
+            id: "l3", type: "lesson", icon: "🔢", title: "3. الأرقام والعمر ورقم الهاتف",
+            desc: "0 bis 100, Wie alt bist du?", xp: 20,
+            grammar: "للسؤال عن العمر نستخدم فعل sein: Wie alt bist du? -> Ich bin 20 Jahre alt.",
+            vocab: [
+              { de: "eins, zwei, drei, vier, fünf", ar: "1، 2، 3، 4، 5" },
+              { de: "sechs, sieben, acht, neun, zehn", ar: "6، 7، 8، 9، 10" },
+              { de: "Wie alt sind Sie?", ar: "كم عمر حضرتك؟" }
+            ],
+            quiz: { q: "أي فعل نستخدمه للتعبير عن العمر؟", opts: ["haben", "sein", "wohnen"], ans: 1 }
+          },
+          {
+            id: "l4", type: "lesson", icon: "☕", title: "4. في المقهى والطلبات",
+            desc: "Ich möchte..., Kaffee, Wasser", xp: 20,
+            grammar: "للطلب المهذب نستخدم: Ich möchte einen Kaffee, bitte.",
+            vocab: [
+              { de: "Ich möchte einen Kaffee, bitte.", ar: "أود فنجان قهوة من فضلك." },
+              { de: "Ein Wasser, bitte.", ar: "مياه من فضلك." },
+              { de: "Was kostet das?", ar: "كم يكلف هذا؟" }
+            ],
+            quiz: { q: "كيف تطلب قهوة بأسلوب مهذب؟", opts: ["Ich möchte einen Kaffee, bitte.", "Ich bin Kaffee.", "Woher kommt Kaffee?"], ans: 0 }
+          },
+          {
+            id: "cp2", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #2: في المقهى والحساب",
+            desc: "اطلب مشروبك واسأل عن السعر والأرقام", xp: 45,
+            scenarioTitle: "نادل في مقهى ببرلين",
+            scenarioGoal: "اطلب مشروبين واسأل عن الحساب.",
+            starterDe: "Guten Tag! Was möchten Sie bestellen?",
+            starterAr: "نهارك سعيد! ماذا تود أن تطلب؟",
+            systemPrompt: "أنت نادل في مقهى. خذ طلب الطالب واذكر الأسعار بأرقام واضحة وبسيطة."
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الثانية: التسوق والحياة اليومية (Einkaufen & Alltag)",
+        nodes: [
+          {
+            id: "l5", type: "lesson", icon: "🛒", title: "1. التسوق في السوبرماركت",
+            desc: "brauchen, haben, Lebensmittel, Obst", xp: 25,
+            grammar: "أداة النكرة في حالة المفعول (Akkusativ): Ich brauche einen Apfel (مذكر), eine Banane (مؤنث), ein Brot (محايد).",
+            vocab: [
+              { de: "Ich brauche Milch und Brot.", ar: "أحتاج إلى حليب وخبز." },
+              { de: "Was kostet das Kilo Äpfel?", ar: "كم سعر كيلو التفاح؟" },
+              { de: "Gibt es Tomaten?", ar: "هل توجد طماطم؟" }
+            ],
+            quiz: { q: "ما أداة المذكر (Akkusativ) لكلمة Apfel بعد brauche؟", opts: ["einen", "eine", "ein"], ans: 0 }
+          },
+          {
+            id: "l6", type: "lesson", icon: "👕", title: "2. الملابس والمقاسات والألوان",
+            desc: "Hemd, Hose, Größe, Farbe, kosten", xp: 25,
+            grammar: "السؤال عن السعر والرأي: Wie gefällt dir das Hemd? Es ist zu klein / perfekt.",
+            vocab: [
+              { de: "Ich suche eine Hose.", ar: "أنا أبحث عن بنطلون." },
+              { de: "Welche Größe haben Sie?", ar: "ما هو مقاس حضرتك؟" },
+              { de: "Das T-Shirt kostet 15 Euro.", ar: "هذا القميص يكلف 15 يورو." }
+            ],
+            quiz: { q: "كيف تسأل عن مقاس الملابس؟", opts: ["Welche Größe haben Sie?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
+          },
+          {
+            id: "cp3", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #3: في متجر الملابس",
+            desc: "ابحث عن قميص أو بنطلون واسأل عن المقاس والسعر", xp: 50,
+            scenarioTitle: "مساعد متجر ملابس",
+            scenarioGoal: "اسأل عن بنطلون بالمقاس والسعر المناسب.",
+            starterDe: "Guten Tag! Kann ich Ihnen helfen?",
+            starterAr: "نهارك سعيد! هل يمكنني مساعدتك؟",
+            systemPrompt: "أنت بائع في متجر ملابس. ساعد الطالب ليسأل عن المقاسات والأسعار بجمل A1."
+          },
+          {
+            id: "l7", type: "lesson", icon: "🏠", title: "3. الشقة والأثاث (Wohnen)",
+            desc: "Zimmer, Küche, Bad, Miete, Möbel", xp: 25,
+            grammar: "صفات المسكن ووصف الغرف: Die Wohnung ist groß und hell (الشقة كبيرة ومضيئة).",
+            vocab: [
+              { de: "Ich suche eine 2-Zimmer-Wohnung.", ar: "أبحث عن شقة غرفتين." },
+              { de: "Wie hoch ist die Miete?", ar: "كم تبلغ قيمة الإيجار؟" },
+              { de: "Das Zimmer hat ein Bett und einen Tisch.", ar: "الغرفة بها سرير وطاولة." }
+            ],
+            quiz: { q: "ما ترجمة: شقة غرفتين؟", opts: ["2-Zimmer-Wohnung", "Kaffee", "Familie"], ans: 0 }
+          },
+          {
+            id: "cp4", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #4: التحدي الشامل للوحدة الثانية",
+            desc: "حوار متكامل حول التسوق وشراء مستلزمات الشقة", xp: 60,
+            scenarioTitle: "البحث عن شقة وشراء أثاث",
+            scenarioGoal: "تحدث مع صاحب الشقة أو بائع الأثاث عن التفاصيل.",
+            starterDe: "Hallo! Sie suchen eine Wohnung? Erzählen Sie mir mehr.",
+            starterAr: "مرحباً! أنت تبحث عن شقة؟ اخبرني بالمزيد.",
+            systemPrompt: "أنت مؤجر شقة أو بائع أثاث. حاور الطالب حول الغرف والإيجار والمقاسات."
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الثالثة: الصحة، السفر والطقس (Gesundheit & Reisen)",
+        nodes: [
+          {
+            id: "l8", type: "lesson", icon: "🩺", title: "1. الجسم والصحة عند الطبيب",
+            desc: "Kopf, Bauch, Arzt, Schmerzen, Krank", xp: 30,
+            grammar: "التعبير عن الألم: Ich habe Kopfschmerzen (لدي صداع). Mein Arm tut weh (ذراعي يؤلمني).",
+            vocab: [
+              { de: "Ich bin krank.", ar: "أنا مريض." },
+              { de: "Wo tut es weh?", ar: "أين مكان الألم؟" },
+              { de: "Ich brauche einen Termin beim Arzt.", ar: "أحتاج موعداً عند الطبيب." }
+            ],
+            quiz: { q: "كيف تقول: لدي صداع؟", opts: ["Ich habe Kopfschmerzen.", "Ich bin Kaffee.", "Ich wohne in Berlin."], ans: 0 }
+          },
+          {
+            id: "l9", type: "lesson", icon: "☀️", title: "2. الطقس وفصول السنة",
+            desc: "Sonne, Regen, kalt, warm, Grad", xp: 30,
+            grammar: "التعبير عن الطقس: Es ist kalt (الجو بارد). Heute regnet es (اليوم تمطر).",
+            vocab: [
+              { de: "Wie ist das Wetter heute?", ar: "كيف حال الطقس اليوم؟" },
+              { de: "Es ist sonnig und 25 Grad.", ar: "الجو مشمس و 25 درجة." },
+              { de: "Im Winter ist es kalt.", ar: "في الشتاء يكون الجو بارداً." }
+            ],
+            quiz: { q: "كيف تسأل عن الطقس؟", opts: ["Wie ist das Wetter heute?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
+          },
+          {
+            id: "cp5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #5: حجز موعد وحالة الطقس",
+            desc: "تحدث مع طبيب أو صديق عن الطقس وموعد الزيارة", xp: 55,
+            scenarioTitle: "حجز موعد عيادة",
+            scenarioGoal: "أخبر الطبيب بمكان الألم واتفق على موعد.",
+            starterDe: "Guten Tag! Praxis Dr. Müller. Was kann ich für Sie tun?",
+            starterAr: "نهارك سعيد! عيادة دكتور مولر. ماذا يمكنني أن أقدم لك؟",
+            systemPrompt: "أنت موظف استقبال عيادة. ساعد المريض في تحديد موعد وسؤاله عن حالته."
+          },
+          {
+            id: "l10", type: "lesson", icon: "🚆", title: "3. السفر والمحطة والمواصلات",
+            desc: "Zug, Fahrkarte, Bahnhof, abfahren", xp: 30,
+            grammar: "استخدام الأفعال المنفصلة (Trennbare Verben): Der Zug fährt um 10 Uhr ab (القطار يتحرك الساعة 10).",
+            vocab: [
+              { de: "Eine Fahrkarte nach Berlin, bitte.", ar: "تذكرة إلى برلين من فضلك." },
+              { de: "Wوان Wann fährt der nächste Zug?", ar: "متى يتحرك القطار القادم؟" },
+              { de: "Gleis 3.", ar: "رصيف رقم 3." }
+            ],
+            quiz: { q: "ما الفعل المنفصل المناسب لحركة القطار؟", opts: ["abfahren", "wohnen", "sprechen"], ans: 0 }
+          },
+          {
+            id: "cp6", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #6: التحدي النهائي لمستوى A1",
+            desc: "حوار شامل في محطة القطار والسفر لمدينة جديدة", xp: 75,
+            scenarioTitle: "شراء تذكرة وسؤال عن المواعيد في المحطة",
+            scenarioGoal: "احجز تذكرة قطار واستفسر عن الرصيف ووقت الرحلة.",
+            starterDe: "Guten Tag! Wohin möchten Sie reisen?",
+            starterAr: "نهارك سعيد! إلى أين تود أن تسافر؟",
+            systemPrompt: "أنت موظف محطة القطار. ساعد المسافر في حجز التذكرة، معرفة الرصيف، ووقت القيام بدقة لمستوى A1."
+          }
+        ]
+      }
+    ];
+
+    const DEFAULT_STATE = {
+      completed: [],
+      xp: 0,
+      freeChat: [],
+      cpChats: {},
+      settings: {
+        aiMode: "auto",
+        geminiKey: "",
+        geminiModel: "gemini-2.5-flash",
+        ollamaUrl: "http://localhost:11434",
+        ollamaModel: "qwen3:14b",
+        gistToken: "",
+        gistId: ""
+      }
+    };
+
+    let state = loadState();
+    let activeCheckpoint = null;
+    let currentFreeTopic = "محادثة عامة حرة بمستوى A1 باستخدام كل ما تعلمه الطالب";
+    let recognition = null;
+    let activeMicTarget = null;
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem("deutsch_a1_v2");
+        if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
+        const parsed = JSON.parse(raw);
+        return {
+          ...DEFAULT_STATE,
+          ...parsed,
+          settings: { ...DEFAULT_STATE.settings, ...(parsed.settings || {}) }
+        };
+      } catch {
+        return JSON.parse(JSON.stringify(DEFAULT_STATE));
+      }
+    }
+
+    function saveState(autoCloud = true) {
+      localStorage.setItem("deutsch_a1_v2", JSON.stringify(state));
+      updateHeaderUI();
+      if (autoCloud && state.settings.gistToken && state.settings.gistId) {
+        debouncedCloudPush();
+      }
+    }
+
+    function updateHeaderUI() {
+      document.getElementById("xpCount").textContent = state.xp;
+      const allNodes = CURRICULUM.flatMap(u => u.nodes);
+      const pct = Math.round((state.completed.length / allNodes.length) * 100);
+      document.getElementById("globalProgress").style.width = pct + "%";
+
+      const dot = document.getElementById("syncDot");
+      const lbl = document.getElementById("syncLabel");
+      if (state.settings.gistToken && state.settings.gistId) {
+        dot.className = "sync-dot ok";
+        lbl.textContent = "متزامن";
+      } else {
+        dot.className = "sync-dot";
+        lbl.textContent = "محلي";
+      }
+
+      const summary = document.getElementById("summaryStats");
+      if (summary) {
+        summary.textContent = `أنجزت ${state.completed.length} من ${allNodes.length} محطة (${pct}%) • إجمالي النقاط: ${state.xp} XP`;
+      }
+    }
+
+    function renderPath() {
+      const container = document.getElementById("pathContainer");
+      container.innerHTML = "";
+
+      CURRICULUM.forEach(unit => {
+        const uHead = document.createElement("div");
+        uHead.className = "unit-header";
+        uHead.innerHTML = `<span class="unit-title">${unit.unit}</span>`;
+        container.appendChild(uHead);
+
+        const list = document.createElement("div");
+        list.className = "node-list";
+
+        unit.nodes.forEach(node => {
+          const isDone = state.completed.includes(node.id);
+          const card = document.createElement("div");
+          card.className = `node-card ${node.type === "checkpoint" ? "checkpoint" : ""} ${isDone ? "done" : ""}`;
+          card.onclick = () => node.type === "lesson" ? openLesson(node) : openCheckpoint(node);
+
+          const badgeText = isDone
+            ? "✓ مكتمل"
+            : (node.type === "checkpoint" ? "محادثة AI" : `+${node.xp} XP`);
+
+          card.innerHTML = `
+            <div class="node-left">
+              <div class="node-icon">${isDone ? "✅" : node.icon}</div>
+              <div class="node-info">
+                <h3>${node.title}</h3>
+                <p>${node.desc}</p>
+              </div>
+            </div>
+            <span class="node-badge">${badgeText}</span>
+          `;
+          list.appendChild(card);
+        });
+
+        container.appendChild(list);
+      });
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+      document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
+      document.getElementById("view-" + tab).classList.add("active");
+      document.querySelector(`.nav-item[data-tab="${tab}"]`).classList.add("active");
+
+      if (tab === "chat" && state.freeChat.length === 0) {
+        initFreeChat();
+      }
+    }
+
+    function openLesson(lesson) {
+      activeCheckpoint = null;
+      document.getElementById("overlayTitle").textContent = lesson.title;
+      document.getElementById("overlayXp").textContent = `+${lesson.xp} XP`;
+
+      const isDone = state.completed.includes(lesson.id);
+      const body = document.getElementById("overlayBody");
+
+      let vocabHtml = lesson.vocab.map((v, idx) => `
+        <div class="vocab-item">
+          <div>
+            <div class="vocab-de ltr">${v.de}</div>
+            <div class="vocab-ar">${v.ar}</div>
+          </div>
+          <div class="vocab-actions">
+            <button class="icon-btn" onclick="speakGerman('${v.de.replace(/'/g, "\\'")}')" title="استمع للنطق">🔊</button>
+            <button class="icon-btn" onclick="explainVocabAI('${lesson.id}', ${idx})" title="أمثلة إضافية بالـ AI">✨</button>
+          </div>
+        </div>
+        <div id="vocab-ai-${lesson.id}-${idx}" class="ai-box" style="display:none"></div>
+      `).join("");
+
+      let optsHtml = lesson.quiz.opts.map((opt, idx) => `
+        <button class="quiz-opt ltr" onclick="checkQuiz(this, ${idx === lesson.quiz.ans})">${opt}</button>
+      `).join("");
+
+      body.innerHTML = `
+        <div class="card">
+          <h4>
+            <span>📖 القاعدة الأساسية</span>
+            <button class="btn-ghost" style="padding:4px 10px;font-size:12px" onclick="explainGrammarAI('${lesson.id}')">✨ اشرح لي بعمق</button>
+          </h4>
+          <p style="font-size:14px">${lesson.grammar}</p>
+          <div id="grammar-ai-box" class="ai-box" style="display:none"></div>
+        </div>
+
+        <div class="card">
+          <h4>🗣️ أهم الجمل والكلمات</h4>
+          ${vocabHtml}
+        </div>
+
+        <div class="card">
+          <h4>🎯 اختبار سريع</h4>
+          <p style="font-size:14px;font-weight:600">${lesson.quiz.q}</p>
+          ${optsHtml}
+        </div>
+
+        <button class="btn-primary ${isDone ? "success" : ""}" onclick="completeNode('${lesson.id}', ${lesson.xp})">
+          ${isDone ? "✅ تم إكمال الدرس (اضغط للمتابعة)" : "🎉 إتمام الدرس وحفظ التقدم"}
+        </button>
+      `;
+
+      document.getElementById("lessonOverlay").classList.add("open");
+    }
+
+    function checkQuiz(btn, isCorrect) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll(".quiz-opt").forEach(b => b.classList.remove("correct", "wrong"));
+      btn.classList.add(isCorrect ? "correct" : "wrong");
+    }
+
+    async function explainGrammarAI(lessonId) {
+      const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
+      const box = document.getElementById("grammar-ai-box");
+      box.style.display = "block";
+      box.textContent = "⏳ جاري تحضير شرح مبسط...";
+
+      const prompt = `اشرح هذه القاعدة الألمانية لمستوى A1 بالعامية المصرية البسيطة مع 3 أمثلة ألمانية مترجمة للعربية:\nالدرس: ${lesson.title}\nالقاعدة: ${lesson.grammar}`;
+      const reply = await callAI([{ role: "user", content: prompt }], "أنت معلم لغة ألمانية تشرح بالعامية المصرية بوضوح واختصار.");
+      box.textContent = reply;
+    }
+
+    async function explainVocabAI(lessonId, idx) {
+      const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
+      const item = lesson.vocab[idx];
+      const box = document.getElementById(`vocab-ai-${lessonId}-${idx}`);
+      box.style.display = "block";
+      box.textContent = "⏳ جاري توليد جملتين من الحياة اليومية...";
+
+      const prompt = `أعطني جملتين قصيرتين جداً بالألمانية (مستوى A1) تستخدم فيهما: "${item.de}" (${item.ar}) مع الترجمة العربية لكل جملة.`;
+      const reply = await callAI([{ role: "user", content: prompt }], "أنت معلم ألماني لمستوى A1. أجب باختصار شديد.");
+      box.textContent = reply;
+    }
+
+    function openCheckpoint(cp) {
+      activeCheckpoint = cp;
+      document.getElementById("overlayTitle").textContent = cp.scenarioTitle;
+      document.getElementById("overlayXp").textContent = `+${cp.xp} XP`;
+
+      if (!state.cpChats[cp.id] || state.cpChats[cp.id].length === 0) {
+        state.cpChats[cp.id] = [
+          { role: "ai", de: cp.starterDe, ar: cp.starterAr }
+        ];
+        saveState(false);
+      }
+
+      const isDone = state.completed.includes(cp.id);
+      const body = document.getElementById("overlayBody");
+      body.innerHTML = `
+        <div class="card" style="margin-bottom:10px;padding:12px 14px">
+          <div style="font-size:13px;color:var(--accent);font-weight:700;margin-bottom:4px">🎯 المطلوب منك في المحادثة:</div>
+          <div style="font-size:13px">${cp.scenarioGoal}</div>
+        </div>
+
+        <div class="chat-box" style="height:calc(100vh - 265px);min-height:360px">
+          <div class="chat-context-banner">
+            <span>🤖 محادثة تطبيقية على الدروس السابقة</span>
+            <button class="btn-ghost" style="padding:3px 8px;font-size:11px" onclick="resetCheckpointChat('${cp.id}')">إعادة الحوار</button>
+          </div>
+          <div class="chat-messages" id="cpMessages"></div>
+          <div class="chat-input-area">
+            <button class="mic-btn" id="cpMicBtn" onclick="toggleMic('cp')" title="تحدث بالألمانية">🎙️</button>
+            <input type="text" id="cpInput" class="chat-input ltr" placeholder="رد بالألماني أو اتكلم بالميكروفون..." onkeydown="if(event.key==='Enter') sendCheckpointMsg()" />
+            <button class="send-btn" onclick="sendCheckpointMsg()">إرسال</button>
+          </div>
+        </div>
+
+        <button class="btn-primary ${isDone ? "success" : ""}" style="margin-top:12px" onclick="completeNode('${cp.id}', ${cp.xp})">
+          ${isDone ? "✅ تم اجتياز المحطة" : "🏁 أنهيت المحادثة — استلم النقاط"}
+        </button>
+      `;
+
+      renderMessages("cpMessages", state.cpChats[cp.id]);
+      document.getElementById("lessonOverlay").classList.add("open");
+    }
+
+    function resetCheckpointChat(cpId) {
+      const cp = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === cpId);
+      state.cpChats[cpId] = [{ role: "ai", de: cp.starterDe, ar: cp.starterAr }];
+      saveState(false);
+      renderMessages("cpMessages", state.cpChats[cpId]);
+    }
+
+    async function sendCheckpointMsg() {
+      if (!activeCheckpoint) return;
+      const input = document.getElementById("cpInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+      const history = state.cpChats[activeCheckpoint.id];
+      history.push({ role: "user", text });
+      renderMessages("cpMessages", history);
+
+      history.push({ role: "ai", de: "...", ar: "يكتب الرد..." });
+      renderMessages("cpMessages", history);
+
+      const sys = `${activeCheckpoint.systemPrompt}
+التنسيق الإلزامي لردك:
+اكتب ردك باللغة الألمانية أولاً في سطر واحد، ثم اكتب تحته علامة ||| ثم اكتب الترجمة العربية + أي تصحيح لغوي بسيط إن وجد.`;
+
+      const apiMsgs = history.slice(0, -1).map(m => ({
+        role: m.role === "user" ? "user" : "assistant",
+        content: m.role === "user" ? m.text : m.de
+      }));
+
+      const rawReply = await callAI(apiMsgs, sys);
+      const parts = rawReply.split("|||");
+      const dePart = parts[0].trim();
+      const arPart = parts[1] ? parts[1].trim() : "";
+
+      history[history.length - 1] = { role: "ai", de: dePart, ar: arPart };
+      saveState();
+      renderMessages("cpMessages", history);
+      speakGerman(dePart);
+    }
+
+    function completeNode(id, xp) {
+      if (!state.completed.includes(id)) {
+        state.completed.push(id);
+        state.xp += xp;
+      }
+      saveState();
+      renderPath();
+      closeOverlay();
+    }
+
+    function closeOverlay() {
+      document.getElementById("lessonOverlay").classList.remove("open");
+      activeCheckpoint = null;
+    }
+
+    function getStudiedSummary() {
+      const doneNodes = CURRICULUM.flatMap(u => u.nodes).filter(n => state.completed.includes(n.id) && n.type === "lesson");
+      if (doneNodes.length === 0) return "الطالب في بداية مستوى A1.";
+      return "الدروس التي أتمها الطالب حتى الآن: " + doneNodes.map(n => `${n.title} (${n.desc})`).join("، ");
+    }
+
+    function initFreeChat() {
+      state.freeChat = [
+        { role: "ai", de: "Hallo! Ich bin dein Deutsch-Coach. Worüber möchtest du heute sprechen?", ar: "مرحباً! أنا مدربك للألمانية. عن ماذا تود أن تتحدث اليوم؟" }
+      ];
+      saveState(false);
+      renderMessages("freeChatMessages", state.freeChat);
+    }
+
+    function resetFreeChat() {
+      initFreeChat();
+    }
+
+    document.getElementById("scenarioChips").addEventListener("click", e => {
+      if (!e.target.classList.contains("chip")) return;
+      document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+      e.target.classList.add("active");
+      currentFreeTopic = e.target.dataset.topic;
+      initFreeChat();
+    });
+
+    async function sendFreeChat() {
+      const input = document.getElementById("freeChatInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = "";
+      state.freeChat.push({ role: "user", text });
+      renderMessages("freeChatMessages", state.freeChat);
+
+      state.freeChat.push({ role: "ai", de: "...", ar: "جاري الرد..." });
+      renderMessages("freeChatMessages", state.freeChat);
+
+      const sys = `أنت مدرب محادثة لغة ألمانية لمستوى A1. موضوع الحوار الحالي: ${currentFreeTopic}. ${getStudiedSummary()} تحدث مع الطالب بالألمانية البسيطة (A1). التنسيق الإلزامي: اكتب الرد الألماني أولاً، ثم ||| ثم الترجمة العربية وتصحيح أي خطأ بلطف.`;
+
+      const apiMsgs = state.freeChat.slice(0, -1).map(m => ({
+        role: m.role === "user" ? "user" : "assistant",
+        content: m.role === "user" ? m.text : m.de
+      }));
+
+      const rawReply = await callAI(apiMsgs, sys);
+      const parts = rawReply.split("|||");
+      const dePart = parts[0].trim();
+      const arPart = parts[1] ? parts[1].trim() : "";
+
+      state.freeChat[state.freeChat.length - 1] = { role: "ai", de: dePart, ar: arPart };
+      saveState();
+      renderMessages("freeChatMessages", state.freeChat);
+      speakGerman(dePart);
+    }
+
+    function renderMessages(containerId, list) {
+      const box = document.getElementById(containerId);
+      if (!box) return;
+      box.innerHTML = "";
+      list.forEach(m => {
+        const div = document.createElement("div");
+        div.className = `msg ${m.role}`;
+        if (m.role === "user") {
+          div.innerHTML = `<div class="ltr">${escapeHtml(m.text)}</div>`;
+        } else {
+          const safeDe = m.de.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+          div.innerHTML = `
+            <div class="msg-de">${escapeHtml(m.de)}</div>
+            ${m.ar ? `<div class="msg-ar">${escapeHtml(m.ar)}</div>` : ""}
+            ${m.de !== "..." ? `<button class="msg-speak" onclick="speakGerman('${safeDe}')">🔊 استمع</button>` : ""}
+          `;
+        }
+        box.appendChild(div);
+      });
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    }
+
+    function speakGerman(text) {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "de-DE";
+      utter.rate = 0.92;
+      const voices = window.speechSynthesis.getVoices();
+      const deVoice = voices.find(v => v.lang.startsWith("de"));
+      if (deVoice) utter.voice = deVoice;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function toggleMic(target) {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert("المتصفح لا يدعم التعرف على الصوت. استخدم Google Chrome.");
+        return;
+      }
+      if (recognition && activeMicTarget === target) {
+        recognition.stop();
+        return;
+      }
+      if (recognition) recognition.stop();
+      recognition = new SpeechRec();
+      recognition.lang = "de-DE";
+      recognition.interimResults = false;
+      activeMicTarget = target;
+
+      const btnId = target === "cp" ? "cpMicBtn" : "freeMicBtn";
+      const inputId = target === "cp" ? "cpInput" : "freeChatInput";
+      document.getElementById(btnId).classList.add("recording");
+
+      recognition.onresult = e => {
+        document.getElementById(inputId).value = e.results[0][0].transcript;
+      };
+      recognition.onerror = recognition.onend = () => {
+        document.getElementById(btnId).classList.remove("recording");
+        activeMicTarget = null;
+      };
+      recognition.start();
+    }
+
+    async function callAI(messages, systemInstruction) {
+      const { aiMode, geminiKey, geminiModel, ollamaUrl, ollamaModel } = state.settings;
+      const isLocalhost = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
+
+      if (aiMode === "ollama" || (aiMode === "auto" && isLocalhost)) {
+        try {
+          return await fetchOllama(ollamaUrl, ollamaModel, messages, systemInstruction);
+        } catch (e) {
+          if (aiMode === "ollama") return "⚠️ تعذر الاتصال بـ Ollama المحلي.";
+        }
+      }
+
+      if (!geminiKey) return "⚠️ أضف مفتاح Gemini API في تبويب الإعدادات.";
+
+      const modelsToTry = [geminiModel, "gemini-2.5-flash", "gemini-2.5-flash-lite"].filter((v, i, a) => v && a.indexOf(v) === i);
+      let lastErr = "";
+      for (const model of modelsToTry) {
+        try {
+          return await fetchGemini(geminiKey, model, messages, systemInstruction);
+        } catch (err) { lastErr = err.message; }
+      }
+      return `⚠️ تعذر الاتصال بالسيرفر حالياً (${lastErr}).`;
+    }
+
+    async function fetchOllama(url, model, messages, systemInstruction) {
+      const res = await fetch(`${url.replace(/\/$/, "")}/api/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model, stream: false, messages: [{ role: "system", content: systemInstruction }, ...messages] })
+      });
+      if (!res.ok) throw new Error("Ollama HTTP " + res.status);
+      const data = await res.json();
+      return data.message.content;
+    }
+
+    async function fetchGemini(key, model, messages, systemInstruction) {
+      const contents = messages.map(m => ({ role: m.role === "user" ? "user" : "model", parts: [{ text: m.content }] }));
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ systemInstruction: { parts: [{ text: systemInstruction }] }, contents })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error?.message || `HTTP ${res.status}`);
+      return data.candidates[0].content.parts[0].text;
+    }
+
+    function populateSettingsUI() {
+      const s = state.settings;
+      document.getElementById("aiMode").value = s.aiMode;
+      document.getElementById("geminiKey").value = s.geminiKey;
+      document.getElementById("geminiModel").value = s.geminiModel;
+      document.getElementById("ollamaUrl").value = s.ollamaUrl;
+      document.getElementById("ollamaModel").value = s.ollamaModel;
+      document.getElementById("gistToken").value = s.gistToken;
+      document.getElementById("gistId").value = s.gistId;
+    }
+
+    function saveSettings() {
+      state.settings.aiMode = document.getElementById("aiMode").value;
+      state.settings.geminiKey = document.getElementById("geminiKey").value.trim();
+      state.settings.geminiModel = document.getElementById("geminiModel").value.trim() || "gemini-2.5-flash";
+      state.settings.ollamaUrl = document.getElementById("ollamaUrl").value.trim() || "http://localhost:11434";
+      state.settings.ollamaModel = document.getElementById("ollamaModel").value.trim() || "qwen3:14b";
+      state.settings.gistToken = document.getElementById("gistToken").value.trim();
+      state.settings.gistId = document.getElementById("gistId").value.trim();
+      saveState(false);
+      document.getElementById("aiStatus").innerHTML = `<span style="color:var(--success)">✅ تم حفظ الإعدادات بنجاح.</span>`;
+    }
+
+    async function testAI() {
+      saveSettings();
+      const st = document.getElementById("aiStatus");
+      st.textContent = "⏳ جاري اختبار الاتصال...";
+      const res = await callAI([{ role: "user", content: "Say: Hallo!" }], "Reply with Hallo! only.");
+      st.innerHTML = res.startsWith("⚠️") ? `<span style="color:var(--danger)">${res}</span>` : `<span style="color:var(--success)">✅ الاتصال ناجح! الرد: ${res}</span>`;
+    }
+
+    let syncTimer = null;
+    function debouncedCloudPush() {
+      clearTimeout(syncTimer);
+      syncTimer = setTimeout(() => pushToGist(), 1500);
+    }
+
+    async function createNewGist() {
+      saveSettings();
+      const st = document.getElementById("syncStatus");
+      if (!state.settings.gistToken) {
+        st.innerHTML = `<span style="color:var(--danger)">⚠️ أدخل GitHub Token أولاً.</span>`;
+        return;
+      }
+      st.textContent = "⏳ جاري إنشاء سحابة Gist...";
+      try {
+        const res = await fetch("https://api.github.com/gists", {
+          method: "POST",
+          headers: { "Authorization": `token ${state.settings.gistToken}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ description: "Deutsch A1 Coach Sync", public: false, files: { "german_a1_sync.json": { content: JSON.stringify(getSyncPayload()) } } })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || "Error");
+        state.settings.gistId = data.id;
+        document.getElementById("gistId").value = data.id;
+        saveState(false);
+        st.innerHTML = `<span style="color:var(--success)">✅ تم إنشاء Gist وربطه بنجاح!</span>`;
+      } catch (e) {
+        st.innerHTML = `<span style="color:var(--danger)">❌ فشل الإنشاء: ${e.message}</span>`;
+      }
+    }
+
+    function getSyncPayload() {
+      return { completed: state.completed, xp: state.xp, cpChats: state.cpChats, updatedAt: Date.now() };
+    }
+
+    async function pushToGist() {
+      const { gistToken, gistId } = state.settings;
+      if (!gistToken || !gistId) return;
+      document.getElementById("syncDot").className = "sync-dot busy";
+      try {
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+          method: "PATCH",
+          headers: { "Authorization": `token ${gistToken}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ files: { "german_a1_sync.json": { content: JSON.stringify(getSyncPayload()) } } })
+        });
+        if (!res.ok) throw new Error("Sync failed");
+        document.getElementById("syncDot").className = "sync-dot ok";
+        document.getElementById("syncLabel").textContent = "متزامن";
+      } catch {
+        document.getElementById("syncDot").className = "sync-dot err";
+        document.getElementById("syncLabel").textContent = "خطأ مزامنة";
+      }
+    }
+
+    async function pullFromGist(manual = false) {
+      const { gistToken, gistId } = state.settings;
+      if (!gistToken || !gistId) return;
+      const st = document.getElementById("syncStatus");
+      document.getElementById("syncDot").className = "sync-dot busy";
+      try {
+        const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers: { "Authorization": `token ${gistToken}` }, cache: "no-store" });
+        const data = await res.json();
+        const rawFile = data.files?.["german_a1_sync.json"]?.content;
+        if (rawFile) {
+          const remote = JSON.parse(rawFile);
+          if (remote && Array.isArray(remote.completed)) {
+            state.completed = Array.from(new Set([...state.completed, ...remote.completed]));
+            state.xp = Math.max(state.xp, remote.xp || 0);
+            state.cpChats = { ...remote.cpChats, ...state.cpChats };
+            saveState(false);
+            renderPath();
+          }
+        }
+        await pushToGist();
+        if (manual && st) st.innerHTML = `<span style="color:var(--success)">✅ تمت المزامنة بين الأجهزة بنجاح!</span>`;
+      } catch (e) {
+        document.getElementById("syncDot").className = "sync-dot err";
+        if (manual && st) st.innerHTML = `<span style="color:var(--danger)">❌ تعذرت المزامنة: ${e.message}</span>`;
+      }
+    }
+
+    function syncNow(manual) {
+      saveSettings();
+      pullFromGist(manual);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") pullFromGist(false);
+    });
+
+    populateSettingsUI();
+    renderPath();
+    updateHeaderUI();
+    if (state.settings.gistToken && state.settings.gistId) pullFromGist(false);
+  </script>
+</body>
+</html>
