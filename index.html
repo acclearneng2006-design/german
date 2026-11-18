@@ -1021,7 +1021,11 @@
         <h4>☁️ حسابك وحفظ التقدم</h4>
         <p style="font-size:13px;color:var(--muted);line-height:1.8">تقدمك محفوظ في حسابك السحابي، ويمكنك فتحه من أي جهاز بعد تسجيل الدخول.</p>
         <div class="status-text" id="supabaseStatus">غير مسجل الدخول</div>
-        <button class="btn-ghost" style="margin-top:10px" onclick="signOutSupabase()">تسجيل خروج</button>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px">تقدر تبدأ المنهج من الصفر. التصفير يخص حسابك فقط ولا يحذف الحساب.</p>
+        <div class="row-2">
+          <button class="btn-ghost" onclick="resetMyProgress()">🔄 تصفير تقدمي والبدء من جديد</button>
+          <button class="btn-ghost" onclick="signOutSupabase()">تسجيل خروج</button>
+        </div>
       </div>
 
         <div class="card"><h4>💾 نسخة احتياطية</h4><p>صدّر تقدمك أو استورده. لا يحتوي الملف على مفاتيح AI أو رموز GitHub.</p><div class="row-2"><button class="btn-primary" onclick="exportProgress()">تنزيل النسخة</button><label class="btn-ghost" style="text-align:center;padding:12px">استيراد JSON<input type="file" accept="application/json,.json" onchange="importProgress(this)" hidden /></label></div></div>
@@ -1583,7 +1587,7 @@
     const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
     const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
-    const LESSON_FLOW_VERSION = 3;
+    const LESSON_FLOW_VERSION = 4;
 
     const DEFAULT_STATE = {
       lessonFlowVersion: LESSON_FLOW_VERSION,
@@ -1976,6 +1980,7 @@
       if (orderSource) { const tokens = orderSource.de.match(/\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
       const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).sort(() => Math.random() - 0.5);
       lessonSlides.push({ type:"quiz", title:"مراجعة القاعدة", question:lesson.quiz.q, options:grammarOptions.map(o => o.text), answer:grammarOptions.findIndex(o => o.correct), explanation:lesson.grammar });
+      lessonSlides.push({ type:"recap", title:"خلاصة الدرس" });
       
       document.getElementById("overlayTitle").textContent = lesson.title;
       document.getElementById("overlayXp").textContent = `+${lesson.xp} XP`;
@@ -2006,10 +2011,14 @@
       void target.offsetWidth;
       target.classList.add("slide-enter");
       if (slide.type === "intro") {
-        target.innerHTML = `<div class="card"><h4>🎯 هتتعلم إيه؟</h4><p>${currentLesson.desc}</p><p style="margin-top:8px;color:var(--muted)">هنشرح نقطة واحدة، وبعدها سؤال واحد عليها. خذ وقتك، ومش هتظهر لك الأسئلة كلها مرة واحدة.</p></div>`;
+        const estimatedMinutes = Math.max(4, Math.ceil((currentLesson.vocab.length * 40 + 90) / 60));
+        target.innerHTML = `<div class="card"><h4>🎯 هدف الدرس</h4><p>${currentLesson.desc}</p><p class="lesson-meta">⏱️ ${estimatedMinutes} دقائق تقريبًا • ${currentLesson.vocab.length} كلمات وعبارات</p><p style="margin-top:8px;color:var(--muted)">هنتعلم خطوة خطوة، نطبق بجملة، وبعدها نراجع بأسئلة متفرقة. سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "alphabet") {
         const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         target.innerHTML = `<div class="card"><h4>🔤 اسمع كل حرف لوحده</h4><p>اضغط على الحرف لسماع اسمه بالألمانية، ثم كرر النطق بصوتك.</p><div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;direction:ltr">${letters.map(letter => `<button type="button" aria-label="اسمع الحرف ${letter}" onclick="speakGerman(this.textContent)"><strong style="font-size:20px">${letter}</strong></button>`).join("")}</div></div>`;
+      } else if (slide.type === "recap") {
+        const recapItems = currentLesson.vocab.slice(0, 6).map(item => `<li>${colorGermanArticles(item.de)} — ${escapeHtml(item.ar)}</li>`).join("");
+        target.innerHTML = `<div class="card"><h4>🧾 خلاصة الدرس</h4><p style="white-space:pre-line;line-height:1.9">${escapeHtml(currentLesson.grammar)}</p><hr><ul style="text-align:right;line-height:2">${recapItems}</ul><p>ممتاز! راجعت أهم النقاط، كمّل للدرس التالي وقت ما تكون جاهز.</p></div>`;
       } else if (slide.type === "reviewIntro") {
         target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
