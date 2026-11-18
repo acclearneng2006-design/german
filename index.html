@@ -1960,7 +1960,7 @@
       lesson.vocab.forEach((item, index) => {
         lessonSlides.push({ type:"vocab", title:`كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
       });
-      const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\\S+/g) || []).length >= 3 && (v.de.match(/\\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
+      const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type:"writing", title:"اكتب جملتك" });
       lessonSlides.push({ type:"reviewIntro", title:"مراجعة بعد الدرس" });
       const reviewItems = lesson.vocab.map((item, index) => ({ item, index })).sort(() => Math.random() - 0.5);
@@ -1973,7 +1973,7 @@
           lessonSlides.push({ type:"listening", title:`مراجعة استماع ${index + 1}`, item, options:meanings, answer:meanings.indexOf(item.ar), vocabIndex:index });
         }
       });
-      if (orderSource) { const tokens = orderSource.de.match(/\\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
+      if (orderSource) { const tokens = orderSource.de.match(/\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
       const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).sort(() => Math.random() - 0.5);
       lessonSlides.push({ type:"quiz", title:"مراجعة القاعدة", question:lesson.quiz.q, options:grammarOptions.map(o => o.text), answer:grammarOptions.findIndex(o => o.correct), explanation:lesson.grammar });
       
