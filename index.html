@@ -1066,16 +1066,11 @@
         nodes: [
           {
             id: "l16", type: "lesson", icon: "🔤", title: "1. الأبجدية الألمانية وتهجئة الاسم",
-            desc: "الحروف A–Z، أسماء الحروف، وتهجئة الاسم", xp: 35,
-            grammar: "الألمانية تستخدم 26 حرفاً لاتينياً، ومعها Ä/Ö/Ü و ß.\nلتهجئة اسمك قل: Wie schreibt man das? (كيف تُكتب؟) ثم انطق أسماء الحروف. مثال: A = آ، B = بي، C = تسي، D = دي، E = إيه.\nحروف العلة: A, E, I, O, U. تمرّن ببطء ثم اكتب اسمك حرفاً حرفاً.",
+            desc: "الأبجدية A–Z، استمع لكل حرف وحده، وتهجئة الاسم", xp: 35,
+            grammar: "الألمانية تستخدم 26 حرفاً لاتينياً، ومعها Ä/Ö/Ü و ß.\\nاضغط على أي حرف في صفحة الأبجدية لسماع نطقه منفرداً.\\nحروف العلة: A, E, I, O, U. تمرّن ببطء ثم اكتب اسمك حرفاً حرفاً.",
             vocab: [
-              { de: "A B C D E", ar: "آ، بي، تسي، دي، إيه" },
-              { de: "F G H I J", ar: "إف، جي، ها، إي، يوت" },
-              { de: "K L M N O", ar: "كا، إل، إم، إن، أو" },
-              { de: "P Q R S T", ar: "پي، كو، إر، إس، تي" },
-              { de: "U V W X Y Z", ar: "أو، فاو، ڤيه، إكس، إبسيلون، تسِت" },
               { de: "Wie schreibt man Ihren Namen?", ar: "كيف يُكتب اسم حضرتك؟" },
-              { de: "Mein Name ist Sara: S-A-R-A.", ar: "اسمي سارة: إس-آ-إر-آ." }
+              { de: "Mein Name ist Sara.", ar: "اسمي سارة." }
             ],
             quiz: { q: "أي مجموعة تمثل حروف العلة الألمانية؟", opts: ["A, E, I, O, U", "B, C, D, F, G", "K, L, M, N, P"], ans: 0 }
           },
@@ -1588,7 +1583,7 @@
     const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
     const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
-    const LESSON_FLOW_VERSION = 2;
+    const LESSON_FLOW_VERSION = 3;
 
     const DEFAULT_STATE = {
       lessonFlowVersion: LESSON_FLOW_VERSION,
@@ -1961,6 +1956,7 @@
         { type:"intro", title:"هدف الدرس" },
         { type:"grammar", title:"افهم القاعدة" }
       ];
+      if (lesson.id === "l16") lessonSlides.push({ type:"alphabet", title:"اسمع الحروف واحدًا واحدًا" });
       lesson.vocab.forEach((item, index) => {
         lessonSlides.push({ type:"vocab", title:`كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
       });
@@ -2011,6 +2007,9 @@
       target.classList.add("slide-enter");
       if (slide.type === "intro") {
         target.innerHTML = `<div class="card"><h4>🎯 هتتعلم إيه؟</h4><p>${currentLesson.desc}</p><p style="margin-top:8px;color:var(--muted)">هنشرح نقطة واحدة، وبعدها سؤال واحد عليها. خذ وقتك، ومش هتظهر لك الأسئلة كلها مرة واحدة.</p></div>`;
+      } else if (slide.type === "alphabet") {
+        const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        target.innerHTML = `<div class="card"><h4>🔤 اسمع كل حرف لوحده</h4><p>اضغط على الحرف لسماع اسمه بالألمانية، ثم كرر النطق بصوتك.</p><div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;direction:ltr">${letters.map(letter => `<button type="button" aria-label="اسمع الحرف ${letter}" onclick="speakGerman(this.textContent)"><strong style="font-size:20px">${letter}</strong></button>`).join("")}</div></div>`;
       } else if (slide.type === "reviewIntro") {
         target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
