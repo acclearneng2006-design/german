@@ -78,6 +78,7 @@
     .auth-card h2 { margin-bottom: 8px; font-size: 22px; }
     .auth-card p { margin-bottom: 18px; color: var(--muted); font-size: 14px; }
     .auth-card .row-2 { margin-top: 12px; }
+    .auth-panel[hidden] { display: none !important; }
 
     .header-top {
       max-width: 720px;
@@ -901,10 +902,17 @@
     <div class="auth-card">
       <h2>👋 أهلاً بيك في Deutsch A1 Coach</h2>
       <p>سجّل دخولك أو أنشئ حسابًا. تقدمك ودروسك المحفوظة هتكون مرتبطة بحسابك وتظهر على أجهزتك.</p>
-      <div class="form-group"><label for="supabaseEmail">البريد الإلكتروني</label><input id="supabaseEmail" type="email" class="form-control ltr" autocomplete="email" placeholder="name@example.com" /></div>
-      <div class="form-group"><label for="supabasePassword">كلمة المرور</label><input id="supabasePassword" type="password" class="form-control ltr" autocomplete="current-password" placeholder="8 أحرف على الأقل" /></div>
-      <div class="row-2"><button class="btn-primary" onclick="signInSupabase()">دخول</button><button class="btn-ghost" onclick="signUpSupabase()">إنشاء حساب</button></div>
-      <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="syncSupabase(true)">إعادة محاولة تحميل التقدم</button>
+      <div class="auth-panel" id="authLoginPanel">
+        <div class="form-group"><label for="supabaseEmail">البريد الإلكتروني</label><input id="supabaseEmail" type="email" class="form-control ltr" autocomplete="email" placeholder="name@example.com" /></div>
+        <div class="form-group"><label for="supabasePassword">كلمة المرور</label><input id="supabasePassword" type="password" class="form-control ltr" autocomplete="current-password" placeholder="8 أحرف على الأقل" /></div>
+        <div class="row-2"><button class="btn-primary" onclick="signInSupabase()">دخول</button><button class="btn-ghost" onclick="signUpSupabase()">إنشاء حساب</button></div>
+        <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="sendPasswordReset()">نسيت كلمة المرور؟</button>
+      </div>
+      <div class="auth-panel" id="authRecoveryPanel" hidden>
+        <div class="form-group"><label for="newSupabasePassword">كلمة المرور الجديدة</label><input id="newSupabasePassword" type="password" class="form-control ltr" autocomplete="new-password" placeholder="8 أحرف على الأقل" /></div>
+        <div class="row-2"><button class="btn-primary" onclick="applyPasswordReset()">حفظ كلمة المرور الجديدة</button><button class="btn-ghost" onclick="cancelPasswordReset()">رجوع</button></div>
+      </div>
+      <button class="btn-ghost" id="authRetryButton" style="width:100%;margin-top:10px" onclick="syncSupabase(true)">إعادة محاولة تحميل التقدم</button>
       <div class="status-text" id="authGateStatus" role="status" aria-live="polite">جاري الاتصال بخدمة الحسابات...</div>
     </div>
   </div>
@@ -1607,6 +1615,7 @@
     let currentFreeTopic = "محادثة عامة حرة بمستوى A1 باستخدام كل ما تعلمه الطالب";
     let supabaseClient = null;
     let supabaseSession = null;
+    let passwordRecoveryMode = false;
     let supabaseSyncTimer = null;
     let recognition = null;
     let activeMicTarget = null;
@@ -2404,6 +2413,13 @@
       if (gate) gate.hidden = !visible;
     }
 
+    function showAuthPanel(recovery) {
+      passwordRecoveryMode = recovery;
+      document.getElementById("authLoginPanel").hidden = recovery;
+      document.getElementById("authRecoveryPanel").hidden = !recovery;
+      document.getElementById("authRetryButton").hidden = recovery;
+    }
+
     function resetProgressState() {
       state = JSON.parse(JSON.stringify(DEFAULT_STATE));
       renderPath();
@@ -2421,6 +2437,12 @@
       });
       supabaseClient.auth.onAuthStateChange((event, session) => {
         supabaseSession = session;
+        if (event === "PASSWORD_RECOVERY") {
+          showAuthPanel(true);
+          setAuthGateVisible(true);
+          setAuthStatus("اكتب كلمة المرور الجديدة لحسابك.");
+          return;
+        }
         if (session) {
           setAuthGateVisible(true);
           setAuthStatus(`جاري تحميل تقدم حساب ${session.user.email}...`);
@@ -2430,6 +2452,7 @@
           }
         } else {
           if (event === "SIGNED_OUT") resetProgressState();
+          if (event === "SIGNED_OUT") showAuthPanel(false);
           setAuthGateVisible(true);
           setAuthStatus(event === "INITIAL_SESSION" ? "سجّل الدخول أو أنشئ حسابًا للبدء." : "تم تسجيل الخروج.");
           updateHeaderUI();
@@ -2460,6 +2483,35 @@
       setAuthStatus("جاري تسجيل الدخول...");
       const { error } = await client.auth.signInWithPassword({ email, password });
       if (error) setAuthStatus(error.message);
+    }
+
+    async function sendPasswordReset() {
+      const client = initializeSupabase();
+      const email = document.getElementById("supabaseEmail").value.trim();
+      if (!client) return;
+      if (!email) { setAuthStatus("اكتب بريدك الإلكتروني أولاً، ثم اضغط نسيت كلمة المرور."); return; }
+      setAuthStatus("جاري إرسال رابط استعادة كلمة المرور...");
+      const { error } = await client.auth.resetPasswordForEmail(email);
+      if (error) setAuthStatus(error.message);
+      else setAuthStatus("لو البريد مسجل، هيوصلك رابط استعادة. افتحه من نفس المتصفح واكتب كلمة مرور جديدة.");
+    }
+
+    async function applyPasswordReset() {
+      const password = document.getElementById("newSupabasePassword").value;
+      if (password.length < 8) { setAuthStatus("كلمة المرور لازم تكون 8 أحرف على الأقل."); return; }
+      setAuthStatus("جاري تحديث كلمة المرور...");
+      const { error } = await supabaseClient.auth.updateUser({ password });
+      if (error) { setAuthStatus(error.message); return; }
+      document.getElementById("newSupabasePassword").value = "";
+      showAuthPanel(false);
+      setAuthStatus("تم تحديث كلمة المرور. جاري تحميل تقدمك...");
+      await syncSupabase(false);
+    }
+
+    async function cancelPasswordReset() {
+      showAuthPanel(false);
+      if (supabaseClient && supabaseSession) await supabaseClient.auth.signOut();
+      else setAuthStatus("اكتب بريدك وكلمة المرور لتسجيل الدخول.");
     }
 
     async function signOutSupabase() {
