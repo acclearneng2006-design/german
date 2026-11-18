@@ -2570,6 +2570,45 @@
       else setAuthStatus("اكتب بريدك وكلمة المرور لتسجيل الدخول.");
     }
 
+    async function resetMyProgress() {
+      const client = initializeSupabase();
+      if (!client || !supabaseSession) {
+        setAuthStatus("سجّل الدخول أولاً عشان تصفّر تقدم حسابك السحابي.");
+        return;
+      }
+      const confirmed = window.confirm("هتبدأ من الصفر؟ هيتصفّر تقدم حسابك الحالي فقط: الدروس المكتملة، النقاط، المحادثات والمراجعات. حساب الدخول وإعدادات AI مش هيتحذفوا. لا يمكن التراجع عن التصفير.");
+      if (!confirmed) return;
+      const previousState = JSON.parse(JSON.stringify(state));
+      clearTimeout(supabaseSyncTimer);
+      setAuthStatus("جاري تصفير تقدم حسابك على السحابة...");
+      state.completed = [];
+      state.xp = 0;
+      state.streakDays = 1;
+      state.lastActiveDate = "";
+      state.freeChat = [];
+      state.cpChats = {};
+      state.reviewQueue = [];
+      state.mistakes = [];
+      state.lessonProgress = {};
+      state.lessonFlowVersion = LESSON_FLOW_VERSION;
+      legacyProgressPending = false;
+      renderPath();
+      updateHeaderUI();
+      let saved = false;
+      try { saved = await pushSupabaseProgress(); }
+      catch (error) { setAuthStatus(`تعذر تصفير التقدم: ${error.message}`); }
+      if (!saved) {
+        state = previousState;
+        renderPath();
+        updateHeaderUI();
+        setAuthStatus("ماقدرناش نحفظ التصفير. تقدمك القديم ما زال محفوظًا؛ جرّب مرة ثانية مع اتصال الإنترنت.");
+        return;
+      }
+      try { localStorage.removeItem(LOCAL_PROGRESS_KEY); } catch {}
+      setAuthStatus("✅ تم تصفير تقدم حسابك السحابي. تقدر تبدأ أول درس من جديد.");
+      showToast("بداية جديدة! خطوة صغيرة النهارده تكفي ⭐", "xp", "🚀");
+    }
+
     async function signOutSupabase() {
       if (supabaseClient) await supabaseClient.auth.signOut();
     }
