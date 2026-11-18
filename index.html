@@ -1062,7 +1062,41 @@
 <script>
     const CURRICULUM = [
       {
-        unit: "الوحدة الأولى: البداية والتعارف (Erste Kontakte)",
+        unit: "الوحدة الأولى: الحروف والنطق (Alphabet & Aussprache)",
+        nodes: [
+          {
+            id: "l16", type: "lesson", icon: "🔤", title: "1. الأبجدية الألمانية وتهجئة الاسم",
+            desc: "الحروف A–Z، أسماء الحروف، وتهجئة الاسم", xp: 35,
+            grammar: "الألمانية تستخدم 26 حرفاً لاتينياً، ومعها Ä/Ö/Ü و ß.\nلتهجئة اسمك قل: Wie schreibt man das? (كيف تُكتب؟) ثم انطق أسماء الحروف. مثال: A = آ، B = بي، C = تسي، D = دي، E = إيه.\nحروف العلة: A, E, I, O, U. تمرّن ببطء ثم اكتب اسمك حرفاً حرفاً.",
+            vocab: [
+              { de: "A B C D E", ar: "آ، بي، تسي، دي، إيه" },
+              { de: "F G H I J", ar: "إف، جي، ها، إي، يوت" },
+              { de: "K L M N O", ar: "كا، إل، إم، إن، أو" },
+              { de: "P Q R S T", ar: "پي، كو، إر، إس، تي" },
+              { de: "U V W X Y Z", ar: "أو، فاو، ڤيه، إكس، إبسيلون، تسِت" },
+              { de: "Wie schreibt man Ihren Namen?", ar: "كيف يُكتب اسم حضرتك؟" },
+              { de: "Mein Name ist Sara: S-A-R-A.", ar: "اسمي سارة: إس-آ-إر-آ." }
+            ],
+            quiz: { q: "أي مجموعة تمثل حروف العلة الألمانية؟", opts: ["A, E, I, O, U", "B, C, D, F, G", "K, L, M, N, P"], ans: 0 }
+          },
+          {
+            id: "l17", type: "lesson", icon: "🗣️", title: "2. الحروف الخاصة وأصوات الألمانية",
+            desc: "Ä, Ö, Ü, ß، و ch / sch / ei / ie", xp: 35,
+            grammar: "Ä صوته قريب من e، Ö و Ü صوتان أماميان لا يوجد لهما مقابل مطابق بالعربية؛ قرّب الشفتين مع نطق إيه/إي. ß يُسمى Eszett ويُنطق مثل ss.\nsch = ش مثل Schule، ei = آي مثل mein، ie = إي طويلة مثل sieben، و ch له صوتان: خفيف في ich وأقوى في Bach. استمع للنطق وكرره، فالنطق العربي هنا تقريب تقريبي.",
+            vocab: [
+              { de: "Ä ä – Mädchen", ar: "Ä: مثل صوت قريب من e — فتاة" },
+              { de: "Ö ö – schön", ar: "Ö: صوت أمامي — جميل" },
+              { de: "Ü ü – fünf", ar: "Ü: صوت أمامي — خمسة" },
+              { de: "ß – Straße", ar: "ß يُنطق ss — شارع" },
+              { de: "Schule / mein / sieben", ar: "شوله / ماين / زيبن" },
+              { de: "Ich spreche Deutsch.", ar: "أنا أتحدث الألمانية." }
+            ],
+            quiz: { q: "كيف يُنطق المقطع sch غالباً؟", opts: ["ش", "ف", "ك"], ans: 0 }
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الثانية: البداية والتعارف (Erste Kontakte)",
         nodes: [
           {
             id: "l1", type: "lesson", icon: "👋", title: "1. التحية وتقديم النفس",
@@ -1130,218 +1164,7 @@
         ]
       },
       {
-        unit: "الوحدة الثانية: التسوق والحياة اليومية (Einkaufen & Alltag)",
-        nodes: [
-          {
-            id: "l5", type: "lesson", icon: "🛒", title: "1. التسوق في السوبرماركت",
-            desc: "brauchen, haben, Lebensmittel, Obst", xp: 25,
-            grammar: "أداة النكرة في حالة المفعول (Akkusativ): Ich brauche einen Apfel (مذكر), eine Banane (مؤنث), ein Brot (محايد).",
-            vocab: [
-              { de: "Ich brauche Milch und Brot.", ar: "أحتاج إلى حليب وخبز." },
-              { de: "Was kostet das Kilo Äpfel?", ar: "كم سعر كيلو التفاح؟" },
-              { de: "Gibt es Tomaten?", ar: "هل توجد طماطم؟" }
-            ],
-            quiz: { q: "ما أداة المذكر (Akkusativ) لكلمة Apfel بعد brauche؟", opts: ["einen", "eine", "ein"], ans: 0 }
-          },
-          {
-            id: "l6", type: "lesson", icon: "👕", title: "2. الملابس والمقاسات والألوان",
-            desc: "Hemd, Hose, Größe, Farbe, kosten", xp: 25,
-            grammar: "السؤال عن السعر والرأي: Wie gefällt dir das Hemd? Es ist zu klein / perfekt.",
-            vocab: [
-              { de: "Ich suche eine Hose.", ar: "أنا أبحث عن بنطلون." },
-              { de: "Welche Größe haben Sie?", ar: "ما هو مقاس حضرتك؟" },
-              { de: "Das T-Shirt kostet 15 Euro.", ar: "هذا القميص يكلف 15 يورو." }
-            ],
-            quiz: { q: "كيف تسأل عن مقاس الملابس؟", opts: ["Welche Größe haben Sie?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
-          },
-          {
-            id: "cp3", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #3: في متجر الملابس",
-            desc: "ابحث عن قميص أو بنطلون واسأل عن المقاس والسعر", xp: 50,
-            scenarioTitle: "مساعد متجر ملابس",
-            scenarioGoal: "اسأل عن بنطلون بالمقاس والسعر المناسب.",
-            starterDe: "Guten Tag! Kann ich Ihnen helfen?",
-            starterAr: "نهارك سعيد! هل يمكنني مساعدتك؟",
-            systemPrompt: "أنت بائع في متجر ملابس. ساعد الطالب ليسأل عن المقاسات والأسعار بجمل A1."
-          },
-          {
-            id: "l7", type: "lesson", icon: "🏠", title: "3. الشقة والأثاث (Wohnen)",
-            desc: "Zimmer, Küche, Bad, Miete, Möbel", xp: 25,
-            grammar: "صفات المسكن ووصف الغرف: Die Wohnung ist groß und hell (الشقة كبيرة ومضيئة).",
-            vocab: [
-              { de: "Ich suche eine 2-Zimmer-Wohnung.", ar: "أبحث عن شقة غرفتين." },
-              { de: "Wie hoch ist die Miete?", ar: "كم تبلغ قيمة الإيجار؟" },
-              { de: "Das Zimmer hat ein Bett und einen Tisch.", ar: "الغرفة بها سرير وطاولة." }
-            ],
-            quiz: { q: "ما ترجمة: شقة غرفتين؟", opts: ["2-Zimmer-Wohnung", "Kaffee", "Familie"], ans: 0 }
-          },
-          {
-            id: "cp4", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #4: التحدي الشامل للوحدة الثانية",
-            desc: "حوار متكامل حول التسوق وشراء مستلزمات الشقة", xp: 60,
-            scenarioTitle: "البحث عن شقة وشراء أثاث",
-            scenarioGoal: "تحدث مع صاحب الشقة أو بائع الأثاث عن التفاصيل.",
-            starterDe: "Hallo! Sie suchen eine Wohnung? Erzählen Sie mir mehr.",
-            starterAr: "مرحباً! أنت تبحث عن شقة؟ اخبرني بالمزيد.",
-            systemPrompt: "أنت مؤجر شقة أو بائع أثاث. حاور الطالب حول الغرف والإيجار والمقاسات."
-          }
-        ]
-      },
-      {
-        unit: "الوحدة الثالثة: الصحة، السفر والطقس (Gesundheit & Reisen)",
-        nodes: [
-          {
-            id: "l8", type: "lesson", icon: "🩺", title: "1. الجسم والصحة عند الطبيب",
-            desc: "Kopf, Bauch, Arzt, Schmerzen, Krank", xp: 30,
-            grammar: "التعبير عن الألم: Ich habe Kopfschmerzen (لدي صداع). Mein Arm tut weh (ذراعي يؤلمني).",
-            vocab: [
-              { de: "Ich bin krank.", ar: "أنا مريض." },
-              { de: "Wo tut es weh?", ar: "أين مكان الألم؟" },
-              { de: "Ich brauche einen Termin beim Arzt.", ar: "أحتاج موعداً عند الطبيب." }
-            ],
-            quiz: { q: "كيف تقول: لدي صداع؟", opts: ["Ich habe Kopfschmerzen.", "Ich bin Kaffee.", "Ich wohne in Berlin."], ans: 0 }
-          },
-          {
-            id: "l9", type: "lesson", icon: "☀️", title: "2. الطقس وفصول السنة",
-            desc: "Sonne, Regen, kalt, warm, Grad", xp: 30,
-            grammar: "التعبير عن الطقس: Es ist kalt (الجو بارد). Heute regnet es (اليوم تمطر).",
-            vocab: [
-              { de: "Wie ist das Wetter heute?", ar: "كيف حال الطقس اليوم؟" },
-              { de: "Es ist sonnig und 25 Grad.", ar: "الجو مشمس و 25 درجة." },
-              { de: "Im Winter ist es kalt.", ar: "في الشتاء يكون الجو بارداً." }
-            ],
-            quiz: { q: "كيف تسأل عن الطقس؟", opts: ["Wie ist das Wetter heute?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
-          },
-          {
-            id: "cp5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #5: حجز موعد وحالة الطقس",
-            desc: "تحدث مع طبيب أو صديق عن الطقس وموعد الزيارة", xp: 55,
-            scenarioTitle: "حجز موعد عيادة",
-            scenarioGoal: "أخبر الطبيب بمكان الألم واتفق على موعد.",
-            starterDe: "Guten Tag! Praxis Dr. Müller. Was kann ich für Sie tun?",
-            starterAr: "نهارك سعيد! عيادة دكتور مولر. ماذا يمكنني أن أقدم لك؟",
-            systemPrompt: "أنت موظف استقبال عيادة. ساعد المريض في تحديد موعد وسؤاله عن حالته."
-          },
-          {
-            id: "l10", type: "lesson", icon: "🚆", title: "3. السفر والمحطة والمواصلات",
-            desc: "Zug, Fahrkarte, Bahnhof, abfahren", xp: 30,
-            grammar: "استخدام الأفعال المنفصلة (Trennbare Verben): Der Zug fährt um 10 Uhr ab (القطار يتحرك الساعة 10).",
-            vocab: [
-              { de: "Eine Fahrkarte nach Berlin, bitte.", ar: "تذكرة إلى برلين من فضلك." },
-              { de: "Wann fährt der nächste Zug?", ar: "متى يتحرك القطار القادم؟" },
-              { de: "Gleis 3.", ar: "رصيف رقم 3." }
-            ],
-            quiz: { q: "ما الفعل المنفصل المناسب لحركة القطار؟", opts: ["abfahren", "wohnen", "sprechen"], ans: 0 }
-          },
-          {
-            id: "cp6", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #6: التحدي النهائي لمستوى A1",
-            desc: "حوار شامل في محطة القطار والسفر لمدينة جديدة", xp: 75,
-            scenarioTitle: "شراء تذكرة وسؤال عن المواعيد في المحطة",
-            scenarioGoal: "احجز تذكرة قطار واستفسر عن الرصيف ووقت الرحلة.",
-            starterDe: "Guten Tag! Wohin möchten Sie reisen?",
-            starterAr: "نهارك سعيد! إلى أين تود أن تسافر؟",
-            systemPrompt: "أنت موظف محطة القطار. ساعد المسافر في حجز التذكرة، معرفة الرصيف، ووقت القيام بدقة لمستوى A1."
-          }
-        ]
-      }
-      ,{
-        unit: "الوحدة الرابعة: الأسرة والروتين والعمل والمدينة (Familie & Alltag)",
-        nodes: [
-          {
-            id: "l11", type: "lesson", icon: "👨‍👩‍👧", title: "1. الأسرة والأصدقاء",
-            desc: "Familie, Geschwister, verheiratet, allein", xp: 30,
-            grammar: "للتحدث عن الملكية نستخدم mein / meine حسب الاسم: mein Bruder (أخي)، meine Schwester (أختي). وللسؤال نقول: Hast du Geschwister?",
-            vocab: [
-              { de: "Das ist meine Familie.", ar: "هذه عائلتي." },
-              { de: "Ich habe einen Bruder und eine Schwester.", ar: "لدي أخ وأخت." },
-              { de: "Bist du verheiratet?", ar: "هل أنت متزوج؟" },
-              { de: "Meine Eltern wohnen in Ägypten.", ar: "والداي يسكنان في مصر." }
-            ],
-            quiz: { q: "اختر الجملة الصحيحة: لدي أخت.", opts: ["Ich habe eine Schwester.", "Ich bin eine Schwester.", "Ich wohne Schwester."], ans: 0 }
-          },
-          {
-            id: "l12", type: "lesson", icon: "⏰", title: "2. الوقت وأيام الأسبوع",
-            desc: "Uhrzeit, Wochentage, Termine", xp: 30,
-            grammar: "للسؤال عن الوقت نقول: Wie spät ist es? وللمواعيد نستخدم um مع الساعة: Der Kurs beginnt um neun Uhr.",
-            vocab: [
-              { de: "Wie spät ist es?", ar: "كم الساعة؟" },
-              { de: "Es ist halb acht.", ar: "الساعة السابعة والنصف." },
-              { de: "Am Montag habe ich einen Deutschkurs.", ar: "لدي درس ألماني يوم الاثنين." },
-              { de: "Der Termin ist um 10 Uhr.", ar: "الموعد الساعة العاشرة." }
-            ],
-            quiz: { q: "كيف تقول: الموعد الساعة الثالثة؟", opts: ["Der Termin ist um drei Uhr.", "Der Termin ist drei Jahre.", "Ich bin um drei Uhr."], ans: 0 }
-          },
-          {
-            id: "l13", type: "lesson", icon: "🏃", title: "3. الروتين اليومي",
-            desc: "aufstehen, arbeiten, frühstücken, schlafen", xp: 30,
-            grammar: "بعض الأفعال تنفصل في الجملة، مثل aufstehen: Ich stehe um sieben Uhr auf. الفعل المصرف يأتي في المركز الثاني والبادئة في آخر الجملة.",
-            vocab: [
-              { de: "Ich stehe um sieben Uhr auf.", ar: "أستيقظ الساعة السابعة." },
-              { de: "Dann frühstücke ich.", ar: "بعد ذلك أتناول الإفطار." },
-              { de: "Ich gehe um acht Uhr zur Arbeit.", ar: "أذهب إلى العمل الساعة الثامنة." },
-              { de: "Am Abend sehe ich fern.", ar: "أشاهد التلفاز في المساء." }
-            ],
-            quiz: { q: "أين تأتي بادئة الفعل aufstehen؟", opts: ["في نهاية الجملة: Ich stehe früh auf.", "قبل الفاعل دائماً.", "تحذف من الجملة."], ans: 0 }
-          },
-          {
-            id: "l14", type: "lesson", icon: "💼", title: "4. العمل والمهن",
-            desc: "Beruf, Arbeitsplatz, arbeiten, suchen", xp: 30,
-            grammar: "للسؤال عن المهنة نقول: Was sind Sie von Beruf? وللإجابة: Ich bin Arzt / Ärztin. ويمكن قول: Ich arbeite als Lehrer.",
-            vocab: [
-              { de: "Was sind Sie von Beruf?", ar: "ما مهنتك؟" },
-              { de: "Ich bin Ingenieur.", ar: "أنا مهندس." },
-              { de: "Wo arbeiten Sie?", ar: "أين تعمل؟" },
-              { de: "Ich suche eine Arbeit.", ar: "أبحث عن عمل." }
-            ],
-            quiz: { q: "كيف تسأل شخصاً عن مهنته؟", opts: ["Was sind Sie von Beruf?", "Wie alt sind Sie?", "Wo wohnen Sie?"], ans: 0 }
-          },
-          {
-            id: "l15", type: "lesson", icon: "🧭", title: "5. الاتجاهات والأماكن في المدينة",
-            desc: "links, rechts, geradeaus, neben", xp: 30,
-            grammar: "للسؤال عن مكان نقول: Wo ist ...? ولإعطاء اتجاهات بسيطة: Gehen Sie geradeaus, dann links (امشِ للأمام ثم يساراً).",
-            vocab: [
-              { de: "Entschuldigung, wo ist der Bahnhof?", ar: "عذراً، أين محطة القطار؟" },
-              { de: "Gehen Sie geradeaus.", ar: "امشِ إلى الأمام." },
-              { de: "Dann links oder rechts.", ar: "ثم يساراً أو يميناً." },
-              { de: "Die Apotheke ist neben dem Supermarkt.", ar: "الصيدلية بجوار السوبرماركت." }
-            ],
-            quiz: { q: "ما معنى geradeaus؟", opts: ["إلى الأمام", "إلى اليمين", "إلى الخلف"], ans: 0 }
-          }
-        ]
-      },
-      {
-        unit: "الوحدة الخامسة: الحروف والنطق (Alphabet & Aussprache)",
-        nodes: [
-          {
-            id: "l16", type: "lesson", icon: "🔤", title: "1. الأبجدية الألمانية وتهجئة الاسم",
-            desc: "الحروف A–Z، أسماء الحروف، وتهجئة الاسم", xp: 35,
-            grammar: "الألمانية تستخدم 26 حرفاً لاتينياً، ومعها Ä/Ö/Ü و ß.\nلتهجئة اسمك قل: Wie schreibt man das? (كيف تُكتب؟) ثم انطق أسماء الحروف. مثال: A = آ، B = بي، C = تسي، D = دي، E = إيه.\nحروف العلة: A, E, I, O, U. تمرّن ببطء ثم اكتب اسمك حرفاً حرفاً.",
-            vocab: [
-              { de: "A B C D E", ar: "آ، بي، تسي، دي، إيه" },
-              { de: "F G H I J", ar: "إف، جي، ها، إي، يوت" },
-              { de: "K L M N O", ar: "كا، إل، إم، إن، أو" },
-              { de: "P Q R S T", ar: "پي، كو، إر، إس، تي" },
-              { de: "U V W X Y Z", ar: "أو، فاو، ڤيه، إكس، إبسيلون، تسِت" },
-              { de: "Wie schreibt man Ihren Namen?", ar: "كيف يُكتب اسم حضرتك؟" },
-              { de: "Mein Name ist Sara: S-A-R-A.", ar: "اسمي سارة: إس-آ-إر-آ." }
-            ],
-            quiz: { q: "أي مجموعة تمثل حروف العلة الألمانية؟", opts: ["A, E, I, O, U", "B, C, D, F, G", "K, L, M, N, P"], ans: 0 }
-          },
-          {
-            id: "l17", type: "lesson", icon: "🗣️", title: "2. الحروف الخاصة وأصوات الألمانية",
-            desc: "Ä, Ö, Ü, ß، و ch / sch / ei / ie", xp: 35,
-            grammar: "Ä صوته قريب من e، Ö و Ü صوتان أماميان لا يوجد لهما مقابل مطابق بالعربية؛ قرّب الشفتين مع نطق إيه/إي. ß يُسمى Eszett ويُنطق مثل ss.\nsch = ش مثل Schule، ei = آي مثل mein، ie = إي طويلة مثل sieben، و ch له صوتان: خفيف في ich وأقوى في Bach. استمع للنطق وكرره، فالنطق العربي هنا تقريب تقريبي.",
-            vocab: [
-              { de: "Ä ä – Mädchen", ar: "Ä: مثل صوت قريب من e — فتاة" },
-              { de: "Ö ö – schön", ar: "Ö: صوت أمامي — جميل" },
-              { de: "Ü ü – fünf", ar: "Ü: صوت أمامي — خمسة" },
-              { de: "ß – Straße", ar: "ß يُنطق ss — شارع" },
-              { de: "Schule / mein / sieben", ar: "شوله / ماين / زيبن" },
-              { de: "Ich spreche Deutsch.", ar: "أنا أتحدث الألمانية." }
-            ],
-            quiz: { q: "كيف يُنطق المقطع sch غالباً؟", opts: ["ش", "ف", "ك"], ans: 0 }
-          }
-        ]
-      },
-      {
-        unit: "الوحدة السادسة: قواعد البداية خطوة خطوة (Grammatik A1)",
+        unit: "الوحدة الثالثة: قواعد البداية خطوة خطوة (Grammatik A1)",
         nodes: [
           {
             id: "l18", type: "lesson", icon: "🧩", title: "1. الضمائر وتصريف sein و haben",
@@ -1409,7 +1232,72 @@
         ]
       },
       {
-        unit: "الوحدة السابعة: الطعام والطلبات والمواعيد (Essen & Termine)",
+        unit: "الوحدة الرابعة: الأسرة والروتين والعمل والمدينة (Familie & Alltag)",
+        nodes: [
+          {
+            id: "l11", type: "lesson", icon: "👨‍👩‍👧", title: "1. الأسرة والأصدقاء",
+            desc: "Familie, Geschwister, verheiratet, allein", xp: 30,
+            grammar: "للتحدث عن الملكية نستخدم mein / meine حسب الاسم: mein Bruder (أخي)، meine Schwester (أختي). وللسؤال نقول: Hast du Geschwister?",
+            vocab: [
+              { de: "Das ist meine Familie.", ar: "هذه عائلتي." },
+              { de: "Ich habe einen Bruder und eine Schwester.", ar: "لدي أخ وأخت." },
+              { de: "Bist du verheiratet?", ar: "هل أنت متزوج؟" },
+              { de: "Meine Eltern wohnen in Ägypten.", ar: "والداي يسكنان في مصر." }
+            ],
+            quiz: { q: "اختر الجملة الصحيحة: لدي أخت.", opts: ["Ich habe eine Schwester.", "Ich bin eine Schwester.", "Ich wohne Schwester."], ans: 0 }
+          },
+          {
+            id: "l12", type: "lesson", icon: "⏰", title: "2. الوقت وأيام الأسبوع",
+            desc: "Uhrzeit, Wochentage, Termine", xp: 30,
+            grammar: "للسؤال عن الوقت نقول: Wie spät ist es? وللمواعيد نستخدم um مع الساعة: Der Kurs beginnt um neun Uhr.",
+            vocab: [
+              { de: "Wie spät ist es?", ar: "كم الساعة؟" },
+              { de: "Es ist halb acht.", ar: "الساعة السابعة والنصف." },
+              { de: "Am Montag habe ich einen Deutschkurs.", ar: "لدي درس ألماني يوم الاثنين." },
+              { de: "Der Termin ist um 10 Uhr.", ar: "الموعد الساعة العاشرة." }
+            ],
+            quiz: { q: "كيف تقول: الموعد الساعة الثالثة؟", opts: ["Der Termin ist um drei Uhr.", "Der Termin ist drei Jahre.", "Ich bin um drei Uhr."], ans: 0 }
+          },
+          {
+            id: "l13", type: "lesson", icon: "🏃", title: "3. الروتين اليومي",
+            desc: "aufstehen, arbeiten, frühstücken, schlafen", xp: 30,
+            grammar: "بعض الأفعال تنفصل في الجملة، مثل aufstehen: Ich stehe um sieben Uhr auf. الفعل المصرف يأتي في المركز الثاني والبادئة في آخر الجملة.",
+            vocab: [
+              { de: "Ich stehe um sieben Uhr auf.", ar: "أستيقظ الساعة السابعة." },
+              { de: "Dann frühstücke ich.", ar: "بعد ذلك أتناول الإفطار." },
+              { de: "Ich gehe um acht Uhr zur Arbeit.", ar: "أذهب إلى العمل الساعة الثامنة." },
+              { de: "Am Abend sehe ich fern.", ar: "أشاهد التلفاز في المساء." }
+            ],
+            quiz: { q: "أين تأتي بادئة الفعل aufstehen؟", opts: ["في نهاية الجملة: Ich stehe früh auf.", "قبل الفاعل دائماً.", "تحذف من الجملة."], ans: 0 }
+          },
+          {
+            id: "l14", type: "lesson", icon: "💼", title: "4. العمل والمهن",
+            desc: "Beruf, Arbeitsplatz, arbeiten, suchen", xp: 30,
+            grammar: "للسؤال عن المهنة نقول: Was sind Sie von Beruf? وللإجابة: Ich bin Arzt / Ärztin. ويمكن قول: Ich arbeite als Lehrer.",
+            vocab: [
+              { de: "Was sind Sie von Beruf?", ar: "ما مهنتك؟" },
+              { de: "Ich bin Ingenieur.", ar: "أنا مهندس." },
+              { de: "Wo arbeiten Sie?", ar: "أين تعمل؟" },
+              { de: "Ich suche eine Arbeit.", ar: "أبحث عن عمل." }
+            ],
+            quiz: { q: "كيف تسأل شخصاً عن مهنته؟", opts: ["Was sind Sie von Beruf?", "Wie alt sind Sie?", "Wo wohnen Sie?"], ans: 0 }
+          },
+          {
+            id: "l15", type: "lesson", icon: "🧭", title: "5. الاتجاهات والأماكن في المدينة",
+            desc: "links, rechts, geradeaus, neben", xp: 30,
+            grammar: "للسؤال عن مكان نقول: Wo ist ...? ولإعطاء اتجاهات بسيطة: Gehen Sie geradeaus, dann links (امشِ للأمام ثم يساراً).",
+            vocab: [
+              { de: "Entschuldigung, wo ist der Bahnhof?", ar: "عذراً، أين محطة القطار؟" },
+              { de: "Gehen Sie geradeaus.", ar: "امشِ إلى الأمام." },
+              { de: "Dann links oder rechts.", ar: "ثم يساراً أو يميناً." },
+              { de: "Die Apotheke ist neben dem Supermarkt.", ar: "الصيدلية بجوار السوبرماركت." }
+            ],
+            quiz: { q: "ما معنى geradeaus؟", opts: ["إلى الأمام", "إلى اليمين", "إلى الخلف"], ans: 0 }
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الخامسة: الطعام والطلبات والمواعيد (Essen & Termine)",
         nodes: [
           {
             id: "l23", type: "lesson", icon: "🍽️", title: "1. الطعام والوجبات والتفضيلات",
@@ -1438,30 +1326,142 @@
             quiz: { q: "أين يأتي الفعل الثاني في جملة modal؟", opts: ["مصدر في نهاية الجملة", "مصرفاً قبل الفاعل", "يحذف دائماً"], ans: 0 }
           }
         ]
+      },
+      {
+        unit: "الوحدة السادسة: التسوق والحياة اليومية (Einkaufen & Alltag)",
+        nodes: [
+          {
+            id: "l5", type: "lesson", icon: "🛒", title: "1. التسوق في السوبرماركت",
+            desc: "brauchen, haben, Lebensmittel, Obst", xp: 25,
+            grammar: "أداة النكرة في حالة المفعول (Akkusativ): Ich brauche einen Apfel (مذكر), eine Banane (مؤنث), ein Brot (محايد).",
+            vocab: [
+              { de: "Ich brauche Milch und Brot.", ar: "أحتاج إلى حليب وخبز." },
+              { de: "Was kostet das Kilo Äpfel?", ar: "كم سعر كيلو التفاح؟" },
+              { de: "Gibt es Tomaten?", ar: "هل توجد طماطم؟" }
+            ],
+            quiz: { q: "ما أداة المذكر (Akkusativ) لكلمة Apfel بعد brauche؟", opts: ["einen", "eine", "ein"], ans: 0 }
+          },
+          {
+            id: "l6", type: "lesson", icon: "👕", title: "2. الملابس والمقاسات والألوان",
+            desc: "Hemd, Hose, Größe, Farbe, kosten", xp: 25,
+            grammar: "السؤال عن السعر والرأي: Wie gefällt dir das Hemd? Es ist zu klein / perfekt.",
+            vocab: [
+              { de: "Ich suche eine Hose.", ar: "أنا أبحث عن بنطلون." },
+              { de: "Welche Größe haben Sie?", ar: "ما هو مقاس حضرتك؟" },
+              { de: "Das T-Shirt kostet 15 Euro.", ar: "هذا القميص يكلف 15 يورو." }
+            ],
+            quiz: { q: "كيف تسأل عن مقاس الملابس؟", opts: ["Welche Größe haben Sie?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
+          },
+          {
+            id: "cp3", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #3: في متجر الملابس",
+            desc: "ابحث عن قميص أو بنطلون واسأل عن المقاس والسعر", xp: 50,
+            scenarioTitle: "مساعد متجر ملابس",
+            scenarioGoal: "اسأل عن بنطلون بالمقاس والسعر المناسب.",
+            starterDe: "Guten Tag! Kann ich Ihnen helfen?",
+            starterAr: "نهارك سعيد! هل يمكنني مساعدتك؟",
+            systemPrompt: "أنت بائع في متجر ملابس. ساعد الطالب ليسأل عن المقاسات والأسعار بجمل A1."
+          },
+          {
+            id: "l7", type: "lesson", icon: "🏠", title: "3. الشقة والأثاث (Wohnen)",
+            desc: "Zimmer, Küche, Bad, Miete, Möbel", xp: 25,
+            grammar: "صفات المسكن ووصف الغرف: Die Wohnung ist groß und hell (الشقة كبيرة ومضيئة).",
+            vocab: [
+              { de: "Ich suche eine 2-Zimmer-Wohnung.", ar: "أبحث عن شقة غرفتين." },
+              { de: "Wie hoch ist die Miete?", ar: "كم تبلغ قيمة الإيجار؟" },
+              { de: "Das Zimmer hat ein Bett und einen Tisch.", ar: "الغرفة بها سرير وطاولة." }
+            ],
+            quiz: { q: "ما ترجمة: شقة غرفتين؟", opts: ["2-Zimmer-Wohnung", "Kaffee", "Familie"], ans: 0 }
+          },
+          {
+            id: "cp4", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #4: التحدي الشامل للوحدة الثانية",
+            desc: "حوار متكامل حول التسوق وشراء مستلزمات الشقة", xp: 60,
+            scenarioTitle: "البحث عن شقة وشراء أثاث",
+            scenarioGoal: "تحدث مع صاحب الشقة أو بائع الأثاث عن التفاصيل.",
+            starterDe: "Hallo! Sie suchen eine Wohnung? Erzählen Sie mir mehr.",
+            starterAr: "مرحباً! أنت تبحث عن شقة؟ اخبرني بالمزيد.",
+            systemPrompt: "أنت مؤجر شقة أو بائع أثاث. حاور الطالب حول الغرف والإيجار والمقاسات."
+          }
+        ]
+      },
+      {
+        unit: "الوحدة السابعة: الصحة، السفر والطقس (Gesundheit & Reisen)",
+        nodes: [
+          {
+            id: "l8", type: "lesson", icon: "🩺", title: "1. الجسم والصحة عند الطبيب",
+            desc: "Kopf, Bauch, Arzt, Schmerzen, Krank", xp: 30,
+            grammar: "التعبير عن الألم: Ich habe Kopfschmerzen (لدي صداع). Mein Arm tut weh (ذراعي يؤلمني).",
+            vocab: [
+              { de: "Ich bin krank.", ar: "أنا مريض." },
+              { de: "Wo tut es weh?", ar: "أين مكان الألم؟" },
+              { de: "Ich brauche einen Termin beim Arzt.", ar: "أحتاج موعداً عند الطبيب." }
+            ],
+            quiz: { q: "كيف تقول: لدي صداع؟", opts: ["Ich habe Kopfschmerzen.", "Ich bin Kaffee.", "Ich wohne in Berlin."], ans: 0 }
+          },
+          {
+            id: "l9", type: "lesson", icon: "☀️", title: "2. الطقس وفصول السنة",
+            desc: "Sonne, Regen, kalt, warm, Grad", xp: 30,
+            grammar: "التعبير عن الطقس: Es ist kalt (الجو بارد). Heute regnet es (اليوم تمطر).",
+            vocab: [
+              { de: "Wie ist das Wetter heute?", ar: "كيف حال الطقس اليوم؟" },
+              { de: "Es ist sonnig und 25 Grad.", ar: "الجو مشمس و 25 درجة." },
+              { de: "Im Winter ist es kalt.", ar: "في الشتاء يكون الجو بارداً." }
+            ],
+            quiz: { q: "كيف تسأل عن الطقس؟", opts: ["Wie ist das Wetter heute?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
+          },
+          {
+            id: "cp5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #5: حجز موعد وحالة الطقس",
+            desc: "تحدث مع طبيب أو صديق عن الطقس وموعد الزيارة", xp: 55,
+            scenarioTitle: "حجز موعد عيادة",
+            scenarioGoal: "أخبر الطبيب بمكان الألم واتفق على موعد.",
+            starterDe: "Guten Tag! Praxis Dr. Müller. Was kann ich für Sie tun?",
+            starterAr: "نهارك سعيد! عيادة دكتور مولر. ماذا يمكنني أن أقدم لك؟",
+            systemPrompt: "أنت موظف استقبال عيادة. ساعد المريض في تحديد موعد وسؤاله عن حالته."
+          },
+          {
+            id: "l10", type: "lesson", icon: "🚆", title: "3. السفر والمحطة والمواصلات",
+            desc: "Zug, Fahrkarte, Bahnhof, abfahren", xp: 30,
+            grammar: "استخدام الأفعال المنفصلة (Trennbare Verben): Der Zug fährt um 10 Uhr ab (القطار يتحرك الساعة 10).",
+            vocab: [
+              { de: "Eine Fahrkarte nach Berlin, bitte.", ar: "تذكرة إلى برلين من فضلك." },
+              { de: "Wann fährt der nächste Zug?", ar: "متى يتحرك القطار القادم؟" },
+              { de: "Gleis 3.", ar: "رصيف رقم 3." }
+            ],
+            quiz: { q: "ما الفعل المنفصل المناسب لحركة القطار؟", opts: ["abfahren", "wohnen", "sprechen"], ans: 0 }
+          },
+          {
+            id: "cp6", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #6: التحدي النهائي لمستوى A1",
+            desc: "حوار شامل في محطة القطار والسفر لمدينة جديدة", xp: 75,
+            scenarioTitle: "شراء تذكرة وسؤال عن المواعيد في المحطة",
+            scenarioGoal: "احجز تذكرة قطار واستفسر عن الرصيف ووقت الرحلة.",
+            starterDe: "Guten Tag! Wohin möchten Sie reisen?",
+            starterAr: "نهارك سعيد! إلى أين تود أن تسافر؟",
+            systemPrompt: "أنت موظف محطة القطار. ساعد المسافر في حجز التذكرة، معرفة الرصيف، ووقت القيام بدقة لمستوى A1."
+          }
+        ]
       }
     ];
 
     const UNIT_TESTS = [
-      { id:"ut1", title:"اختبار الوحدة الأولى: البداية والتعارف", xp:50, questions:[
+      { id:"ut5", title:"اختبار الوحدة الأولى: الحروف والنطق", xp:50, questions:[
+        {q:"ما حروف العلة الألمانية؟",opts:["A, E, I, O, U","B, C, D, F, G","K, L, M, N, P"],ans:0},
+        {q:"كيف يُنطق sch غالباً؟",opts:["ش","ف","ك"],ans:0},
+        {q:"أي كلمة فيها ß؟",opts:["Straße","Mutter","Haus"],ans:0},
+        {q:"أي زوج يوضح أن ie صوت طويل؟",opts:["sieben","mein","Schule"],ans:0},
+        {q:"كيف تطلب تهجئة الاسم؟",opts:["Wie schreibt man das?","Wie kostet das?","Wo schreibt man?"],ans:0}
+      ]},
+      { id:"ut1", title:"اختبار الوحدة الثانية: البداية والتعارف", xp:50, questions:[
         {q:"كيف تقدم نفسك؟",opts:["Ich heiße Sara.","Ich wohne Sara.","Ich bin aus Sara."],ans:0},
         {q:"ما السؤال المهذب عن الاسم؟",opts:["Wie heißen Sie?","Wie alt bist du?","Wo wohnen du?"],ans:0},
         {q:"ما معنى Ich komme aus Ägypten؟",opts:["أنا من مصر.","أنا أعيش في برلين.","أنا أتكلم مصري."],ans:0},
         {q:"كيف تقول: عمري 20 سنة؟",opts:["Ich bin 20 Jahre alt.","Ich habe 20 Jahre.","Ich heiße 20."],ans:0},
         {q:"اختر طلب القهوة المهذب:",opts:["Ich möchte einen Kaffee, bitte.","Ich bin einen Kaffee.","Ich komme Kaffee."],ans:0}
       ]},
-      { id:"ut2", title:"اختبار الوحدة الثانية: التسوق والحياة اليومية", xp:50, questions:[
-        {q:"أكمل: Ich brauche ___ Apfel.",opts:["einen","eine","ein"],ans:0},
-        {q:"كيف تسأل عن المقاس؟",opts:["Welche Größe haben Sie?","Wie spät ist es?","Woher kommen Sie?"],ans:0},
-        {q:"ما معنى Wie viel kostet das؟",opts:["كم سعر هذا؟","أين هذا؟","متى يفتح؟"],ans:0},
-        {q:"كيف تقول: أبحث عن شقة؟",opts:["Ich suche eine Wohnung.","Ich bin eine Wohnung.","Ich habe Wohnung suche."],ans:0},
-        {q:"اختر الجملة الصحيحة:",opts:["Das Zimmer ist groß.","Der Zimmer ist groß.","Das Zimmer sind groß."],ans:0}
-      ]},
-      { id:"ut3", title:"اختبار الوحدة الثالثة: الصحة والسفر والطقس", xp:50, questions:[
-        {q:"كيف تقول: لدي صداع؟",opts:["Ich habe Kopfschmerzen.","Ich bin Kopfschmerzen.","Ich mache Kopfschmerzen."],ans:0},
-        {q:"ما معنى Es ist kalt؟",opts:["الجو بارد.","الجو جميل.","إنها تمطر."],ans:0},
-        {q:"كيف تسأل عن الطقس؟",opts:["Wie ist das Wetter?","Wie ist dein Name?","Wo ist der Zug?"],ans:0},
-        {q:"أكمل: Der Zug fährt um 10 Uhr ___.",opts:["ab","auf","an"],ans:0},
-        {q:"كيف تطلب تذكرة إلى برلين؟",opts:["Eine Fahrkarte nach Berlin, bitte.","Ein Zimmer nach Berlin.","Ich fahre eine Karte."],ans:0}
+      { id:"ut6", title:"اختبار الوحدة الثالثة: قواعد البداية", xp:50, questions:[
+        {q:"أكمل: Wir ___ hier.",opts:["sind","bin","seid"],ans:0},
+        {q:"أين يأتي الفعل غالباً في الجملة الخبرية؟",opts:["المركز الثاني","آخر الجملة دائماً","أول الجملة دائماً"],ans:0},
+        {q:"أي سؤال يبدأ بأداة سؤال؟",opts:["Wo wohnen Sie?","Wohnen Sie hier?","Sind Sie hier?"],ans:0},
+        {q:"أكمل: Ich habe ___ Auto.",opts:["kein","nicht","keine"],ans:0},
+        {q:"أكمل: Ich sehe ___ Mann. (der Mann)",opts:["einen","eine","ein"],ans:0}
       ]},
       { id:"ut4", title:"اختبار الوحدة الرابعة: الأسرة والروتين والعمل والمدينة", xp:50, questions:[
         {q:"ما معنى meine Schwester؟",opts:["أختي","أخي","أمي"],ans:0},
@@ -1470,26 +1470,26 @@
         {q:"كيف تسأل عن المهنة؟",opts:["Was sind Sie von Beruf?","Wie heißen Sie von Beruf?","Wo ist Ihr Beruf?"],ans:0},
         {q:"ما معنى Gehen Sie geradeaus؟",opts:["امشِ إلى الأمام.","انعطف يساراً.","توقف هنا."],ans:0}
       ]},
-      { id:"ut5", title:"اختبار الوحدة الخامسة: الحروف والنطق", xp:50, questions:[
-        {q:"ما حروف العلة الألمانية؟",opts:["A, E, I, O, U","B, C, D, F, G","K, L, M, N, P"],ans:0},
-        {q:"كيف يُنطق sch غالباً؟",opts:["ش","ف","ك"],ans:0},
-        {q:"أي كلمة فيها ß؟",opts:["Straße","Mutter","Haus"],ans:0},
-        {q:"أي زوج يوضح أن ie صوت طويل؟",opts:["sieben","mein","Schule"],ans:0},
-        {q:"كيف تطلب تهجئة الاسم؟",opts:["Wie schreibt man das?","Wie kostet das?","Wo schreibt man?"],ans:0}
-      ]},
-      { id:"ut6", title:"اختبار الوحدة السادسة: قواعد البداية", xp:50, questions:[
-        {q:"أكمل: Wir ___ hier.",opts:["sind","bin","seid"],ans:0},
-        {q:"أين يأتي الفعل غالباً في الجملة الخبرية؟",opts:["المركز الثاني","آخر الجملة دائماً","أول الجملة دائماً"],ans:0},
-        {q:"أي سؤال يبدأ بأداة سؤال؟",opts:["Wo wohnen Sie?","Wohnen Sie hier?","Sind Sie hier?"],ans:0},
-        {q:"أكمل: Ich habe ___ Auto.",opts:["kein","nicht","keine"],ans:0},
-        {q:"أكمل: Ich sehe ___ Mann. (der Mann)",opts:["einen","eine","ein"],ans:0}
-      ]},
-      { id:"ut7", title:"اختبار الوحدة السابعة: الطعام والمواعيد", xp:50, questions:[
+      { id:"ut7", title:"اختبار الوحدة الخامسة: الطعام والمواعيد", xp:50, questions:[
         {q:"كيف تقول: أحب شرب الشاي؟",opts:["Ich trinke gern Tee.","Ich bin gern Tee.","Ich wohne gern Tee."],ans:0},
         {q:"أكمل: Du ___ gern Pizza.",opts:["isst","essen","esse"],ans:0},
         {q:"ما معنى Zahlen, bitte؟",opts:["الحساب من فضلك.","الماء من فضلك.","الطاولة من فضلك."],ans:0},
         {q:"أين يأتي مصدر الفعل مع können؟",opts:["في نهاية الجملة","قبل الفاعل","يحذف دائماً"],ans:0},
         {q:"كيف تعتذر وتقول: للأسف لا أستطيع؟",opts:["Leider kann ich nicht.","Leider bin ich nicht.","Ich habe leider nicht."],ans:0}
+      ]},
+      { id:"ut2", title:"اختبار الوحدة السادسة: التسوق والحياة اليومية", xp:50, questions:[
+        {q:"أكمل: Ich brauche ___ Apfel.",opts:["einen","eine","ein"],ans:0},
+        {q:"كيف تسأل عن المقاس؟",opts:["Welche Größe haben Sie?","Wie spät ist es?","Woher kommen Sie?"],ans:0},
+        {q:"ما معنى Wie viel kostet das؟",opts:["كم سعر هذا؟","أين هذا؟","متى يفتح؟"],ans:0},
+        {q:"كيف تقول: أبحث عن شقة؟",opts:["Ich suche eine Wohnung.","Ich bin eine Wohnung.","Ich habe Wohnung suche."],ans:0},
+        {q:"اختر الجملة الصحيحة:",opts:["Das Zimmer ist groß.","Der Zimmer ist groß.","Das Zimmer sind groß."],ans:0}
+      ]},
+      { id:"ut3", title:"اختبار الوحدة السابعة: الصحة والسفر والطقس", xp:50, questions:[
+        {q:"كيف تقول: لدي صداع؟",opts:["Ich habe Kopfschmerzen.","Ich bin Kopfschmerzen.","Ich mache Kopfschmerzen."],ans:0},
+        {q:"ما معنى Es ist kalt؟",opts:["الجو بارد.","الجو جميل.","إنها تمطر."],ans:0},
+        {q:"كيف تسأل عن الطقس؟",opts:["Wie ist das Wetter?","Wie ist dein Name?","Wo ist der Zug?"],ans:0},
+        {q:"أكمل: Der Zug fährt um 10 Uhr ___.",opts:["ab","auf","an"],ans:0},
+        {q:"كيف تطلب تذكرة إلى برلين؟",opts:["Eine Fahrkarte nach Berlin, bitte.","Ein Zimmer nach Berlin.","Ich fahre eine Karte."],ans:0}
       ]}
     ];
 
@@ -1789,16 +1789,26 @@
 
         container.appendChild(list);
 
-        const unitTest = UNIT_TESTS[unitIndex];
+        const unitTest = unitIndex > 0 ? UNIT_TESTS[unitIndex - 1] : null;
         if (unitTest) {
           const testDone = state.completed.includes(unitTest.id);
           const testCard = document.createElement("div");
           testCard.className = `node-card checkpoint ${testDone ? "done" : ""}`;
           testCard.onclick = () => openUnitTest(unitTest);
-          testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${unitTest.title}</h3><p>5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${unitTest.xp} XP`}</span>`;
+          testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${unitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${unitTest.xp} XP`}</span>`;
           container.appendChild(testCard);
         }
       });
+      const finalUnitTest = UNIT_TESTS[UNIT_TESTS.length - 1];
+      if (finalUnitTest) {
+        const testDone = state.completed.includes(finalUnitTest.id);
+        const testCard = document.createElement("div");
+        testCard.className = `node-card checkpoint ${testDone ? "done" : ""}`;
+        testCard.onclick = () => openUnitTest(finalUnitTest);
+        testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${finalUnitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${finalUnitTest.xp} XP`}</span>`;
+        container.appendChild(testCard);
+      }
+
       const mockCard = document.createElement("div");
       mockCard.className = "node-card checkpoint";
       mockCard.innerHTML = `<div class="node-left"><div class="node-icon">🏁</div><div class="node-info"><h3>محاكاة A1 النهائية</h3><p>25 سؤالًا • 25 دقيقة • اختبار تدريبي غير رسمي</p></div></div><span class="node-badge">ابدأ</span>`;
@@ -1943,22 +1953,30 @@
       activeCheckpoint = null;
       currentLesson = lesson;
       const isDone = state.completed.includes(lesson.id);
-      const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).sort(() => Math.random() - 0.5);
       lessonSlides = [
         { type:"intro", title:"هدف الدرس" },
-        { type:"grammar", title:"افهم القاعدة" },
-        { type:"quiz", title:"سؤال القاعدة", question:lesson.quiz.q, options:grammarOptions.map(o => o.text), answer:grammarOptions.findIndex(o => o.correct), explanation:lesson.grammar }
+        { type:"grammar", title:"افهم القاعدة" }
       ];
-      const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
-      if (orderSource) { const tokens = orderSource.de.match(/\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
       lesson.vocab.forEach((item, index) => {
         lessonSlides.push({ type:"vocab", title:`كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
-        const options = getChoices(item.de, lesson, index, entry => entry.de);
-        lessonSlides.push({ type:"quiz", title:`سؤال على الكلمة ${index + 1}`, question:item.ar, options, answer:options.indexOf(item.de), vocabIndex:index, explanation:`${item.de} = ${item.ar}` });
-        const meanings = getChoices(item.ar, lesson, index, entry => entry.ar);
-        lessonSlides.push({ type:"listening", title:`استماع ${index + 1}`, item, options:meanings, answer:meanings.indexOf(item.ar), vocabIndex:index });
       });
+      const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\\S+/g) || []).length >= 3 && (v.de.match(/\\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type:"writing", title:"اكتب جملتك" });
+      lessonSlides.push({ type:"reviewIntro", title:"مراجعة بعد الدرس" });
+      const reviewItems = lesson.vocab.map((item, index) => ({ item, index })).sort(() => Math.random() - 0.5);
+      reviewItems.forEach(({ item, index }, reviewIndex) => {
+        if (reviewIndex % 2 === 0) {
+          const options = getChoices(item.de, lesson, index, entry => entry.de);
+          lessonSlides.push({ type:"quiz", title:`مراجعة كلمة ${index + 1}`, question:item.ar, options, answer:options.indexOf(item.de), vocabIndex:index, explanation:`${item.de} = ${item.ar}` });
+        } else {
+          const meanings = getChoices(item.ar, lesson, index, entry => entry.ar);
+          lessonSlides.push({ type:"listening", title:`مراجعة استماع ${index + 1}`, item, options:meanings, answer:meanings.indexOf(item.ar), vocabIndex:index });
+        }
+      });
+      if (orderSource) { const tokens = orderSource.de.match(/\\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
+      const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).sort(() => Math.random() - 0.5);
+      lessonSlides.push({ type:"quiz", title:"مراجعة القاعدة", question:lesson.quiz.q, options:grammarOptions.map(o => o.text), answer:grammarOptions.findIndex(o => o.correct), explanation:lesson.grammar });
+      
       document.getElementById("overlayTitle").textContent = lesson.title;
       document.getElementById("overlayXp").textContent = `+${lesson.xp} XP`;
       document.getElementById("overlayBody").innerHTML = `<div class="lesson-hero"><div class="lesson-hero-top"><strong>📚 درس خطوة بخطوة</strong><span class="node-badge">سؤال واحد في كل مرة</span></div><div id="lessonStageTitle"></div><div class="progress-track"><div id="lessonProgressFill" class="progress-fill"></div></div></div><div id="lessonSlide"></div><div class="lesson-nav"><button id="lessonPrevBtn" class="btn-ghost" onclick="showLessonStep(Number(document.getElementById('overlayBody').dataset.step)-1)">رجوع</button><button id="lessonNextBtn" class="btn-primary" onclick="moveLessonStep()">التالي ←</button></div>`;
@@ -1986,6 +2004,8 @@
       target.classList.add("slide-enter");
       if (slide.type === "intro") {
         target.innerHTML = `<div class="card"><h4>🎯 هتتعلم إيه؟</h4><p>${currentLesson.desc}</p><p style="margin-top:8px;color:var(--muted)">هنشرح نقطة واحدة، وبعدها سؤال واحد عليها. خذ وقتك، ومش هتظهر لك الأسئلة كلها مرة واحدة.</p></div>`;
+      } else if (slide.type === "reviewIntro") {
+        target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
         target.innerHTML = `<div class="card"><h4>📖 شرح القاعدة</h4><p style="white-space:pre-line;line-height:1.95">${currentLesson.grammar}</p><button class="btn-ghost" style="margin-top:12px" onclick="explainGrammarAI('${currentLesson.id}')">✨ شرح إضافي من المدرّب</button><div id="grammar-ai-box" class="ai-box" style="display:none"></div></div>`;
       } else if (slide.type === "vocab") {
@@ -2196,10 +2216,20 @@
     function completeNode(id, xp) {
       updateDailyStreak();
       if (!state.completed.includes(id)) {
+        const lesson = CURRICULUM.flatMap(unit => unit.nodes).find(node => node.id === id && node.type === "lesson");
         state.completed.push(id);
-        state.xp += xp;
+        const finishedLessons = lesson ? CURRICULUM.flatMap(unit => unit.nodes).filter(node => node.type === "lesson" && state.completed.includes(node.id)).length : 0;
+        const bonusXp = lesson && finishedLessons % 3 === 0 ? 15 : 0;
+        const earnedXp = xp + bonusXp;
+        state.xp += earnedXp;
         scheduleLessonReview(id);
-        showToast(`عاش يا بطل! كسبت +${xp} XP وخطوة جديدة في A1 🎉`, "xp", "🏆");
+        if (lesson) {
+          const totalLessons = CURRICULUM.flatMap(unit => unit.nodes).filter(node => node.type === "lesson").length;
+          const remaining = Math.max(0, totalLessons - finishedLessons);
+          showToast(bonusXp ? `إنجاز رائع! خلصت ${finishedLessons} دروس وخدت مكافأة سلسلة. +${earnedXp} XP 🏅` : `عاش! خلصت درس جديد. فاضلك ${remaining} درسًا. +${earnedXp} XP 🎉`, "xp", bonusXp ? "🏅" : "⭐");
+        } else {
+          showToast(`عاش يا بطل! كسبت +${earnedXp} XP وخطوة جديدة في A1 🎉`, "xp", "🏆");
+        }
       } else {
         showToast("مراجعة ممتازة! المعلومة بقت أرسخ في ذاكرتك 💪", "default", "✅");
       }
@@ -2207,7 +2237,7 @@
       renderPath();
       closeOverlay();
     }
-    function closeOverlay() {
+        function closeOverlay() {
       clearInterval(mockTimerId);
       document.getElementById("lessonOverlay").classList.remove("open");
       activeCheckpoint = null;
