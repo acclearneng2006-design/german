@@ -998,7 +998,7 @@
         </div>
         <div class="form-group">
           <label>موديل Gemini</label>
-          <input type="text" id="geminiModel" class="form-control ltr" value="gemini-2.5-flash" />
+          <input type="text" id="geminiModel" class="form-control ltr" value="gemini-3.5-flash-lite" />
         </div>
         <div class="row-2">
           <div class="form-group">
@@ -1602,7 +1602,7 @@
       settings: {
         aiMode: "proxy",
         geminiKey: "",
-        geminiModel: "gemini-2.5-flash",
+        geminiModel: "gemini-3.5-flash-lite",
         aiProxyUrl: DEFAULT_AI_PROXY_URL,
         ollamaUrl: "http://localhost:11434",
         ollamaModel: "qwen3:14b"
@@ -2357,7 +2357,7 @@
 
       if (!geminiKey) return "⚠️ أضف مفتاح Gemini API في تبويب الإعدادات.";
 
-      const modelsToTry = [geminiModel, "gemini-2.5-flash", "gemini-2.5-flash-lite"].filter((v, i, a) => v && a.indexOf(v) === i);
+      const modelsToTry = [geminiModel, "gemini-3.5-flash-lite"].filter((v, i, a) => v && a.indexOf(v) === i);
       let lastErr = "";
       for (const model of modelsToTry) {
         try {
@@ -2368,7 +2368,7 @@
     }
 
     async function fetchAIProxy(url, model, messages, systemInstruction) {
-      const safeModel = ["gemini-2.5-flash", "gemini-2.5-flash-lite"].includes(model) ? model : "gemini-2.5-flash";
+      const safeModel = ["gemini-3.5-flash-lite"].includes(model) ? model : "gemini-3.5-flash-lite";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -2574,7 +2574,7 @@
     function saveSettings() {
       state.settings.aiMode = document.getElementById("aiMode").value;
       state.settings.geminiKey = document.getElementById("geminiKey").value.trim();
-      state.settings.geminiModel = document.getElementById("geminiModel").value.trim() || "gemini-2.5-flash";
+      state.settings.geminiModel = document.getElementById("geminiModel").value.trim() || "gemini-3.5-flash-lite";
       state.settings.aiProxyUrl = document.getElementById("aiProxyUrl").value.trim();
       state.settings.ollamaUrl = document.getElementById("ollamaUrl").value.trim() || "http://localhost:11434";
       state.settings.ollamaModel = document.getElementById("ollamaModel").value.trim() || "qwen3:14b";
