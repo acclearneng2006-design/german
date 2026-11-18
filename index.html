@@ -2374,7 +2374,11 @@
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: safeModel, messages, systemInstruction })
+        const apiMessages = messages.map(message => ({
+                role: message.role === "user" ? "user" : "model",
+                content: message.content
+              }));
+              body: JSON.stringify({ model: safeModel, messages: apiMessages, systemInstruction })
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
