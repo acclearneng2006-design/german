@@ -1588,8 +1588,10 @@
     const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
     const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
+    const LESSON_FLOW_VERSION = 2;
 
     const DEFAULT_STATE = {
+      lessonFlowVersion: LESSON_FLOW_VERSION,
       streakDays: 1,
       lastActiveDate: "",
       completed: [],
@@ -1635,6 +1637,8 @@
           ...parsed,
           settings: { ...DEFAULT_STATE.settings }
         };
+        if ((parsed.lessonFlowVersion || 1) < LESSON_FLOW_VERSION) mergedState.lessonProgress = {};
+        mergedState.lessonFlowVersion = LESSON_FLOW_VERSION;
         if (!mergedState.settings.aiProxyUrl) mergedState.settings.aiProxyUrl = DEFAULT_AI_PROXY_URL;
         if (mergedState.settings.aiMode === "auto" && !mergedState.settings.geminiKey) mergedState.settings.aiMode = "proxy";
         return mergedState;
@@ -1983,8 +1987,11 @@
       const body = document.getElementById("overlayBody");
       body.dataset.lessonId = lesson.id;
       body.dataset.done = String(isDone);
+      const resumeStep = !isDone ? (state.lessonProgress?.[lesson.id] || 0) : 0;
+      const writingStep = lessonSlides.findIndex(slide => slide.type === "writing");
+      body.dataset.practiceDone = String(isDone || resumeStep > writingStep);
       document.getElementById("lessonOverlay").classList.add("open");
-      showLessonStep(!isDone ? (state.lessonProgress?.[lesson.id] || 0) : 0);
+      showLessonStep(resumeStep);
     }
     function showLessonStep(step) {
       const body = document.getElementById("overlayBody");
@@ -2029,15 +2036,20 @@
       const index = Number(body.dataset.step || 0);
       if (index === lessonSlides.length - 1) {
         if (body.dataset.done === "true") closeOverlay();
-        else if (document.getElementById("lessonPracticeInput")?.value.trim()) completeNode(currentLesson.id, currentLesson.xp);
+        else if (body.dataset.practiceDone === "true") completeNode(currentLesson.id, currentLesson.xp);
+        else showLessonStep(lessonSlides.findIndex(slide => slide.type === "writing"));
         return;
       }
       showLessonStep(index + 1);
     }
 
     function updateWritingNext() {
+      const input = document.getElementById("lessonPracticeInput");
+      const hasAnswer = Boolean(input?.value.trim());
       const next = document.getElementById("lessonNextBtn");
-      if (next) next.disabled = !document.getElementById("lessonPracticeInput").value.trim();
+      if (next) next.disabled = !hasAnswer;
+      const body = document.getElementById("overlayBody");
+      if (body) body.dataset.practiceDone = String(hasAnswer);
     }
     function selectWordToken(btn) {
       const tileArea = btn.parentElement;
@@ -2580,7 +2592,9 @@
         state.completed = Array.from(new Set([...(state.completed || []), ...(remote.completed || [])]));
         state.xp = Math.max(state.xp || 0, remote.xp || 0);
         state.cpChats = { ...(remote.cpChats || {}), ...(state.cpChats || {}) };
-        state.lessonProgress = { ...(remote.lessonProgress || {}), ...(state.lessonProgress || {}) };
+        if ((remote.lessonFlowVersion || 1) < LESSON_FLOW_VERSION) state.lessonProgress = {};
+        else state.lessonProgress = { ...(remote.lessonProgress || {}), ...(state.lessonProgress || {}) };
+        state.lessonFlowVersion = LESSON_FLOW_VERSION;
         state.mistakes = Array.from(new Map([...(remote.mistakes || []), ...(state.mistakes || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item])).values());
         const reviewMap = new Map([...(remote.reviewQueue || []), ...(state.reviewQueue || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item]));
         state.reviewQueue = Array.from(reviewMap.values());
@@ -2627,7 +2641,7 @@
     }
 
     function getSyncPayload() {
-      return { completed: state.completed, xp: state.xp, streakDays: state.streakDays || 1, lastActiveDate: state.lastActiveDate || "", cpChats: state.cpChats, reviewQueue: state.reviewQueue || [], lessonProgress: state.lessonProgress || {}, mistakes: state.mistakes || [], updatedAt: Date.now() };
+      return { lessonFlowVersion: LESSON_FLOW_VERSION, completed: state.completed, xp: state.xp, streakDays: state.streakDays || 1, lastActiveDate: state.lastActiveDate || "", cpChats: state.cpChats, reviewQueue: state.reviewQueue || [], lessonProgress: state.lessonProgress || {}, mistakes: state.mistakes || [], updatedAt: Date.now() };
     }
 
     document.addEventListener("visibilitychange", () => {
