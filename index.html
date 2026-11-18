@@ -2371,14 +2371,14 @@
       const safeModel = ["gemini-3.5-flash-lite"].includes(model) ? model : "gemini-3.5-flash-lite";
       const configuredUrl = url.trim().replace(/\/+$/, "");
       const endpoint = configuredUrl.endsWith("/api/chat") ? configuredUrl : configuredUrl + "/api/chat";
+      const apiMessages = messages.map(message => ({
+        role: message.role === "user" ? "user" : "model",
+        content: message.content
+      }));
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        const apiMessages = messages.map(message => ({
-                role: message.role === "user" ? "user" : "model",
-                content: message.content
-              }));
-              body: JSON.stringify({ model: safeModel, messages: apiMessages, systemInstruction })
+        body: JSON.stringify({ model: safeModel, messages: apiMessages, systemInstruction })
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
