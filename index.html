@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Deutsch A1 Coach</title>
-  <meta name="theme-color" content="#0f172a" />
+  <title>Deutsch A1 Coach Pro</title>
+  <meta name="theme-color" content="#0b1120" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Deutsch%20A1%20Coach%22%2C%22short_name%22%3A%22Deutsch%20A1%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230f172a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Fxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%25230f172a%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27136%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523111827%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27216%27%20width%3D%27320%27%20height%3D%2780%27%20fill%3D%27%2523dc2626%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27296%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523facc15%27%2F%253E%253Ctext%20x%3D%27256%27%20y%3D%27282%27%20font-family%3D%27sans-serif%27%20font-size%3D%2796%27%20font-weight%3D%27bold%27%20fill%3D%27white%27%20text-anchor%3D%27middle%27%253EA1%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D" />
+  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22Deutsch%20A1%20Coach%22%2C%22short_name%22%3A%22Deutsch%20A1%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230b1120%22%2C%22theme_color%22%3A%22%230b1120%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20512%20512%27%253E%253Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%27110%27%20fill%3D%27%25230b1120%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27136%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523111827%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27216%27%20width%3D%27320%27%20height%3D%2780%27%20fill%3D%27%2523dc2626%27%2F%253E%253Crect%20x%3D%2796%27%20y%3D%27296%27%20width%3D%27320%27%20height%3D%2780%27%20rx%3D%2712%27%20fill%3D%27%2523facc15%27%2F%253E%253Ctext%20x%3D%27256%27%20y%3D%27282%27%20font-family%3D%27sans-serif%27%20font-size%3D%2796%27%20font-weight%3D%27bold%27%20fill%3D%27white%27%20text-anchor%3D%27middle%27%253EA1%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D" />
   <style>
     :root {
       --bg: #0b1120;
@@ -17,7 +17,7 @@
       --text: #f1f5f9;
       --muted: #94a3b8;
       --primary: #3b82f6;
-      --primary-glow: rgba(59, 130, 246, 0.25);
+      --primary-glow: rgba(59, 130, 246, 0.28);
       --accent: #f59e0b;
       --success: #10b981;
       --danger: #ef4444;
@@ -31,13 +31,19 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
       background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(59, 130, 246, 0.11), transparent 36%),
+        radial-gradient(circle at 85% 28%, rgba(245, 158, 11, 0.08), transparent 36%),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, 0.06), transparent 40%);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
-      padding-bottom: 88px;
+      padding-bottom: 92px;
       overflow-x: hidden;
     }
 
@@ -47,12 +53,13 @@
       unicode-bidi: isolate;
     }
 
+    /* Header */
     .app-header {
       position: sticky;
       top: 0;
       z-index: 40;
-      background: rgba(11, 17, 32, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(11, 17, 32, 0.9);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       padding: 12px 16px;
     }
@@ -64,19 +71,21 @@
       display: grid;
       place-items: center;
       padding: 20px;
-      background: rgba(11, 17, 32, 0.98);
+      background: rgba(11, 17, 32, 0.97);
+      backdrop-filter: blur(10px);
     }
     .auth-gate[hidden] { display: none !important; }
     .auth-card {
       width: min(100%, 430px);
       padding: 24px;
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 22px;
       background: var(--surface);
-      box-shadow: 0 24px 80px rgba(0,0,0,.4);
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+      animation: slideStepIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .auth-card h2 { margin-bottom: 8px; font-size: 22px; }
-    .auth-card p { margin-bottom: 18px; color: var(--muted); font-size: 14px; }
+    .auth-card h2 { margin-bottom: 8px; font-size: 21px; }
+    .auth-card p { margin-bottom: 18px; color: var(--muted); font-size: 13.5px; }
     .auth-card .row-2 { margin-top: 12px; }
     .auth-panel[hidden] { display: none !important; }
 
@@ -106,20 +115,14 @@
       font-weight: 800;
       font-size: 12px;
       color: #fff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
-      border: 1px solid rgba(255,255,255,0.15);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.85);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     }
 
-    .brand h1 {
-      font-size: 16px;
-      font-weight: 700;
-    }
+    .brand h1 { font-size: 16px; font-weight: 800; letter-spacing: -0.2px; }
 
-    .stats-pills {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .stats-pills { display: flex; align-items: center; gap: 7px; }
 
     .pill {
       background: var(--surface-2);
@@ -127,10 +130,11 @@
       padding: 4px 10px;
       border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       display: flex;
       align-items: center;
       gap: 4px;
+      transition: transform 0.2s ease;
     }
 
     .sync-dot {
@@ -139,29 +143,38 @@
       border-radius: 50%;
       background: var(--muted);
     }
-    .sync-dot.ok { background: var(--success); }
+    .sync-dot.ok { background: var(--success); box-shadow: 0 0 8px var(--success); }
     .sync-dot.busy { background: var(--accent); animation: pulse 1s infinite; }
     .sync-dot.err { background: var(--danger); }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.88); }
     }
 
     .progress-track {
       max-width: 720px;
       margin: 10px auto 0;
-      height: 6px;
+      height: 7px;
       background: var(--surface-2);
       border-radius: 999px;
       overflow: hidden;
+      position: relative;
     }
 
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--primary), var(--success));
-      transition: width 0.35s ease;
+      background: linear-gradient(90deg, var(--primary), #38bdf8, var(--success));
+      background-size: 200% 100%;
+      animation: shimmerBar 3s linear infinite;
+      transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      border-radius: 999px;
+    }
+
+    @keyframes shimmerBar {
+      0% { background-position: 100% 0; }
+      100% { background-position: -100% 0; }
     }
 
     .container {
@@ -170,37 +183,81 @@
       padding: 16px;
     }
 
-    .view {
-      display: none;
-      animation: fadeIn 0.2s ease;
-    }
+    .view { display: none; }
     .view.active {
       display: block;
+      animation: viewFadeIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+    @keyframes viewFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Motivational Hero */
+    .motivation-banner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(16, 185, 129, 0.12));
+      border: 1px solid rgba(59, 130, 246, 0.34);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    .motivation-text { flex: 1; }
+    .motivation-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(245, 158, 11, 0.15);
+      padding: 2px 9px;
+      border-radius: 999px;
+      margin-bottom: 5px;
+    }
+    .motivation-quote { font-size: 13.5px; font-weight: 700; color: var(--text); line-height: 1.5; }
+    .motivation-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .streak-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 8px 12px;
+      text-align: center;
+      min-width: 72px;
+      flex-shrink: 0;
+    }
+    .streak-num { font-size: 18px; font-weight: 800; color: #fb923c; line-height: 1.2; }
+    .streak-lbl { font-size: 10.5px; color: var(--muted); font-weight: 600; }
+
+    /* Curriculum Path */
     .unit-header {
       margin: 24px 0 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 6px 10px;
+      border-right: 3px solid var(--accent);
+      background: rgba(245, 158, 11, 0.06);
+      border-radius: 8px;
     }
     .unit-header:first-child { margin-top: 4px; }
-    .unit-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--accent);
-    }
+    .unit-title { font-size: 14.5px; font-weight: 800; color: var(--accent); }
 
     .node-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
       position: relative;
+    }
+
+    @keyframes cardRise {
+      from { opacity: 0; transform: translateY(12px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .node-card {
@@ -213,29 +270,29 @@
       justify-content: space-between;
       gap: 12px;
       cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s, background 0.15s;
-    }
-    .node-card:active {
-      transform: scale(0.985);
+      animation: cardRise 0.35s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
     .node-card:hover {
       border-color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
     }
+    .node-card:active { transform: scale(0.98); }
 
     .node-card.checkpoint {
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(245, 158, 11, 0.12));
       border-color: rgba(245, 158, 11, 0.45);
     }
 
-    .node-card.done {
-      border-color: rgba(16, 185, 129, 0.45);
+    .node-card.exam-node {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.14), rgba(59, 130, 246, 0.12));
+      border-color: rgba(168, 85, 247, 0.45);
     }
 
-    .node-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .node-card.done { border-color: rgba(16, 185, 129, 0.48); }
+
+    .node-left { display: flex; align-items: center; gap: 12px; }
 
     .node-icon {
       width: 44px;
@@ -247,26 +304,17 @@
       justify-content: center;
       font-size: 20px;
       flex-shrink: 0;
+      transition: transform 0.2s ease;
     }
-    .node-card.checkpoint .node-icon {
-      background: rgba(245, 158, 11, 0.2);
-    }
-    .node-card.done .node-icon {
-      background: rgba(16, 185, 129, 0.18);
-    }
+    .node-card:hover .node-icon { transform: scale(1.06) rotate(-2deg); }
+    .node-card.checkpoint .node-icon { background: rgba(245, 158, 11, 0.2); }
+    .node-card.done .node-icon { background: rgba(16, 185, 129, 0.18); }
 
-    .node-info h3 {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .node-info p {
-      font-size: 12.5px;
-      color: var(--muted);
-    }
+    .node-info h3 { font-size: 14.5px; font-weight: 700; margin-bottom: 2px; }
+    .node-info p { font-size: 12px; color: var(--muted); }
 
     .node-badge {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       padding: 4px 10px;
       border-radius: 999px;
@@ -274,15 +322,10 @@
       color: var(--muted);
       white-space: nowrap;
     }
-    .node-card.done .node-badge {
-      background: rgba(16, 185, 129, 0.18);
-      color: var(--success);
-    }
-    .node-card.checkpoint .node-badge {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--accent);
-    }
+    .node-card.done .node-badge { background: rgba(16, 185, 129, 0.18); color: var(--success); }
+    .node-card.checkpoint .node-badge { background: rgba(245, 158, 11, 0.2); color: var(--accent); }
 
+    /* Overlay & Lesson Flow */
     .lesson-overlay {
       position: fixed;
       inset: 0;
@@ -290,10 +333,13 @@
       background: var(--bg);
       overflow-y: auto;
       display: none;
-      padding-bottom: 40px;
+      padding-bottom: 44px;
+      opacity: 0;
+      transition: opacity 0.22s ease;
     }
     .lesson-overlay.open {
       display: block;
+      opacity: 1;
     }
 
     .lesson-topbar {
@@ -301,7 +347,7 @@
       top: 0;
       z-index: 10;
       background: rgba(11, 17, 32, 0.95);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 12px 16px;
       display: flex;
@@ -319,7 +365,11 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
     }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--primary); background: rgba(59, 130, 246, 0.12); }
+    .btn-ghost:active:not(:disabled) { transform: scale(0.96); }
+    .btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; }
 
     .lesson-body {
       max-width: 680px;
@@ -333,10 +383,11 @@
       border-radius: var(--radius);
       padding: 16px;
       margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
     }
 
     .card h4 {
-      font-size: 14px;
+      font-size: 14.5px;
       color: var(--accent);
       margin-bottom: 10px;
       display: flex;
@@ -344,34 +395,50 @@
       justify-content: space-between;
     }
 
-    .vocab-item {
+    /* Styled Alphabet Grid */
+    .alpha-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      direction: ltr;
+      margin-top: 12px;
+    }
+    .alpha-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-bottom: 3px solid #0f172a;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 4px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
     }
-    .vocab-item:last-child { border-bottom: none; }
+    .alpha-btn strong { font-size: 19px; font-weight: 800; color: #fff; }
+    .alpha-btn span { font-size: 10px; color: var(--muted); font-weight: 600; }
+    .alpha-btn:hover {
+      border-color: var(--primary);
+      background: rgba(59, 130, 246, 0.16);
+      transform: translateY(-2px);
+    }
+    .alpha-btn:active, .alpha-btn.speaking {
+      transform: scale(0.94);
+      border-color: var(--success);
+      background: rgba(16, 185, 129, 0.22);
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.35);
+    }
 
-    .vocab-de {
-      font-weight: 700;
-      font-size: 15px;
-      color: #fff;
-    }
-    .vocab-ar {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .vocab-actions {
-      display: flex;
-      gap: 6px;
-    }
+    .vocab-de { font-weight: 800; font-size: 15px; color: #fff; }
+    .vocab-ar { font-size: 13px; color: var(--muted); }
+    .vocab-actions { display: flex; gap: 6px; margin-top: 8px; }
 
     .icon-btn {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       border: 1px solid var(--border);
       background: var(--surface-2);
@@ -381,17 +448,20 @@
       justify-content: center;
       cursor: pointer;
       font-size: 15px;
+      transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
     }
-    .icon-btn:active { transform: scale(0.92); }
+    .icon-btn:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.16); }
+    .icon-btn:active { transform: scale(0.9); }
 
     .ai-box {
-      background: rgba(59, 130, 246, 0.08);
+      background: rgba(59, 130, 246, 0.09);
       border: 1px solid rgba(59, 130, 246, 0.35);
       border-radius: 12px;
       padding: 12px;
       margin-top: 10px;
       font-size: 13.5px;
       white-space: pre-wrap;
+      line-height: 1.75;
     }
 
     .quiz-opt {
@@ -405,427 +475,225 @@
       margin-top: 8px;
       font-size: 14px;
       cursor: pointer;
-      transition: 0.15s;
+      transition: transform 0.16s ease, background 0.18s ease, border-color 0.18s ease;
     }
-    .lesson-practice-prompt { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-    .lesson-textarea { width: 100%; min-height: 96px; resize: vertical; direction: ltr; text-align: left; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 12px; font: inherit; }
-    .lesson-feedback { display: none; margin-top: 10px; padding: 12px; border-radius: 12px; background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.3); white-space: pre-wrap; font-size: 13px; line-height: 1.8; }
-    .quiz-feedback { margin-top: 10px; min-height: 24px; font-size: 13px; font-weight: 700; }    .word-order-built { min-height:46px; padding:10px; margin:10px 0; border:2px dashed var(--border); border-radius:12px; direction:ltr; text-align:left; font-weight:800; }
-    .word-order-built.solved { background:#e8f8d8; border-style:solid; border-color:var(--success); }
-    .word-order-tiles { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-    .word-chip { background:#fff; color:#263238; border:1px solid #cbd5e1; border-bottom:3px solid #9ca3af; padding:9px 13px; border-radius:12px; cursor:pointer; direction:ltr; font-weight:700; }
-    .word-chip.used { opacity:.55; color:#263238; }
-    .word-chip:focus-visible { outline:3px solid #3b82f6; outline-offset:2px; }
-    .word-chip.used { opacity:.35; }
-    .word-chip:disabled { cursor:default; }
-    .lesson-stage { display:none; animation:fadeIn .18s ease; }
-    .lesson-stage.active { display:block; }
-    .lesson-nav { display:flex; gap:10px; margin:12px 0 24px; }
-    .lesson-nav .btn-primary { flex:1; }
-    .lesson-nav .btn-ghost { min-width:100px; }
-    .lesson-hero { background: linear-gradient(135deg, rgba(34,197,94,.18), rgba(59,130,246,.16)); border: 1px solid rgba(34,197,94,.35); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
-    .lesson-hero-top { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px; }
-    .lesson-steps { display:flex; gap:6px; margin-top:12px; }
-    .lesson-step { flex:1; height:6px; border-radius:99px; background:var(--surface-2); }
-    .lesson-step.active { background:var(--success); }
-    .lesson-step-labels { display:flex; justify-content:space-between; gap:4px; color:var(--muted); font-size:10px; margin-top:5px; }
-    .practice-question { border:1px solid var(--border); border-radius:14px; padding:12px; margin-top:10px; }
-    .practice-choice { width:100%; text-align:right; background:var(--surface-2); color:var(--text); border:1px solid var(--border); border-radius:11px; padding:10px 12px; margin-top:7px; cursor:pointer; }
-    .practice-choice.correct { border-color:var(--success); background:rgba(16,185,129,.18); }
-    .practice-choice.wrong { border-color:var(--danger); background:rgba(239,68,68,.18); }
-    .practice-choice-feedback { min-height:20px; margin-top:7px; font-size:12px; font-weight:700; }    .quiz-opt.correct {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: var(--success);
-      color: #fff;
-    }
-    .quiz-opt.wrong {
-      background: rgba(239, 68, 68, 0.2);
-      border-color: var(--danger);
-    }
-
-    .btn-primary {
-      width: 100%;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 13px 16px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 8px;
-      box-shadow: 0 4px 14px var(--primary-glow);
-    }
-    .btn-primary.success { background: var(--success); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-
-    .chat-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      display: flex;
-      flex-direction: column;
-      height: calc(100vh - 210px);
-      min-height: 400px;
-      overflow: hidden;
-    }
-
-    .chat-context-banner {
-      background: rgba(245, 158, 11, 0.12);
-      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
-      padding: 10px 14px;
-      font-size: 12.5px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .msg {
-      max-width: 86%;
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      line-height: 1.55;
-      position: relative;
-    }
-    .msg.ai {
-      align-self: flex-start;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-bottom-right-radius: 4px;
-    }
-    .msg.user {
-      align-self: flex-end;
-      background: var(--primary);
-      color: #fff;
-      border-bottom-left-radius: 4px;
-    }
-
-    .msg-de {
-      direction: ltr;
-      text-align: left;
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-    .msg-ar {
-      font-size: 12.5px;
-      color: #cbd5e1;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding-top: 4px;
-      margin-top: 4px;
-    }
-    .msg-speak {
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: rgba(255,255,255,0.08);
-      border: none;
-      color: #fff;
-      padding: 4px 9px;
-      border-radius: 8px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .chat-input-area {
-      border-top: 1px solid var(--border);
-      padding: 10px;
-      background: var(--surface);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .chat-input {
-      flex: 1;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 12px;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .mic-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface-2);
-      color: var(--text);
-      font-size: 18px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-    .mic-btn.recording {
-      background: var(--danger);
-      border-color: var(--danger);
-      color: #fff;
-      animation: pulse 1s infinite;
-    }
-
-    .send-btn {
-      height: 42px;
-      padding: 0 14px;
-      border-radius: 12px;
-      border: none;
-      background: var(--primary);
-      color: #fff;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 12.5px;
-      color: var(--muted);
-      margin-bottom: 5px;
-    }
-    .form-control {
-      width: 100%;
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 13.5px;
-      outline: none;
-    }
-
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .status-text {
-      font-size: 12.5px;
-      margin-top: 8px;
-      min-height: 18px;
-    }
-
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      background: rgba(19, 28, 49, 0.96);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: space-around;
-      padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
-    }
-
-    .nav-item {
-      flex: 1;
-      max-width: 160px;
-      background: none;
-      border: none;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-      font-size: 11.5px;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 10px;
-    }
-    .nav-item span.ico {
-      font-size: 20px;
-    }
-    .nav-item.active {
-      color: var(--primary);
-      background: rgba(59, 130, 246, 0.1);
-    }
-
-    .chip-row {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 8px;
-    }
-    .chip {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .chip.active {
-      background: var(--primary);
+    .quiz-opt:hover:not(:disabled) {
       border-color: var(--primary);
-    }
-    .article-m { color:#2563eb; font-weight:800; }
-    .article-f { color:#dc2626; font-weight:800; }
-    .article-n { color:#16a34a; font-weight:800; }
-    .vocab-bank-item { margin-bottom:10px; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-image:
-        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.08), transparent 35%),
-        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.06), transparent 35%);
-    }
-
-    /* Motivational Hero & Streak Card */
-    .motivation-banner {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(16, 185, 129, 0.12));
-      border: 1px solid rgba(59, 130, 246, 0.32);
-      border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-      animation: fadeIn 0.3s ease;
-    }
-    .motivation-text {
-      flex: 1;
-    }
-    .motivation-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--accent);
-      background: rgba(245, 158, 11, 0.14);
-      padding: 2px 9px;
-      border-radius: 999px;
-      margin-bottom: 5px;
-    }
-    .motivation-quote {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.5;
-    }
-    .motivation-sub {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .streak-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 8px 12px;
-      text-align: center;
-      min-width: 72px;
-      flex-shrink: 0;
-    }
-    .streak-num {
-      font-size: 18px;
-      font-weight: 800;
-      color: #fb923c;
-      line-height: 1.2;
-    }
-    .streak-lbl {
-      font-size: 10.5px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    /* Smooth Card & Button Micro-interactions */
-    .node-card {
-      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .node-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
-    }
-    .node-card:active {
-      transform: scale(0.98);
-    }
-
-    .quiz-opt, .practice-choice, .word-chip, .btn-primary, .btn-ghost, .icon-btn, .chip, .nav-item {
-      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-    }
-    .quiz-opt:hover:not(:disabled), .practice-choice:hover:not(:disabled) {
-      border-color: var(--primary);
-      background: rgba(59, 130, 246, 0.12);
+      background: rgba(59, 130, 246, 0.13);
       transform: translateX(-2px);
     }
-    .quiz-opt:active:not(:disabled), .btn-primary:active:not(:disabled), .btn-ghost:active:not(:disabled) {
-      transform: scale(0.97);
-    }
+    .quiz-opt:active:not(:disabled) { transform: scale(0.98); }
     .quiz-opt.selected {
       border-color: var(--primary);
       background: rgba(59, 130, 246, 0.22);
       box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
     }
+    .quiz-opt.correct {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: var(--success);
+      color: #fff;
+    }
+    .quiz-opt.wrong {
+      background: rgba(239, 68, 68, 0.22);
+      border-color: var(--danger);
+    }
 
-    /* Smooth Overlay & Slide Transitions */
-    .lesson-overlay {
-      opacity: 0;
-      transition: opacity 0.22s ease;
+    .lesson-practice-prompt { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+    .lesson-textarea {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      direction: ltr;
+      text-align: left;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
     }
-    .lesson-overlay.open {
-      display: block;
-      opacity: 1;
+    .lesson-textarea:focus { border-color: var(--primary); }
+
+    .lesson-feedback {
+      display: none;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(59,130,246,.1);
+      border: 1px solid rgba(59,130,246,.32);
+      white-space: pre-wrap;
+      font-size: 13.5px;
+      line-height: 1.8;
     }
+    .quiz-feedback { margin-top: 10px; min-height: 24px; font-size: 13px; font-weight: 700; }
+
+    /* Word Order */
+    .word-order-built {
+      min-height: 48px;
+      padding: 10px 12px;
+      margin: 10px 0;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      direction: ltr;
+      text-align: left;
+      font-weight: 800;
+      background: rgba(15, 23, 42, 0.45);
+      transition: all 0.2s ease;
+    }
+    .word-order-built.solved {
+      background: rgba(16, 185, 129, 0.18);
+      border-style: solid;
+      border-color: var(--success);
+      color: #fff;
+    }
+    .word-order-tiles { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 10px; }
+    .word-chip {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-bottom: 3px solid #090d16;
+      padding: 9px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      direction: ltr;
+      font-weight: 700;
+      transition: transform 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    }
+    .word-chip:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-2px); }
+    .word-chip.used { opacity: 0.35; transform: scale(0.95); }
+    .word-chip:disabled { cursor: default; }
+
+    /* Lesson Hero & Nav */
+    .lesson-nav { display: flex; gap: 10px; margin: 12px 0 24px; }
+    .lesson-nav .btn-primary { flex: 1; margin-top: 0; }
+    .lesson-nav .btn-ghost { min-width: 100px; }
+    .lesson-hero {
+      background: linear-gradient(135deg, rgba(16,185,129,.16), rgba(59,130,246,.16));
+      border: 1px solid rgba(16,185,129,.35);
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+    .lesson-hero-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+
+    /* Reading Box (Lesen) */
+    .reading-passage {
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--border);
+      border-right: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 14px;
+      margin: 10px 0;
+      direction: ltr;
+      text-align: left;
+      font-size: 15px;
+      line-height: 1.75;
+      color: #f8fafc;
+    }
+    .rf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    /* Formular Table (Schreiben) */
+    .formular-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .formular-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .formular-field label { font-size: 12px; color: var(--accent); font-weight: 700; direction: ltr; text-align: left; }
+
+    /* 3D Flip Flashcards */
+    .flashcard-stage {
+      perspective: 1100px;
+      margin: 16px 0;
+    }
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      min-height: 230px;
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+    .flashcard-inner.flipped { transform: rotateY(180deg); }
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: linear-gradient(145deg, var(--surface), var(--surface-2));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+    }
+    .flashcard-face.back {
+      transform: rotateY(180deg);
+      border-color: rgba(16, 185, 129, 0.5);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), var(--surface));
+    }
+    .flashcard-hint { font-size: 11.5px; color: var(--muted); margin-top: 14px; }
+
+    /* Animations */
     @keyframes slideStepIn {
       from { opacity: 0; transform: translateY(10px) scale(0.99); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
-    .slide-enter {
-      animation: slideStepIn 0.26s cubic-bezier(0.22, 1, 0.36, 1);
-    }
+    .slide-enter { animation: slideStepIn 0.26s cubic-bezier(0.22, 1, 0.36, 1); }
+
     @keyframes popBounce {
       0% { transform: scale(0.95); }
-      50% { transform: scale(1.03); }
+      50% { transform: scale(1.035); }
       100% { transform: scale(1); }
     }
-    .pop-anim {
-      animation: popBounce 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
+    .pop-anim { animation: popBounce 0.34s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
     @keyframes shakeX {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
     }
-    .shake-anim {
-      animation: shakeX 0.28s ease;
+    .shake-anim { animation: shakeX 0.28s ease; }
+
+    /* Confetti */
+    .confetti-piece {
+      position: fixed;
+      width: 9px;
+      height: 14px;
+      top: -20px;
+      z-index: 9999;
+      pointer-events: none;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
     }
 
-    /* Toast Notification */
+    /* Toast */
     .toast-container {
       position: fixed;
       top: 68px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 100;
+      z-index: 120;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -849,7 +717,7 @@
     }
     .toast.xp {
       border-color: rgba(245, 158, 11, 0.65);
-      background: linear-gradient(135deg, rgba(19, 28, 49, 0.98), rgba(245, 158, 11, 0.16));
+      background: linear-gradient(135deg, rgba(19, 28, 49, 0.98), rgba(245, 158, 11, 0.18));
     }
     @keyframes toastIn {
       from { opacity: 0; transform: translateY(-12px) scale(0.95); }
@@ -859,18 +727,81 @@
       to { opacity: 0; transform: translateY(-10px) scale(0.95); }
     }
 
-    /* Typing Dots in Chat */
-    .typing-dots {
-      display: inline-flex;
-      gap: 4px;
-      align-items: center;
-      padding: 4px 2px;
+    /* Primary Buttons */
+    .btn-primary {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transition: transform 0.16s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px var(--primary-glow); }
+    .btn-primary:active:not(:disabled) { transform: scale(0.97); }
+    .btn-primary.success { background: var(--success); }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Chat */
+    .chat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 210px);
+      min-height: 400px;
+      overflow: hidden;
+    }
+    .chat-context-banner {
+      background: rgba(245, 158, 11, 0.12);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 10px 14px;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .msg {
+      max-width: 86%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.55;
+      animation: slideStepIn 0.22s ease;
+    }
+    .msg.ai {
+      align-self: flex-start;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-bottom-right-radius: 4px;
+    }
+    .msg.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: #fff;
+      border-bottom-left-radius: 4px;
+    }
+    .msg-de { direction: ltr; text-align: left; font-weight: 700; font-size: 15px; margin-bottom: 4px; }
+    .msg-ar { font-size: 12.5px; color: #cbd5e1; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 4px; margin-top: 4px; }
+
+    .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 4px 2px; }
     .typing-dots span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--muted);
+      width: 6px; height: 6px; border-radius: 50%; background: var(--muted);
       animation: typingBounce 1.2s infinite ease-in-out;
     }
     .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
@@ -880,20 +811,121 @@
       40% { transform: scale(1.1); opacity: 1; }
     }
 
-    /* Celebration Banner inside Lesson/Test */
-    .celebrate-card {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(59, 130, 246, 0.15));
-      border: 1px solid rgba(16, 185, 129, 0.45);
-      border-radius: 16px;
-      padding: 14px;
-      margin-top: 12px;
-      text-align: center;
+    .chat-input-area {
+      border-top: 1px solid var(--border);
+      padding: 10px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .celebrate-card .big-emoji {
-      font-size: 30px;
-      margin-bottom: 4px;
+    .chat-input {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+    .mic-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .mic-btn.recording {
+      background: var(--danger);
+      border-color: var(--danger);
+      color: #fff;
+      animation: pulse 1s infinite;
+    }
+    .send-btn {
+      height: 42px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
+    /* Forms & Bottom Nav */
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12.5px; color: var(--muted); margin-bottom: 5px; }
+    .form-control {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      outline: none;
+    }
+    .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .status-text { font-size: 12.5px; margin-top: 8px; min-height: 18px; }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(19, 28, 49, 0.96);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+    }
+    .nav-item {
+      flex: 1;
+      max-width: 160px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 5px 4px;
+      border-radius: 12px;
+      transition: transform 0.15s ease, color 0.18s ease, background 0.18s ease;
+    }
+    .nav-item span.ico { font-size: 20px; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .nav-item.active { color: var(--primary); background: rgba(59, 130, 246, 0.13); }
+    .nav-item.active span.ico { transform: translateY(-2px) scale(1.12); }
+
+    .chip-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; }
+    .chip {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .chip.active { background: var(--primary); border-color: var(--primary); }
+
+    .article-m { color: #38bdf8; font-weight: 800; }
+    .article-f { color: #f87171; font-weight: 800; }
+    .article-n { color: #4ade80; font-weight: 800; }
+    .vocab-bank-item { margin-bottom: 10px; }
   </style>
 </head>
 <body>
@@ -955,6 +987,7 @@
         <button class="chip" data-topic="التعارف لأول مرة: الاسم، البلد، السكن، العمر، والعمل">👋 تعارف جديد</button>
         <button class="chip" data-topic="في التسوق وسوبر ماركت: السؤال عن الأسعار والملابس والمقاسات">🛒 التسوق والملابس</button>
         <button class="chip" data-topic="السؤال عن الاتجاهات والمواصلات في المدينة">🚆 المواصلات</button>
+        <button class="chip" data-topic="الحديث عن الماضي وعطلة نهاية الأسبوع باستخدام Perfekt">⏳ عطلة نهاية الأسبوع</button>
       </div>
 
       <div class="chat-box">
@@ -972,9 +1005,25 @@
     </section>
 
     <section id="view-vocab" class="view">
-      <div class="card"><h4>🗂️ قاموسك وأخطاؤك</h4><input id="vocabSearch" class="form-control" placeholder="ابحث بالألماني أو العربي..." oninput="renderVocabularyBank()" /><div class="row-2" style="margin-top:10px"><select id="vocabUnitFilter" class="form-control" onchange="renderVocabularyBank()"><option value="all">كل الوحدات</option></select><select id="vocabErrorFilter" class="form-control" onchange="renderVocabularyBank()"><option value="all">كل الكلمات</option><option value="errors">أخطأت فيها</option></select></div></div>
+      <div class="card">
+        <h4>
+          <span>🗂️ قاموسك وأخطاؤك</span>
+          <button class="btn-ghost" style="padding:5px 10px;font-size:12px;border-color:var(--primary)" onclick="openFlashcardsModal()">🎴 بطاقات سريعة</button>
+        </h4>
+        <input id="vocabSearch" class="form-control" placeholder="ابحث بالألماني أو العربي..." oninput="renderVocabularyBank()" />
+        <div class="row-2" style="margin-top:10px">
+          <select id="vocabUnitFilter" class="form-control" onchange="renderVocabularyBank()">
+            <option value="all">كل الوحدات</option>
+          </select>
+          <select id="vocabErrorFilter" class="form-control" onchange="renderVocabularyBank()">
+            <option value="all">كل الكلمات</option>
+            <option value="errors">أخطأت فيها</option>
+          </select>
+        </div>
+      </div>
       <div id="vocabularyBankList"></div>
     </section>
+
     <section id="view-settings" class="view">
       <div class="card">
         <h4>🤖 إعدادات الذكاء الاصطناعي (AI)</h4>
@@ -982,9 +1031,9 @@
         <div class="form-group">
           <label>وضع التشغيل</label>
           <select id="aiMode" class="form-control">
+            <option value="proxy">🔐 Gemini عبر خادم آمن (افتراضي)</option>
             <option value="auto">🔄 تلقائي (Ollama للكمبيوتر / Gemini للموبايل)</option>
             <option value="gemini">☁️ Gemini مباشر (مفتاح شخصي)</option>
-            <option value="proxy">🔐 Gemini عبر خادم آمن</option>
             <option value="ollama">💻 محلي فقط (Ollama PC)</option>
           </select>
         </div>
@@ -1028,7 +1077,14 @@
         </div>
       </div>
 
-        <div class="card"><h4>💾 نسخة احتياطية</h4><p>صدّر تقدمك أو استورده. لا يحتوي الملف على مفاتيح AI أو رموز GitHub.</p><div class="row-2"><button class="btn-primary" onclick="exportProgress()">تنزيل النسخة</button><label class="btn-ghost" style="text-align:center;padding:12px">استيراد JSON<input type="file" accept="application/json,.json" onchange="importProgress(this)" hidden /></label></div></div>
+      <div class="card">
+        <h4>💾 نسخة احتياطية</h4>
+        <p style="font-size:13px;color:var(--muted)">صدّر تقدمك أو استورده كملف JSON. لا يحتوي الملف على مفاتيح AI.</p>
+        <div class="row-2" style="margin-top:8px">
+          <button class="btn-primary" onclick="exportProgress()">تنزيل النسخة</button>
+          <label class="btn-ghost" style="text-align:center;padding:12px">استيراد JSON<input type="file" accept="application/json,.json" onchange="importProgress(this)" hidden /></label>
+        </div>
+      </div>
       <div class="card">
         <h4>📊 ملخص تقدمك</h4>
         <p style="font-size:13.5px; color:var(--muted)" id="summaryStats"></p>
@@ -1055,7 +1111,10 @@
       <span class="ico">🎙️</span>
       <span>محادثة AI</span>
     </button>
-    <button class="nav-item" data-tab="vocab" onclick="switchTab('vocab')"><span class="ico">🗂️</span><span>كلماتي</span></button>
+    <button class="nav-item" data-tab="vocab" onclick="switchTab('vocab')">
+      <span class="ico">🗂️</span>
+      <span>كلماتي</span>
+    </button>
     <button class="nav-item" data-tab="settings" onclick="switchTab('settings')">
       <span class="ico">⚙️</span>
       <span>الإعدادات</span>
@@ -1063,7 +1122,7 @@
   </nav>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
+  <script>
     const CURRICULUM = [
       {
         unit: "الوحدة الأولى: الحروف والنطق (Alphabet & Aussprache)",
@@ -1081,7 +1140,7 @@
           {
             id: "l17", type: "lesson", icon: "🗣️", title: "2. الحروف الخاصة وأصوات الألمانية",
             desc: "Ä, Ö, Ü, ß، و ch / sch / ei / ie", xp: 35,
-            grammar: "Ä صوته قريب من e، Ö و Ü صوتان أماميان لا يوجد لهما مقابل مطابق بالعربية؛ قرّب الشفتين مع نطق إيه/إي. ß يُسمى Eszett ويُنطق مثل ss.\nsch = ش مثل Schule، ei = آي مثل mein، ie = إي طويلة مثل sieben، و ch له صوتان: خفيف في ich وأقوى في Bach. استمع للنطق وكرره، فالنطق العربي هنا تقريب تقريبي.",
+            grammar: "Ä صوته قريب من e، Ö و Ü صوتان أماميان لا يوجد لهما مقابل مطابق بالعربية؛ قرّب الشفتين مع نطق إيه/إي. ß يُسمى Eszett ويُنطق مثل ss.\nsch = ش مثل Schule، ei = آي مثل mein، ie = إي طويلة مثل sieben، و ch له صوتان: خفيف في ich وأقوى في Bach.",
             vocab: [
               { de: "Ä ä – Mädchen", ar: "Ä: مثل صوت قريب من e — فتاة" },
               { de: "Ö ö – schön", ar: "Ö: صوت أمامي — جميل" },
@@ -1168,7 +1227,7 @@
           {
             id: "l18", type: "lesson", icon: "🧩", title: "1. الضمائر وتصريف sein و haben",
             desc: "ich, du, er/sie/es, wir, ihr, sie/Sie", xp: 35,
-            grammar: "ضمائر الفاعل: ich أنا، du أنت، er هو، sie هي، es هو/هي لغير العاقل، wir نحن، ihr أنتم، sie هم، Sie حضرتك/حضراتكم.\nsein (يكون): ich bin، du bist، er/sie/es ist، wir sind، ihr seid، sie/Sie sind.\nhaben (يملك/لديه): ich habe، du hast، er/sie/es hat، wir haben، ihr habt، sie/Sie haben. احفظ الفعل مع الضمير؛ ستستخدمهما كثيراً.",
+            grammar: "ضمائر الفاعل: ich أنا، du أنت، er هو، sie هي، es هو/هي لغير العاقل، wir نحن، ihr أنتم، sie هم، Sie حضرتك/حضراتكم.\nsein (يكون): ich bin، du bist، er/sie/es ist، wir sind، ihr seid، sie/Sie sind.\nhaben (يملك/لديه): ich habe، du hast، er/sie/es hat، wir haben، ihr habt، sie/Sie haben.",
             vocab: [
               { de: "Ich bin müde.", ar: "أنا متعب." },
               { de: "Du bist freundlich.", ar: "أنت ودود." },
@@ -1181,7 +1240,7 @@
           {
             id: "l19", type: "lesson", icon: "🧱", title: "2. ترتيب الجملة وتصريف الأفعال",
             desc: "الفعل في المركز الثاني والجمل البسيطة", xp: 35,
-            grammar: "في الجملة الخبرية يأتي الفعل المصرف عادةً في المركز الثاني: Ich lerne heute Deutsch. إذا بدأت بظرف، يبقى الفعل ثانياً: Heute lerne ich Deutsch.\nتصريف lernen: ich lerne، du lernst، er lernt، wir lernen، ihr lernt، sie lernen. احذف -en من المصدر ثم أضف النهاية المناسبة.\nمع الفعل المنفصل يذهب الجزء المنفصل لنهاية الجملة: Ich kaufe heute ein.",
+            grammar: "في الجملة الخبرية يأتي الفعل المصرف عادةً في المركز الثاني: Ich lerne heute Deutsch. إذا بدأت بظرف، يبقى الفعل ثانياً: Heute lerne ich Deutsch.\nتصريف lernen: ich lerne، du lernst، er lernt، wir lernen، ihr lernt، sie lernen.",
             vocab: [
               { de: "Ich lerne Deutsch.", ar: "أنا أتعلم الألمانية." },
               { de: "Heute arbeitet Ali.", ar: "علي يعمل اليوم." },
@@ -1193,7 +1252,7 @@
           {
             id: "l20", type: "lesson", icon: "❓", title: "3. تكوين الأسئلة: W والأسئلة بنعم أو لا",
             desc: "wer, was, wo, woher, wohin, wann, wie", xp: 35,
-            grammar: "أسئلة W تبدأ بأداة السؤال ثم الفعل ثم الفاعل: Wo wohnen Sie? / Wann kommt der Bus?\nأما سؤال نعم/لا فيبدأ بالفعل: Sprechen Sie Deutsch? الإجابة: Ja, ich spreche Deutsch. أو Nein, ich spreche kein Deutsch. انتبه إلى الفرق بين Wo (أين) و Woher (من أين) و Wohin (إلى أين).",
+            grammar: "أسئلة W تبدأ بأداة السؤال ثم الفعل ثم الفاعل: Wo wohnen Sie? / Wann kommt der Bus?\nأما سؤال نعم/لا فيبدأ بالفعل: Sprechen Sie Deutsch?",
             vocab: [
               { de: "Wer? Was? Wo?", ar: "مَن؟ ماذا؟ أين؟" },
               { de: "Woher kommen Sie?", ar: "من أين حضرتك؟" },
@@ -1206,7 +1265,7 @@
           {
             id: "l21", type: "lesson", icon: "🚫", title: "4. النفي بـ nicht و kein",
             desc: "كيف تقول لا أو ليس عندي", xp: 35,
-            grammar: "نستخدم kein قبل الاسم النكرة أو الاسم بلا أداة: Ich habe kein Auto (ليس لدي سيارة). تتغير نهايته حسب الاسم: keine Zeit، keinen Bruder.\nنستخدم nicht لنفي فعل أو صفة أو اسم معرف: Ich komme heute nicht. / Das Zimmer ist nicht groß. / Das ist nicht der Bus.\nتذكّر: kein ينفي اسماً، وnicht ينفي بقية المعنى غالباً.",
+            grammar: "نستخدم kein قبل الاسم النكرة أو الاسم بلا أداة: Ich habe kein Auto.\nنستخدم nicht لنفي فعل أو صفة أو اسم معرف: Ich komme heute nicht. / Das Essen ist nicht teuer.",
             vocab: [
               { de: "Ich spreche nicht schnell.", ar: "أنا لا أتحدث بسرعة." },
               { de: "Ich habe kein Auto.", ar: "ليس لدي سيارة." },
@@ -1218,7 +1277,7 @@
           {
             id: "l22", type: "lesson", icon: "📦", title: "5. أدوات التعريف والنكرة والجمع",
             desc: "der, die, das / ein, eine / kein", xp: 35,
-            grammar: "لكل اسم ألماني جنس نحوي: der مذكر، die مؤنث، das محايد. احفظ الاسم مع أداته ومع الجمع: der Tisch – die Tische.\nأدوات النكرة: ein للمذكر والمحايد، وeine للمؤنث. في المفعول المباشر Akkusativ يتغير المذكر: der/ein يصبح den/einen، بينما المؤنث والمحايد لا يتغيران هنا: Ich sehe einen Mann, eine Frau, ein Kind.\nالجمع غالباً أداته die، ولا توجد أداة نكرة للجمع.",
+            grammar: "der مذكر، die مؤنث، das محايد. في المفعول المباشر Akkusativ يتغير المذكر: der/ein يصبح den/einen، بينما المؤنث والمحايد لا يتغيران.",
             vocab: [
               { de: "der Mann – die Männer", ar: "الرجل – الرجال" },
               { de: "die Frau – die Frauen", ar: "المرأة – النساء" },
@@ -1227,6 +1286,15 @@
               { de: "Ich sehe eine Tasche.", ar: "أرى حقيبة." }
             ],
             quiz: { q: "اختر الصيغة الصحيحة: Ich kaufe ___ Stuhl. (der Stuhl)", opts: ["einen", "eine", "ein"], ans: 0 }
+          },
+          {
+            id: "cp_u3", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI: أسئلة ونفي وإجابات سريعة",
+            desc: "تدرّب على الأسئلة بـ W والنفي بـ kein و nicht مع المدرب", xp: 45,
+            scenarioTitle: "حوار سريع لتثبيت القواعد",
+            scenarioGoal: "جاوب على أسئلة المدرب واستخدم kein و nicht في جمل بسيطة.",
+            starterDe: "Hallo! Hast du ein Auto oder ein Fahrrad? Und sprichst du schon gut Deutsch?",
+            starterAr: "مرحباً! هل لديك سيارة أم دراجة؟ وهل تتحدث الألمانية جيداً بالفعل؟",
+            systemPrompt: "أنت مدرب ألماني لمستوى A1. اسأل الطالب أسئلة بسيطة بنعم/لا وأسئلة W ليتدرب على استخدام kein و nicht وأدوات النكرة."
           }
         ]
       },
@@ -1236,7 +1304,7 @@
           {
             id: "l11", type: "lesson", icon: "👨‍👩‍👧", title: "1. الأسرة والأصدقاء",
             desc: "Familie, Geschwister, verheiratet, allein", xp: 30,
-            grammar: "للتحدث عن الملكية نستخدم mein / meine حسب الاسم: mein Bruder (أخي)، meine Schwester (أختي). وللسؤال نقول: Hast du Geschwister?",
+            grammar: "للتحدث عن الملكية نستخدم mein / meine حسب الاسم: mein Bruder (أخي)، meine Schwester (أختي).",
             vocab: [
               { de: "Das ist meine Familie.", ar: "هذه عائلتي." },
               { de: "Ich habe einen Bruder und eine Schwester.", ar: "لدي أخ وأخت." },
@@ -1260,7 +1328,7 @@
           {
             id: "l13", type: "lesson", icon: "🏃", title: "3. الروتين اليومي",
             desc: "aufstehen, arbeiten, frühstücken, schlafen", xp: 30,
-            grammar: "بعض الأفعال تنفصل في الجملة، مثل aufstehen: Ich stehe um sieben Uhr auf. الفعل المصرف يأتي في المركز الثاني والبادئة في آخر الجملة.",
+            grammar: "بعض الأفعال تنفصل في الجملة، مثل aufstehen: Ich stehe um sieben Uhr auf. البادئة تأتي في آخر الجملة.",
             vocab: [
               { de: "Ich stehe um sieben Uhr auf.", ar: "أستيقظ الساعة السابعة." },
               { de: "Dann frühstücke ich.", ar: "بعد ذلك أتناول الإفطار." },
@@ -1272,7 +1340,7 @@
           {
             id: "l14", type: "lesson", icon: "💼", title: "4. العمل والمهن",
             desc: "Beruf, Arbeitsplatz, arbeiten, suchen", xp: 30,
-            grammar: "للسؤال عن المهنة نقول: Was sind Sie von Beruf? وللإجابة: Ich bin Arzt / Ärztin. ويمكن قول: Ich arbeite als Lehrer.",
+            grammar: "للسؤال عن المهنة نقول: Was sind Sie von Beruf? وللإجابة: Ich bin Ingenieur / Programmierer.",
             vocab: [
               { de: "Was sind Sie von Beruf?", ar: "ما مهنتك؟" },
               { de: "Ich bin Ingenieur.", ar: "أنا مهندس." },
@@ -1284,7 +1352,7 @@
           {
             id: "l15", type: "lesson", icon: "🧭", title: "5. الاتجاهات والأماكن في المدينة",
             desc: "links, rechts, geradeaus, neben", xp: 30,
-            grammar: "للسؤال عن مكان نقول: Wo ist ...? ولإعطاء اتجاهات بسيطة: Gehen Sie geradeaus, dann links (امشِ للأمام ثم يساراً).",
+            grammar: "للسؤال عن مكان نقول: Wo ist ...? ولإعطاء اتجاهات بسيطة: Gehen Sie geradeaus, dann links.",
             vocab: [
               { de: "Entschuldigung, wo ist der Bahnhof?", ar: "عذراً، أين محطة القطار؟" },
               { de: "Gehen Sie geradeaus.", ar: "امشِ إلى الأمام." },
@@ -1292,6 +1360,15 @@
               { de: "Die Apotheke ist neben dem Supermarkt.", ar: "الصيدلية بجوار السوبرماركت." }
             ],
             quiz: { q: "ما معنى geradeaus؟", opts: ["إلى الأمام", "إلى اليمين", "إلى الخلف"], ans: 0 }
+          },
+          {
+            id: "cp_u4", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI: وصف الطريق والروتين اليومي",
+            desc: "اسأل عن مكان في المدينة واحكِ عن يومك ومهنتك", xp: 50,
+            scenarioTitle: "سائح يسألك عن الطريق في برلين",
+            scenarioGoal: "صف الطريق لمحطة القطار وتحدث باختصار عن عملك ووقتك.",
+            starterDe: "Entschuldigung! Ich suche den Bahnhof. Können Sie mir helfen?",
+            starterAr: "عذراً! أبحث عن محطة القطار. هل يمكنك مساعدتي؟",
+            systemPrompt: "أنت شخص في الشارع بألمانيا تسأل الطالب عن الاتجاهات (geradeaus, links, rechts) ثم تتبادل معه حديثاً بسيطاً عن العمل والروتين اليومي بمستوى A1."
           }
         ]
       },
@@ -1301,7 +1378,7 @@
           {
             id: "l23", type: "lesson", icon: "🍽️", title: "1. الطعام والوجبات والتفضيلات",
             desc: "الأطعمة، الوجبات، mögen و essen", xp: 35,
-            grammar: "mögen للتفضيل: Ich mag Tee. ومع اسم أو فعل بصيغة المصدر نستخدم gern: Ich esse gern Reis (أحب أكل الأرز).\nessen فعل غير منتظم: ich esse، du isst، er isst، wir essen. للسؤال عن الرغبة بأدب: Möchten Sie etwas trinken?",
+            grammar: "mögen للتفضيل: Ich mag Tee. ومع فعل نستخدم gern: Ich esse gern Reis.\nessen فعل غير منتظم: ich esse، du isst، er isst، wir essen.",
             vocab: [
               { de: "Was essen Sie gern?", ar: "ماذا تحب أن تأكل؟" },
               { de: "Ich esse gern Reis und Gemüse.", ar: "أحب أكل الأرز والخضار." },
@@ -1314,7 +1391,7 @@
           {
             id: "l24", type: "lesson", icon: "📅", title: "2. المواعيد والدعوات والاعتذار",
             desc: "Termin, einladen, können, müssen", xp: 35,
-            grammar: "الفعلان المساعدان können (يستطيع) و müssen (يجب) يأتيان مصرفين في المركز الثاني، والفعل الآخر في المصدر آخر الجملة: Ich kann am Freitag kommen. / Ich muss heute arbeiten.\nللاقتراح: Hast du am Samstag Zeit? وللقبول: Ja, gern. وللاعتذار: Leider kann ich nicht.",
+            grammar: "können (يستطيع) و müssen (يجب) يأتيان مصرفين في المركز الثاني، والفعل الآخر في المصدر آخر الجملة: Ich kann am Freitag kommen.",
             vocab: [
               { de: "Hast du am Freitag Zeit?", ar: "هل لديك وقت يوم الجمعة؟" },
               { de: "Wir können zusammen lernen.", ar: "يمكننا أن نتعلم معاً." },
@@ -1323,6 +1400,15 @@
               { de: "Bis morgen!", ar: "أراك غداً!" }
             ],
             quiz: { q: "أين يأتي الفعل الثاني في جملة modal؟", opts: ["مصدر في نهاية الجملة", "مصرفاً قبل الفاعل", "يحذف دائماً"], ans: 0 }
+          },
+          {
+            id: "cp_u5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI: دعوة للعشاء وتحديد موعد",
+            desc: "اتفق مع صديقك على موعد للعشاء واعتذر أو اقترح وقتاً بديلاً", xp: 50,
+            scenarioTitle: "ترتيب لقاء للعشاء في المطعم",
+            scenarioGoal: "استخدم können و müssen و gern لتحديد يوم وساعة اللقاء.",
+            starterDe: "Hallo! Wollen wir am Freitag zusammen essen gehen? Was isst du gern?",
+            starterAr: "مرحباً! هل نذهب لتناول الطعام معاً يوم الجمعة؟ ماذا تحب أن تأكل؟",
+            systemPrompt: "أنت صديق ألماني تدعو الطالب لتناول الطعام. ناقش معه الأطعمة المفضلة (gern) والأيام والمواعيد باستخدام können و müssen."
           }
         ]
       },
@@ -1372,7 +1458,7 @@
             quiz: { q: "ما ترجمة: شقة غرفتين؟", opts: ["2-Zimmer-Wohnung", "Kaffee", "Familie"], ans: 0 }
           },
           {
-            id: "cp4", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #4: التحدي الشامل للوحدة الثانية",
+            id: "cp4", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #4: التحدي الشامل للسكن",
             desc: "حوار متكامل حول التسوق وشراء مستلزمات الشقة", xp: 60,
             scenarioTitle: "البحث عن شقة وشراء أثاث",
             scenarioGoal: "تحدث مع صاحب الشقة أو بائع الأثاث عن التفاصيل.",
@@ -1408,10 +1494,10 @@
             quiz: { q: "كيف تسأل عن الطقس؟", opts: ["Wie ist das Wetter heute?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
           },
           {
-            id: "cp5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #5: حجز موعد وحالة الطقس",
-            desc: "تحدث مع طبيب أو صديق عن الطقس وموعد الزيارة", xp: 55,
+            id: "cp5", type: "checkpoint", icon: "🤖", title: "محطة محادثة AI #5: حجز موعد عيادة",
+            desc: "تحدث مع موظف العيادة عن حالتك الصحية وموعد الزيارة", xp: 55,
             scenarioTitle: "حجز موعد عيادة",
-            scenarioGoal: "أخبر الطبيب بمكان الألم واتفق على موعد.",
+            scenarioGoal: "أخبر موظف الاستقبال بمكان الألم واتفق على موعد.",
             starterDe: "Guten Tag! Praxis Dr. Müller. Was kann ich für Sie tun?",
             starterAr: "نهارك سعيد! عيادة دكتور مولر. ماذا يمكنني أن أقدم لك؟",
             systemPrompt: "أنت موظف استقبال عيادة. ساعد المريض في تحديد موعد وسؤاله عن حالته."
@@ -1428,13 +1514,99 @@
             quiz: { q: "ما الفعل المنفصل المناسب لحركة القطار؟", opts: ["abfahren", "wohnen", "sprechen"], ans: 0 }
           },
           {
-            id: "cp6", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #6: التحدي النهائي لمستوى A1",
-            desc: "حوار شامل في محطة القطار والسفر لمدينة جديدة", xp: 75,
+            id: "cp6", type: "checkpoint", icon: "🏆", title: "محطة محادثة AI #6: في محطة القطار",
+            desc: "حوار شامل في محطة القطار والسفر لمدينة جديدة", xp: 65,
             scenarioTitle: "شراء تذكرة وسؤال عن المواعيد في المحطة",
             scenarioGoal: "احجز تذكرة قطار واستفسر عن الرصيف ووقت الرحلة.",
             starterDe: "Guten Tag! Wohin möchten Sie reisen?",
             starterAr: "نهارك سعيد! إلى أين تود أن تسافر؟",
             systemPrompt: "أنت موظف محطة القطار. ساعد المسافر في حجز التذكرة، معرفة الرصيف، ووقت القيام بدقة لمستوى A1."
+          }
+        ]
+      },
+      {
+        unit: "الوحدة الثامنة: إتقان A1 والامتحان الدولي (Perfekt, Lesen & Schreiben)",
+        nodes: [
+          {
+            id: "l25", type: "lesson", icon: "⏳", title: "1. الماضي التام البسيط (Perfekt)",
+            desc: "haben / sein + Partizip II (ge-...-t / ge-...-en)", xp: 40,
+            grammar: "للتحدث عن الماضي في المحادثات نستخدم Perfekt: الفعل المساعد (haben أو sein) في المركز الثاني، والتصريف الثالث (Partizip II) في آخر الجملة.\nنستخدم sein مع أفعال الحركة وتغيير المكان (gehen, fahren, fliegen): Ich bin nach Berlin gefahren.\nونستخدم haben مع باقي الأفعال: Ich habe Deutsch gelernt.",
+            vocab: [
+              { de: "Ich habe gestern Deutsch gelernt.", ar: "تعلمت الألمانية بالأمس." },
+              { de: "Wir haben Pizza gegessen.", ar: "أكلنا بيتزا." },
+              { de: "Er ist nach München gefahren.", ar: "هو سافر إلى ميونخ." },
+              { de: "Ich bin um 8 Uhr aufgestanden.", ar: "استيقظت الساعة الثامنة." },
+              { de: "Was hast du am Wochenende gemacht?", ar: "ماذا فعلت في عطلة نهاية الأسبوع؟" }
+            ],
+            quiz: { q: "أي فعل مساعد نستخدمه مع فعل fahren (يسافر) في الماضي؟", opts: ["sein (bin gefahren)", "haben (habe gefahren)", "werden"], ans: 0 }
+          },
+          {
+            id: "l26", type: "lesson", icon: "📍", title: "2. حروف الجر الزمنية والمكانية",
+            desc: "am, um, im / in, nach, zu, bei, mit", xp: 40,
+            grammar: "حروف الجر الزمنية: am للأيام وأجزاء اليوم (am Montag, am Abend)، um للساعة (um 9 Uhr)، im للشهور وفصول السنة (im Sommer, im Mai).\nحروف المكان والحركة: nach للمدن والدول بدون أداة (nach Ägypten, nach Berlin)، in للأماكن المغلقة (ins Kino / im Supermarkt)، mit لوسائل المواصلات (mit dem Bus).",
+            vocab: [
+              { de: "Am Montag beginnt der Kurs um 9 Uhr.", ar: "يوم الاثنين يبدأ الكورس الساعة 9." },
+              { de: "Im Sommer fahre ich nach Deutschland.", ar: "في الصيف أسافر إلى ألمانيا." },
+              { de: "Ich fahre mit dem Zug zur Arbeit.", ar: "أذهب بالقطار إلى العمل." },
+              { de: "Wir treffen uns im Café.", ar: "نلتقي في المقهى." }
+            ],
+            quiz: { q: "اختر حرف الجر الصحيح: Der Unterricht beginnt ___ 8 Uhr.", opts: ["um", "am", "im"], ans: 0 }
+          },
+          {
+            id: "l27", type: "reading", icon: "📰", title: "3. تدريب القراءة والفهم (Lesen: Richtig / Falsch)",
+            desc: "اقرأ رسائل ولافتات وإعلانات حقيقية وجاوب صح أم خطأ", xp: 50,
+            passages: [
+              {
+                title: "نص 1: رسالة قصيرة (SMS)",
+                text: "Hallo Sara! Ich bin noch im Büro und muss bis 18:30 Uhr arbeiten. Wir können uns heute leider nicht um 18:00 Uhr im Café treffen. Geht es um 19:15 Uhr? Liebe Grüße, Mona",
+                statement: "Mona und Sara treffen sich heute um 18:00 Uhr.",
+                isTrue: false,
+                explanation: "خطأ (Falsch) — منى تعمل حتى 18:30 وتقترح اللقاء الساعة 19:15 بدلاً من 18:00."
+              },
+              {
+                title: "نص 2: لافتة في محطة القطار (Durchsage)",
+                text: "Achtung am Gleis 4: Der ICE 508 nach Hamburg fährt heute nicht um 14:10 Uhr, sondern erst um 14:35 Uhr ab. Wir bitten um Entschuldigung.",
+                statement: "Der Zug nach Hamburg hat 25 Minuten Verspätung.",
+                isTrue: true,
+                explanation: "صحيح (Richtig) — موعد القطار الأصلي 14:10 وتأخر إلى 14:35 أي 25 دقيقة."
+              },
+              {
+                title: "نص 3: إعلان شقة (Wohnungsanzeige)",
+                text: "Schöne 2-Zimmer-Wohnung im Zentrum von Köln zu vermieten. Die Miete ist 650 Euro plus 120 Euro Nebenkosten. Keine Haustiere erlaubt. Tel: 0176-443219",
+                statement: "In dieser Wohnung darf man einen Hund haben.",
+                isTrue: false,
+                explanation: "خطأ (Falsch) — الإعلان يذكر بوضوح: Keine Haustiere erlaubt (غير مسموح بالحيوانات الأليفة)."
+              }
+            ]
+          },
+          {
+            id: "l28", type: "writing_exam", icon: "✍️", title: "4. تدريب الكتابة الرسمي (Schreiben: Formular & E-Mail)",
+            desc: "املأ استمارة بيانات واكتب إيميل امتحان A1 بتقييم AI", xp: 60,
+            formStory: "اسم صديقك Karim Hassan، عمره 24 سنة، يسكن في شارع Gartenstraße 12 في مدينة Bonn (الرمز البريدي 53111)، وهو من مصر (Ägypten) ويريد حجز كورس لغة ألمانية مسائي (Abendkurs) ويدفع نقداً (Bar).",
+            formFields: [
+              { key: "nachname", label: "Familienname (اسم العائلة)", expected: "hassan" },
+              { key: "vorname", label: "Vorname (الاسم الأول)", expected: "karim" },
+              { key: "plz_ort", label: "PLZ / Wohnort (الرمز البريدي والمدينة)", expected: "53111 bonn" },
+              { key: "land", label: "Heimatland (البلد)", expected: "ägypten" },
+              { key: "kurs", label: "Kurszeit (وقت الكورس: Vormittag / Abend)", expected: "abend" }
+            ],
+            emailTask: {
+              promptAr: "اكتب إيميلاً قصيراً (حوالي 30 كلمة) لصديقك الألماني (Tim) تعتذر فيه عن عدم الحضور لحفل عيد ميلاده يوم السبت:",
+              bullets: [
+                "اشكره على الدعوة (Danke für die Einladung).",
+                "اعتذر واشرح السبب (لأنك مريض أو لديك عمل).",
+                "اقترح يوماً آخر للقاء في الأسبوع القادم."
+              ]
+            }
+          },
+          {
+            id: "cp7", type: "checkpoint", icon: "🎓", title: "محطة محادثة AI #7: المقابلة الشفوية لامتحان A1",
+            desc: "محاكاة كاملة للجزء الشفوي (Sprechen) في امتحان Goethe A1", xp: 80,
+            scenarioTitle: "لجنة امتحان التحدث A1",
+            scenarioGoal: "قدّم نفسك (الاسم، العمر، البلد، السكن، المهنة، الهوايات) ثم اسأل الممتحن سؤالاً.",
+            starterDe: "Guten Tag und herzlich willkommen zur Prüfung Start Deutsch 1! Bitte stellen Sie sich kurz vor.",
+            starterAr: "نهارك سعيد وأهلاً بك في امتحان A1! من فضلك قدّم نفسك باختصار.",
+            systemPrompt: "أنت ممتحن ودود في امتحان Goethe Start Deutsch 1. اطلب من الطالب تقديم نفسه، ثم اسأله تهجئة اسمه أو رقم هاتفه، ثم اطلب منه أن يسألك سؤالاً باستخدام كلمة مثل (Wochenende / Essen / Arbeit). شجعه وقيّم أداءه في النهاية."
           }
         ]
       }
@@ -1489,6 +1661,13 @@
         {q:"كيف تسأل عن الطقس؟",opts:["Wie ist das Wetter?","Wie ist dein Name?","Wo ist der Zug?"],ans:0},
         {q:"أكمل: Der Zug fährt um 10 Uhr ___.",opts:["ab","auf","an"],ans:0},
         {q:"كيف تطلب تذكرة إلى برلين؟",opts:["Eine Fahrkarte nach Berlin, bitte.","Ein Zimmer nach Berlin.","Ich fahre eine Karte."],ans:0}
+      ]},
+      { id:"ut8", title:"اختبار الوحدة الثامنة: الماضي التام وحروف الجر", xp:60, questions:[
+        {q:"أكمل: Ich ___ gestern viel gelernt.",opts:["habe","bin","sind"],ans:0},
+        {q:"أكمل: Wir ___ nach Berlin gefahren.",opts:["sind","haben","seid"],ans:0},
+        {q:"اختر حرف الجر الصحيح: ___ Montag habe ich Zeit.",opts:["Am","Um","Im"],ans:0},
+        {q:"اختر حرف الجر الصحيح: ___ Sommer ist es warm.",opts:["Im","Am","Um"],ans:0},
+        {q:"أكمل: Ich fahre ___ dem Bus zur Arbeit.",opts:["mit","nach","um"],ans:0}
       ]}
     ];
 
@@ -1517,8 +1696,20 @@
       "غلطات البداية هي اللي بتخليك أستاذ بعدين.. جرب تاني 💪"
     ];
 
-    function pickRandom(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+    function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function launchConfetti() {
+      const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#a855f7", "#38bdf8"];
+      for (let i = 0; i < 42; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+        piece.style.left = Math.random() * 100 + "vw";
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
+        piece.style.animationDelay = (Math.random() * 0.35) + "s";
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 3400);
+      }
     }
 
     function showToast(message, type = "default", icon = "✨") {
@@ -1561,7 +1752,7 @@
 
       let statusLine = item.sub;
       if (doneCount === 0) {
-        statusLine = "ابدأ بأول درس دلوقتي وخد أول 20 XP في رحلتك! 🎯";
+        statusLine = "ابدأ بأول درس دلوقتي وخد أول 35 XP في رحلتك! 🎯";
       } else if (pct >= 80) {
         statusLine = `أنجزت ${pct}% من المسار! فاضل تكّة وتخلص مستوى A1 بالكامل 🏆`;
       } else {
@@ -1587,7 +1778,7 @@
     const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
     const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
-    const LESSON_FLOW_VERSION = 4;
+    const LESSON_FLOW_VERSION = 5;
 
     const DEFAULT_STATE = {
       lessonFlowVersion: LESSON_FLOW_VERSION,
@@ -1677,7 +1868,11 @@
     }
 
     function getAllVocabulary() {
-      return CURRICULUM.flatMap((unit, unitIndex) => unit.nodes.filter(node => node.type === "lesson").flatMap(lesson => lesson.vocab.map((item, vocabIndex) => ({ ...item, lessonId: lesson.id, lessonTitle: lesson.title, unitIndex, vocabIndex }))));
+      return CURRICULUM.flatMap((unit, unitIndex) =>
+        unit.nodes.filter(node => node.type === "lesson").flatMap(lesson =>
+          lesson.vocab.map((item, vocabIndex) => ({ ...item, lessonId: lesson.id, lessonTitle: lesson.title, unitIndex, vocabIndex }))
+        )
+      );
     }
 
     function getChoices(correct, lesson, index, getter) {
@@ -1697,9 +1892,13 @@
     }
 
     function colorGermanArticles(text) {
-      return escapeHtml(String(text)).replace(/\b(der|den|dem|des)\b/gi, '<span class="article-m">$1</span>').replace(/\b(die)\b/gi, '<span class="article-f">$1</span>').replace(/\b(das)\b/gi, '<span class="article-n">$1</span>');
+      return escapeHtml(String(text))
+        .replace(/\b(der|den|dem|des)\b/gi, '<span class="article-m">$1</span>')
+        .replace(/\b(die)\b/gi, '<span class="article-f">$1</span>')
+        .replace(/\b(das)\b/gi, '<span class="article-n">$1</span>');
     }
-    function speakerMarkup(text, compact = false) {
+
+    function speakerMarkup(text) {
       const safe = escapeHtml(text);
       return `<button class="icon-btn" data-speak="${safe}" data-rate="0.92" title="نطق عادي">🔊</button><button class="icon-btn" data-speak="${safe}" data-rate="0.6" title="نطق بطيء">🐢</button>`;
     }
@@ -1724,8 +1923,86 @@
         const error = (state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex);
         return (unitFilter === "all" || Number(unitFilter) === item.unitIndex) && (!errorsOnly || error) && (!query || `${item.de} ${item.ar} ${item.lessonTitle}`.toLowerCase().includes(query));
       });
-      list.innerHTML = vocab.length ? vocab.map(item => `<div class="card vocab-bank-item"><div class="vocab-de ltr">${colorGermanArticles(item.de)}</div><div class="vocab-ar">${escapeHtml(item.ar)}</div><small>${escapeHtml(item.lessonTitle)}${(state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex) ? " • ⚠️ راجعها" : ""}</small><div class="vocab-actions">${speakerMarkup(item.de)}</div></div>`).join("") : `<div class="card">مفيش كلمات مطابقة للفلاتر دي.</div>`;
+      list.innerHTML = vocab.length ? vocab.map(item => `<div class="card vocab-bank-item"><div class="vocab-de ltr">${colorGermanArticles(item.de)}</div><div class="vocab-ar">${escapeHtml(item.ar)}</div><small style="color:var(--muted)">${escapeHtml(item.lessonTitle)}${(state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex) ? " • ⚠️ راجعها" : ""}</small><div class="vocab-actions">${speakerMarkup(item.de)}</div></div>`).join("") : `<div class="card">مفيش كلمات مطابقة للفلاتر دي.</div>`;
       bindSpeakButtons(list);
+    }
+
+    // 3D Flip Flashcards Modal
+    let flashcardDeck = [];
+    let flashcardIndex = 0;
+
+    function openFlashcardsModal() {
+      const unitFilter = document.getElementById("vocabUnitFilter")?.value || "all";
+      const all = getAllVocabulary().filter(item => unitFilter === "all" || Number(unitFilter) === item.unitIndex);
+      flashcardDeck = all.sort(() => Math.random() - 0.5).slice(0, 20);
+      flashcardIndex = 0;
+      document.getElementById("overlayTitle").textContent = "🎴 بطاقات المراجعة السريعة";
+      document.getElementById("overlayXp").textContent = `${flashcardDeck.length} بطاقة`;
+      renderFlashcardView();
+      document.getElementById("lessonOverlay").classList.add("open");
+    }
+
+    function renderFlashcardView() {
+      const body = document.getElementById("overlayBody");
+      if (!flashcardDeck.length) {
+        body.innerHTML = `<div class="card"><p>لا توجد بطاقات متاحة في هذا الفلتر.</p></div>`;
+        return;
+      }
+      if (flashcardIndex >= flashcardDeck.length) {
+        launchConfetti();
+        body.innerHTML = `
+          <div class="card" style="text-align:center;padding:24px">
+            <div style="font-size:40px;margin-bottom:8px">🎉</div>
+            <h4>أنهيت جولة البطاقات بنجاح!</h4>
+            <p style="color:var(--muted);margin-bottom:14px">راجعت ${flashcardDeck.length} كلمة وعبارة ألمانية.</p>
+            <button class="btn-primary" onclick="openFlashcardsModal()">🔄 جولة جديدة</button>
+          </div>
+        `;
+        return;
+      }
+      const card = flashcardDeck[flashcardIndex];
+      body.innerHTML = `
+        <div class="card" style="padding:12px 16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted)">
+            <span>بطاقة ${flashcardIndex + 1} من ${flashcardDeck.length}</span>
+            <span>${escapeHtml(card.lessonTitle)}</span>
+          </div>
+          <div class="progress-track" style="margin-top:8px"><div class="progress-fill" style="width:${Math.round(((flashcardIndex + 1) / flashcardDeck.length) * 100)}%"></div></div>
+        </div>
+
+        <div class="flashcard-stage">
+          <div class="flashcard-inner" id="activeFlashcard" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-face front">
+              <div class="vocab-de ltr" style="font-size:24px;text-align:center">${colorGermanArticles(card.de)}</div>
+              <div class="vocab-actions" style="margin-top:14px" onclick="event.stopPropagation()">${speakerMarkup(card.de)}</div>
+              <div class="flashcard-hint">👆 اضغط على البطاقة لقلبها ومعرفة المعنى</div>
+            </div>
+            <div class="flashcard-face back">
+              <div style="font-size:21px;font-weight:800;color:#fff">${escapeHtml(card.ar)}</div>
+              <div class="ltr" style="font-size:14px;color:var(--accent);margin-top:8px;font-weight:700">${escapeHtml(card.de)}</div>
+              <div class="flashcard-hint">👆 اضغط مرة أخرى للعودة للألماني</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row-2" style="margin-top:12px">
+          <button class="btn-ghost" style="padding:13px;border-color:rgba(245,158,11,0.5)" onclick="nextFlashcard(false)">🔁 راجعها تاني</button>
+          <button class="btn-primary success" style="margin-top:0" onclick="nextFlashcard(true)">✅ أعرفها تماماً</button>
+        </div>
+      `;
+      bindSpeakButtons(body);
+      speakGerman(card.de, 0.92);
+    }
+
+    function nextFlashcard(known) {
+      const card = flashcardDeck[flashcardIndex];
+      if (!known && card) {
+        markVocabularyMistake(card.lessonId, card.vocabIndex);
+        flashcardDeck.push(card);
+        saveState(false);
+      }
+      flashcardIndex++;
+      renderFlashcardView();
     }
 
     function exportProgress() {
@@ -1747,16 +2024,18 @@
           state.lessonProgress = { ...(data.lessonProgress || {}), ...(state.lessonProgress || {}) };
           state.mistakes = data.mistakes || state.mistakes || [];
           state.cpChats = { ...(data.cpChats || {}), ...(state.cpChats || {}) };
-          saveState(); renderPath(); alert("تم استيراد تقدمك بنجاح.");
+          saveState(); renderPath(); showToast("تم استيراد تقدمك بنجاح!", "xp", "💾");
         } catch (error) { alert(`تعذر استيراد النسخة: ${error.message}`); }
         input.value = "";
       };
       reader.readAsText(file);
     }
+
     function renderPath() {
       const container = document.getElementById("pathContainer");
       container.innerHTML = "";
       renderReviewCard();
+      let animDelay = 0;
 
       CURRICULUM.forEach((unit, unitIndex) => {
         const uHead = document.createElement("div");
@@ -1770,8 +2049,17 @@
         unit.nodes.forEach(node => {
           const isDone = state.completed.includes(node.id);
           const card = document.createElement("div");
-          card.className = `node-card ${node.type === "checkpoint" ? "checkpoint" : ""} ${isDone ? "done" : ""}`;
-          card.onclick = () => node.type === "lesson" ? openLesson(node) : openCheckpoint(node);
+          const isSpecial = node.type === "checkpoint" || node.type === "reading" || node.type === "writing_exam";
+          card.className = `node-card ${isSpecial ? "checkpoint" : ""} ${isDone ? "done" : ""}`;
+          card.style.animationDelay = `${Math.min(animDelay * 35, 420)}ms`;
+          animDelay++;
+
+          card.onclick = () => {
+            if (node.type === "checkpoint") openCheckpoint(node);
+            else if (node.type === "reading") openReadingLesson(node);
+            else if (node.type === "writing_exam") openWritingExamLesson(node);
+            else openLesson(node);
+          };
 
           const badgeText = isDone
             ? "✓ مكتمل"
@@ -1792,59 +2080,198 @@
 
         container.appendChild(list);
 
-        const unitTest = unitIndex > 0 ? UNIT_TESTS[unitIndex - 1] : null;
+        const unitTest = UNIT_TESTS[unitIndex];
         if (unitTest) {
           const testDone = state.completed.includes(unitTest.id);
           const testCard = document.createElement("div");
-          testCard.className = `node-card checkpoint ${testDone ? "done" : ""}`;
+          testCard.className = `node-card exam-node ${testDone ? "done" : ""}`;
+          testCard.style.marginTop = "10px";
           testCard.onclick = () => openUnitTest(unitTest);
           testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${unitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${unitTest.xp} XP`}</span>`;
           container.appendChild(testCard);
         }
       });
-      const finalUnitTest = UNIT_TESTS[UNIT_TESTS.length - 1];
-      if (finalUnitTest) {
-        const testDone = state.completed.includes(finalUnitTest.id);
-        const testCard = document.createElement("div");
-        testCard.className = `node-card checkpoint ${testDone ? "done" : ""}`;
-        testCard.onclick = () => openUnitTest(finalUnitTest);
-        testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${finalUnitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${finalUnitTest.xp} XP`}</span>`;
-        container.appendChild(testCard);
-      }
 
+      const mockDone = state.completed.includes("mock-final");
       const mockCard = document.createElement("div");
-      mockCard.className = "node-card checkpoint";
-      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">🏁</div><div class="node-info"><h3>محاكاة A1 النهائية</h3><p>25 سؤالًا • 25 دقيقة • اختبار تدريبي غير رسمي</p></div></div><span class="node-badge">ابدأ</span>`;
+      mockCard.className = `node-card checkpoint ${mockDone ? "done" : ""}`;
+      mockCard.style.marginTop = "20px";
+      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">${mockDone ? "🏆" : "🏁"}</div><div class="node-info"><h3>محاكاة A1 النهائية الشاملة</h3><p>25 سؤالًا من جميع الوحدات • 25 دقيقة • النجاح من 18/25</p></div></div><span class="node-badge">${mockDone ? "✓ ناجح (+100 XP)" : "ابدأ المحاكاة"}</span>`;
       mockCard.onclick = openMockExam;
       container.appendChild(mockCard);
+    }
+
+    // Reading Lesson (Lesen: Richtig / Falsch)
+    function openReadingLesson(node) {
+      activeCheckpoint = null;
+      document.getElementById("overlayTitle").textContent = node.title;
+      document.getElementById("overlayXp").textContent = `+${node.xp} XP`;
+      const isDone = state.completed.includes(node.id);
+      const body = document.getElementById("overlayBody");
+
+      body.innerHTML = `
+        <div class="card">
+          <h4>📰 تدريب القراءة والفهم (مثل امتحان Goethe A1)</h4>
+          <p style="font-size:13.5px;color:var(--muted)">اقرأ كل نص قصير بالألمانية، ثم حدد هل الجملة التي تحته صحيحة (Richtig) أم خاطئة (Falsch).</p>
+        </div>
+        ${node.passages.map((p, idx) => `
+          <div class="card reading-item" data-answered="false" data-correct="false">
+            <h4>
+              <span>${escapeHtml(p.title)}</span>
+              <span class="vocab-actions">${speakerMarkup(p.text)}</span>
+            </h4>
+            <div class="reading-passage">${escapeHtml(p.text)}</div>
+            <p style="font-weight:700;font-size:14px;margin-top:8px">الجملة: <span class="ltr" style="color:var(--accent)">${escapeHtml(p.statement)}</span></p>
+            <div class="rf-row">
+              <button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerReading(this, ${p.isTrue === true}, '${escapeHtml(p.explanation).replace(/'/g, "\\'")}')">✅ Richtig (صحيح)</button>
+              <button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerReading(this, ${p.isTrue === false}, '${escapeHtml(p.explanation).replace(/'/g, "\\'")}')">❌ Falsch (خطأ)</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        `).join("")}
+        <button class="btn-primary ${isDone ? "success" : ""}" onclick="completeNode('${node.id}', ${node.xp})">
+          ${isDone ? "✅ تم إكمال تدريب القراءة" : `🎉 إتمام التدريب واستلام +${node.xp} XP`}
+        </button>
+      `;
+      bindSpeakButtons(body);
+      document.getElementById("lessonOverlay").classList.add("open");
+    }
+
+    function answerReading(btn, isRight, explanation) {
+      const card = btn.closest(".reading-item");
+      const btns = card.querySelectorAll(".quiz-opt");
+      btns.forEach(b => b.classList.remove("correct", "wrong", "pop-anim", "shake-anim"));
+      const fb = card.querySelector(".quiz-feedback");
+      if (isRight) {
+        btn.classList.add("correct", "pop-anim");
+        fb.innerHTML = `<span style="color:var(--success)">✅ ${pickRandom(PRAISE_CORRECT)}<br><small style="color:var(--text);font-weight:500">${explanation}</small></span>`;
+      } else {
+        btn.classList.add("wrong", "shake-anim");
+        fb.innerHTML = `<span style="color:var(--accent)">💡 ${pickRandom(ENCOURAGE_RETRY)}<br><small style="color:var(--text);font-weight:500">${explanation}</small></span>`;
+      }
+    }
+
+    // Writing Exam Lesson (Schreiben: Formular & E-Mail)
+    function openWritingExamLesson(node) {
+      activeCheckpoint = null;
+      document.getElementById("overlayTitle").textContent = node.title;
+      document.getElementById("overlayXp").textContent = `+${node.xp} XP`;
+      const isDone = state.completed.includes(node.id);
+      const body = document.getElementById("overlayBody");
+
+      body.innerHTML = `
+        <div class="card">
+          <h4>📋 الجزء الأول: ملء الاستمارة (Formular ausfüllen)</h4>
+          <p style="font-size:13.5px;line-height:1.8;margin-bottom:10px">${escapeHtml(node.formStory)}</p>
+          <div class="formular-grid">
+            ${node.formFields.map(f => `
+              <div class="formular-field">
+                <label>${escapeHtml(f.label)}</label>
+                <input type="text" class="form-control ltr formular-inp" data-expected="${escapeHtml(f.expected)}" placeholder="..." />
+              </div>
+            `).join("")}
+          </div>
+          <button class="btn-ghost" style="width:100%;margin-top:12px" onclick="gradeFormular()">✅ تصحيح الاستمارة</button>
+          <div id="formularFeedback" class="lesson-feedback"></div>
+        </div>
+
+        <div class="card">
+          <h4>✉️ الجزء الثاني: كتابة إيميل قصير (E-Mail schreiben)</h4>
+          <p style="font-size:13.5px;font-weight:700;margin-bottom:8px">${escapeHtml(node.emailTask.promptAr)}</p>
+          <ul style="padding-right:18px;font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.8">
+            ${node.emailTask.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join("")}
+          </ul>
+          <textarea id="examEmailInput" class="lesson-textarea" placeholder="Lieber Tim,&#10;vielen Dank für die Einladung..."></textarea>
+          <button class="btn-primary" onclick="gradeExamEmail()">🤖 قيّم الإيميل بدرجة امتحان A1</button>
+          <div id="examEmailFeedback" class="lesson-feedback"></div>
+        </div>
+
+        <button class="btn-primary ${isDone ? "success" : ""}" onclick="completeNode('${node.id}', ${node.xp})">
+          ${isDone ? "✅ تم إكمال تدريب الكتابة" : `🏆 إنهاء تدريب الكتابة واستلام +${node.xp} XP`}
+        </button>
+      `;
+      document.getElementById("lessonOverlay").classList.add("open");
+    }
+
+    function gradeFormular() {
+      const inputs = Array.from(document.querySelectorAll(".formular-inp"));
+      let correctCount = 0;
+      inputs.forEach(inp => {
+        const val = inp.value.trim().toLowerCase();
+        const exp = inp.dataset.expected.toLowerCase();
+        if (val && (val === exp || exp.includes(val) || val.includes(exp))) {
+          inp.style.borderColor = "var(--success)";
+          correctCount++;
+        } else {
+          inp.style.borderColor = "var(--danger)";
+        }
+      });
+      const fb = document.getElementById("formularFeedback");
+      fb.style.display = "block";
+      fb.innerHTML = correctCount === inputs.length
+        ? `<strong style="color:var(--success)">🎉 ممتاز! ملأت جميع خانات الاستمارة بدقة 5/5!</strong>`
+        : `<strong style="color:var(--accent)">حصلت على ${correctCount} من ${inputs.length}. راجع الخانات المحددة بالأحمر وجرب تاني.</strong>`;
+    }
+
+    async function gradeExamEmail() {
+      const text = document.getElementById("examEmailInput").value.trim();
+      const fb = document.getElementById("examEmailFeedback");
+      fb.style.display = "block";
+      if (!text) {
+        fb.textContent = "اكتب الإيميل بالألماني أولاً ثم اضغط تقييم.";
+        return;
+      }
+      fb.textContent = "⏳ ممتحن AI بيقيّم إيميلك حسب معايير Goethe A1...";
+      const sys = "أنت ممتحن رسمي لامتحان Goethe-Zertifikat A1 (جزء الكتابة Schreiben). قيّم إيميل الطالب من 10 درجات بناءً على تغطية النقاط الثلاث المطلوبة (الشكر، الاعتذار والسبب، اقتراح موعد جديد) وسلامة الجمل البسيطة. اكتب التقييم بالعربية المشجعة مع نسخة مصححة نموذجية قصيرة.";
+      const reply = await callAI([{ role: "user", content: text }], sys);
+      fb.textContent = reply;
     }
 
     let mockTimerId = null;
     let mockSecondsLeft = 25 * 60;
     function openMockExam() {
-      const pool = UNIT_TESTS.flatMap(test => test.questions.map(q => ({ ...q, source:test.title })));
+      const pool = UNIT_TESTS.flatMap(test => test.questions.map(q => ({ ...q, source: test.title })));
       const selected = pool.sort(() => Math.random() - 0.5).slice(0, 25);
       document.getElementById("overlayTitle").textContent = "محاكاة تدريبية لامتحان A1";
       document.getElementById("overlayXp").textContent = "25 دقيقة";
       const body = document.getElementById("overlayBody");
-      body.innerHTML = `<div class="card"><h4>محاكاة تدريبية غير رسمية</h4><p>25 سؤالًا من كل الوحدات. الوقت 25 دقيقة. النجاح التدريبي من 18/25.</p><strong id="mockTimer">25:00</strong></div>${selected.map((q, i) => {const opts=q.opts.map((text,j)=>({text,correct:j===q.ans})).sort(()=>Math.random()-.5);return `<div class="card unit-test-q" data-answer=""><h4>السؤال ${i+1}/25</h4><p>${escapeHtml(q.q)}</p>${opts.map(o=>`<button class="quiz-opt" data-correct="${o.correct}" onclick="selectUnitAnswer(this)">${escapeHtml(o.text)}</button>`).join("")}</div>`}).join("")}<button class="btn-primary" onclick="submitMockExam()">إنهاء الاختبار</button><div id="mockResult" class="lesson-feedback"></div>`;
-      mockSecondsLeft=25*60; clearInterval(mockTimerId);
-      mockTimerId=setInterval(()=>{mockSecondsLeft--;const t=document.getElementById("mockTimer");if(!t){clearInterval(mockTimerId);return;}t.textContent=`${Math.floor(mockSecondsLeft/60)}:${String(mockSecondsLeft%60).padStart(2,"0")}`;if(mockSecondsLeft<=0)submitMockExam(true);},1000);
+      body.innerHTML = `<div class="card"><h4>🏁 محاكاة تدريبية شاملة</h4><p style="font-size:13.5px;color:var(--muted)">25 سؤالًا من جميع الوحدات الثمانية. الوقت 25 دقيقة. النجاح التدريبي من 18/25.</p><strong id="mockTimer" style="font-size:18px;color:var(--accent)">25:00</strong></div>${selected.map((q, i) => {const opts=q.opts.map((text,j)=>({text,correct:j===q.ans})).sort(()=>Math.random()-.5);return `<div class="card unit-test-q" data-answer=""><h4>السؤال ${i+1}/25</h4><p style="font-weight:700">${escapeHtml(q.q)}</p>${opts.map(o=>`<button class="quiz-opt" data-correct="${o.correct}" onclick="selectUnitAnswer(this)">${escapeHtml(o.text)}</button>`).join("")}</div>`}).join("")}<button class="btn-primary" onclick="submitMockExam()">إنهاء الاختبار</button><div id="mockResult" class="lesson-feedback"></div>`;
+      mockSecondsLeft = 25 * 60;
+      clearInterval(mockTimerId);
+      mockTimerId = setInterval(() => {
+        mockSecondsLeft--;
+        const t = document.getElementById("mockTimer");
+        if (!t) { clearInterval(mockTimerId); return; }
+        t.textContent = `${Math.floor(mockSecondsLeft/60)}:${String(mockSecondsLeft%60).padStart(2,"0")}`;
+        if (mockSecondsLeft <= 0) submitMockExam(true);
+      }, 1000);
       document.getElementById("lessonOverlay").classList.add("open");
     }
-    function submitMockExam(timeout=false) {
+
+    function submitMockExam(timeout = false) {
       clearInterval(mockTimerId);
-      const questions=Array.from(document.querySelectorAll(".unit-test-q"));
-      const score=questions.filter(q=>q.dataset.answer==="true").length;
-      const result=document.getElementById("mockResult"); if(!result)return;
-      result.style.display="block";result.innerHTML=`<strong>${timeout?"انتهى الوقت. ":""}نتيجتك ${score}/25 ${score>=18?"🎉 اجتزت المحاكاة!":"راجع الوحدات وحاول مجددًا."}</strong>`;
-      if(score>=18&&!state.completed.includes("mock-final")){state.completed.push("mock-final");state.xp+=100;saveState();renderPath();}
+      const questions = Array.from(document.querySelectorAll(".unit-test-q"));
+      const score = questions.filter(q => q.dataset.answer === "true").length;
+      const result = document.getElementById("mockResult");
+      if (!result) return;
+      result.style.display = "block";
+      result.innerHTML = `<strong>${timeout ? "انتهى الوقت. " : ""}نتيجتك ${score}/25 ${score >= 18 ? "🎉 مبروك! اجتزت المحاكاة بنجاح!" : "راجع الوحدات وحاول مجددًا."}</strong>`;
+      if (score >= 18) {
+        launchConfetti();
+        if (!state.completed.includes("mock-final")) {
+          state.completed.push("mock-final");
+          state.xp += 100;
+          saveState();
+          renderPath();
+        }
+      }
     }
+
     function openUnitTest(test) {
       document.getElementById("overlayTitle").textContent = test.title;
       document.getElementById("overlayXp").textContent = `+${test.xp} XP`;
       const body = document.getElementById("overlayBody");
-      body.innerHTML = `<div class="card"><h4>📝 اختبار شامل للوحدة</h4><p style="font-size:14px;line-height:1.8">جاوب على الأسئلة الخمسة. تحتاج 4 إجابات صحيحة على الأقل لاجتياز الاختبار وكسب النقاط. تقدر تعيد المحاولة لو احتجت.</p></div>${test.questions.map((q, qi) => `<div class="card unit-test-q" data-answer=""><h4>السؤال ${qi + 1} من ${test.questions.length}</h4><p style="font-size:15px;font-weight:700;margin-bottom:8px">${q.q}</p>${q.opts.map((opt, oi) => ({ opt, correct: oi === q.ans })).sort(() => Math.random() - 0.5).map(choice => `<button class="quiz-opt" data-correct="${choice.correct}" onclick="selectUnitAnswer(this)">${choice.opt}</button>`).join("")}</div>`).join("")}<button class="btn-primary" onclick="gradeUnitTest('${test.id}', ${test.xp})">✅ اعرض نتيجتي</button><div id="unitTestResult" class="lesson-feedback" style="display:block"></div><button id="saveUnitTestBtn" class="btn-primary success" style="display:none" onclick="completeNode('${test.id}', ${test.xp})">احفظ النتيجة وخد ${test.xp} XP</button>`;
+      body.innerHTML = `<div class="card"><h4>📝 اختبار شامل للوحدة</h4><p style="font-size:14px;line-height:1.8">جاوب على الأسئلة الخمسة. تحتاج 4 إجابات صحيحة على الأقل لاجتياز الاختبار وكسب النقاط.</p></div>${test.questions.map((q, qi) => `<div class="card unit-test-q" data-answer=""><h4>السؤال ${qi + 1} من ${test.questions.length}</h4><p style="font-size:15px;font-weight:700;margin-bottom:8px">${q.q}</p>${q.opts.map((opt, oi) => ({ opt, correct: oi === q.ans })).sort(() => Math.random() - 0.5).map(choice => `<button class="quiz-opt" data-correct="${choice.correct}" onclick="selectUnitAnswer(this)">${choice.opt}</button>`).join("")}</div>`).join("")}<button class="btn-primary" onclick="gradeUnitTest('${test.id}', ${test.xp})">✅ اعرض نتيجتي</button><div id="unitTestResult" class="lesson-feedback" style="display:none"></div><button id="saveUnitTestBtn" class="btn-primary success" style="display:none" onclick="completeNode('${test.id}', ${test.xp})">احفظ النتيجة وخد ${test.xp} XP</button>`;
       document.getElementById("lessonOverlay").classList.add("open");
     }
 
@@ -1868,13 +2295,15 @@
       const result = document.getElementById("unitTestResult");
       result.style.display = "block";
       if (score >= 4) {
-        result.innerHTML = `<strong style="color:var(--success)">🎉 ممتاز! نتيجتك ${score} من ${questions.length}. اجتزت اختبار الوحدة.</strong>`;
+        launchConfetti();
+        result.innerHTML = `<strong style="color:var(--success)">🎉 ممتاز! نتيجتك ${score} من ${questions.length}. اجتزت اختبار الوحدة!</strong>`;
         document.getElementById("saveUnitTestBtn").style.display = "block";
       } else {
         result.innerHTML = `<strong style="color:var(--danger)">نتيجتك ${score} من ${questions.length}. تحتاج 4 إجابات صحيحة. راجع الدروس وحاول مرة ثانية.</strong>`;
         document.getElementById("saveUnitTestBtn").style.display = "none";
       }
     }
+
     function renderReviewCard() {
       const card = document.getElementById("reviewCard");
       if (!card) return;
@@ -1922,13 +2351,13 @@
       const item = ensureReviewItem(question.dataset.lessonId, Number(question.dataset.vocabIndex));
       if (btn.dataset.correct !== "true") markVocabularyMistake(question.dataset.lessonId, Number(question.dataset.vocabIndex));
       if (btn.dataset.correct === "true") {
-        btn.classList.add("correct");
+        btn.classList.add("correct", "pop-anim");
         item.streak = (item.streak || 0) + 1;
         const days = [1, 3, 7, 14, 30][Math.min(item.streak - 1, 4)];
         item.dueAt = Date.now() + days * 86400000;
         question.querySelector(".quiz-feedback").textContent = `✅ ممتاز! هتراجعها بعد ${days} يوم.`;
       } else {
-        btn.classList.add("wrong");
+        btn.classList.add("wrong", "shake-anim");
         if (correctButton) correctButton.classList.add("correct");
         item.streak = 0;
         item.dueAt = Date.now() + 600000;
@@ -1936,6 +2365,7 @@
       }
       saveState();
     }
+
     function switchTab(tab) {
       document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
       document.querySelectorAll(".nav-item").forEach(b => b.classList.remove("active"));
@@ -1943,10 +2373,7 @@
       document.querySelector(`.nav-item[data-tab="${tab}"]`).classList.add("active");
 
       if (tab === "vocab") renderVocabularyBank();
-
-      if (tab === "chat" && state.freeChat.length === 0) {
-        initFreeChat();
-      }
+      if (tab === "chat" && state.freeChat.length === 0) initFreeChat();
     }
 
     let lessonSlides = [];
@@ -1957,31 +2384,36 @@
       currentLesson = lesson;
       const isDone = state.completed.includes(lesson.id);
       lessonSlides = [
-        { type:"intro", title:"هدف الدرس" },
-        { type:"grammar", title:"افهم القاعدة" }
+        { type: "intro", title: "هدف الدرس" },
+        { type: "grammar", title: "افهم القاعدة" }
       ];
-      if (lesson.id === "l16") lessonSlides.push({ type:"alphabet", title:"اسمع الحروف واحدًا واحدًا" });
+      if (lesson.id === "l16") lessonSlides.push({ type: "alphabet", title: "اسمع الحروف واحدًا واحدًا" });
       lesson.vocab.forEach((item, index) => {
-        lessonSlides.push({ type:"vocab", title:`كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
+        lessonSlides.push({ type: "vocab", title: `كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
       });
       const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
-      lessonSlides.push({ type:"writing", title:"اكتب جملتك" });
-      lessonSlides.push({ type:"reviewIntro", title:"مراجعة بعد الدرس" });
+      lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
+      lessonSlides.push({ type: "reviewIntro", title: "مراجعة بعد الدرس" });
       const reviewItems = lesson.vocab.map((item, index) => ({ item, index })).sort(() => Math.random() - 0.5);
       reviewItems.forEach(({ item, index }, reviewIndex) => {
         if (reviewIndex % 2 === 0) {
           const options = getChoices(item.de, lesson, index, entry => entry.de);
-          lessonSlides.push({ type:"quiz", title:`مراجعة كلمة ${index + 1}`, question:item.ar, options, answer:options.indexOf(item.de), vocabIndex:index, explanation:`${item.de} = ${item.ar}` });
+          lessonSlides.push({ type: "quiz", title: `مراجعة كلمة ${index + 1}`, question: item.ar, options, answer: options.indexOf(item.de), vocabIndex: index, explanation: `${item.de} = ${item.ar}` });
         } else {
           const meanings = getChoices(item.ar, lesson, index, entry => entry.ar);
-          lessonSlides.push({ type:"listening", title:`مراجعة استماع ${index + 1}`, item, options:meanings, answer:meanings.indexOf(item.ar), vocabIndex:index });
+          lessonSlides.push({ type: "listening", title: `مراجعة استماع ${index + 1}`, item, options: meanings, answer: meanings.indexOf(item.ar), vocabIndex: index });
         }
       });
-      if (orderSource) { const tokens = orderSource.de.match(/\S+/g); const scrambled = [...tokens].sort(() => Math.random() - 0.5); if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse(); lessonSlides.push({ type:"wordOrder", title:"ترتيب الجملة", tokens, scrambled, translation:orderSource.ar }); }
+      if (orderSource) {
+        const tokens = orderSource.de.match(/\S+/g);
+        const scrambled = [...tokens].sort(() => Math.random() - 0.5);
+        if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse();
+        lessonSlides.push({ type: "wordOrder", title: "ترتيب الجملة", tokens, scrambled, translation: orderSource.ar });
+      }
       const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).sort(() => Math.random() - 0.5);
-      lessonSlides.push({ type:"quiz", title:"مراجعة القاعدة", question:lesson.quiz.q, options:grammarOptions.map(o => o.text), answer:grammarOptions.findIndex(o => o.correct), explanation:lesson.grammar });
-      lessonSlides.push({ type:"recap", title:"خلاصة الدرس" });
-      
+      lessonSlides.push({ type: "quiz", title: "مراجعة القاعدة", question: lesson.quiz.q, options: grammarOptions.map(o => o.text), answer: grammarOptions.findIndex(o => o.correct), explanation: lesson.grammar });
+      lessonSlides.push({ type: "recap", title: "خلاصة الدرس" });
+
       document.getElementById("overlayTitle").textContent = lesson.title;
       document.getElementById("overlayXp").textContent = `+${lesson.xp} XP`;
       document.getElementById("overlayBody").innerHTML = `<div class="lesson-hero"><div class="lesson-hero-top"><strong>📚 درس خطوة بخطوة</strong><span class="node-badge">سؤال واحد في كل مرة</span></div><div id="lessonStageTitle"></div><div class="progress-track"><div id="lessonProgressFill" class="progress-fill"></div></div></div><div id="lessonSlide"></div><div class="lesson-nav"><button id="lessonPrevBtn" class="btn-ghost" onclick="showLessonStep(Number(document.getElementById('overlayBody').dataset.step)-1)">رجوع</button><button id="lessonNextBtn" class="btn-primary" onclick="moveLessonStep()">التالي ←</button></div>`;
@@ -1994,12 +2426,17 @@
       document.getElementById("lessonOverlay").classList.add("open");
       showLessonStep(resumeStep);
     }
+
     function showLessonStep(step) {
       const body = document.getElementById("overlayBody");
       const index = Math.max(0, Math.min(lessonSlides.length - 1, step));
       const slide = lessonSlides[index];
       body.dataset.step = String(index);
-      if (currentLesson && body.dataset.done !== "true") { state.lessonProgress = state.lessonProgress || {}; state.lessonProgress[currentLesson.id] = index; saveState(); }
+      if (currentLesson && body.dataset.done !== "true") {
+        state.lessonProgress = state.lessonProgress || {};
+        state.lessonProgress[currentLesson.id] = index;
+        saveState();
+      }
       document.getElementById("lessonStageTitle").textContent = `الجزء ${index + 1} من ${lessonSlides.length} • ${slide.title}`;
       document.getElementById("lessonProgressFill").style.width = `${Math.round(((index + 1) / lessonSlides.length) * 100)}%`;
       document.getElementById("lessonPrevBtn").disabled = index === 0;
@@ -2010,15 +2447,16 @@
       target.classList.remove("slide-enter");
       void target.offsetWidth;
       target.classList.add("slide-enter");
+
       if (slide.type === "intro") {
         const estimatedMinutes = Math.max(4, Math.ceil((currentLesson.vocab.length * 40 + 90) / 60));
-        target.innerHTML = `<div class="card"><h4>🎯 هدف الدرس</h4><p>${currentLesson.desc}</p><p class="lesson-meta">⏱️ ${estimatedMinutes} دقائق تقريبًا • ${currentLesson.vocab.length} كلمات وعبارات</p><p style="margin-top:8px;color:var(--muted)">هنتعلم خطوة خطوة، نطبق بجملة، وبعدها نراجع بأسئلة متفرقة. سؤال واحد في كل مرة.</p></div>`;
+        target.innerHTML = `<div class="card"><h4>🎯 هدف الدرس</h4><p>${currentLesson.desc}</p><p style="color:var(--accent);font-size:12.5px;margin-top:6px">⏱️ ${estimatedMinutes} دقائق تقريبًا • ${currentLesson.vocab.length} كلمات وعبارات</p><p style="margin-top:8px;color:var(--muted)">هنتعلم خطوة خطوة، نطبق بجملة، وبعدها نراجع بأسئلة متفرقة. سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "alphabet") {
-        const letters = Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-        target.innerHTML = `<div class="card"><h4>🔤 اسمع كل حرف لوحده</h4><p>اضغط على الحرف لسماع اسمه بالألمانية، ثم كرر النطق بصوتك.</p><div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;direction:ltr">${letters.map(letter => `<button type="button" aria-label="اسمع الحرف ${letter}" onclick="speakGerman(this.textContent)"><strong style="font-size:20px">${letter}</strong></button>`).join("")}</div></div>`;
+        const letters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","Ä","Ö","Ü","ß"];
+        target.innerHTML = `<div class="card"><h4>🔤 اسمع كل حرف لوحده</h4><p style="font-size:13px;color:var(--muted)">اضغط على أي حرف لسماع نطقه بالألمانية، وكرره بصوتك.</p><div class="alpha-grid">${letters.map(letter => `<button type="button" class="alpha-btn" aria-label="اسمع الحرف ${letter}" onclick="speakLetterBtn(this, '${letter}')"><strong>${letter}</strong><span>🔊</span></button>`).join("")}</div></div>`;
       } else if (slide.type === "recap") {
         const recapItems = currentLesson.vocab.slice(0, 6).map(item => `<li>${colorGermanArticles(item.de)} — ${escapeHtml(item.ar)}</li>`).join("");
-        target.innerHTML = `<div class="card"><h4>🧾 خلاصة الدرس</h4><p style="white-space:pre-line;line-height:1.9">${escapeHtml(currentLesson.grammar)}</p><hr><ul style="text-align:right;line-height:2">${recapItems}</ul><p>ممتاز! راجعت أهم النقاط، كمّل للدرس التالي وقت ما تكون جاهز.</p></div>`;
+        target.innerHTML = `<div class="card"><h4>🧾 خلاصة الدرس</h4><p style="white-space:pre-line;line-height:1.9">${escapeHtml(currentLesson.grammar)}</p><hr style="border-color:var(--border);margin:10px 0"><ul style="padding-right:18px;line-height:2">${recapItems}</ul><p style="color:var(--success);font-weight:700;margin-top:8px">ممتاز! راجعت أهم النقاط، اضغط إتمام الدرس لاستلام نقاطك.</p></div>`;
       } else if (slide.type === "reviewIntro") {
         target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
@@ -2031,12 +2469,20 @@
         next.disabled = true;
       } else if (slide.type === "wordOrder") {
         target.innerHTML = `<div class="card"><h4>🧩 رتّب الكلمات لتكوين جملة</h4><p>${escapeHtml(slide.translation)}</p><div id="wordOrderBuilt" class="word-order-built" data-target="${escapeHtml(slide.tokens.join(" "))}" data-solved="false">اضغط الكلمات بالترتيب</div><div class="word-order-tiles">${slide.scrambled.map(word => `<button class="word-chip" onclick="selectWordToken(this)">${escapeHtml(word)}</button>`).join("")}</div><button class="btn-ghost" onclick="resetWordOrder()">إعادة المحاولة</button><div id="wordOrderFeedback" class="quiz-feedback"></div></div>`;
-        next.disabled = true;      } else if (slide.type === "writing") {
+        next.disabled = true;
+      } else if (slide.type === "writing") {
         target.innerHTML = `<div class="card"><h4>✍️ طبّق اللي اتعلمته</h4><p class="lesson-practice-prompt">اكتب جملة واحدة بالألماني عن موضوع الدرس. تقدر تتكلم بالميكروفون أو تكتبها.</p><textarea id="lessonPracticeInput" class="lesson-textarea" placeholder="Schreib deinen Satz hier..." oninput="updateWritingNext()"></textarea><button id="lessonMicBtn" class="mic-btn" style="margin-top:8px" onclick="toggleMic(&quot;lesson&quot;)">🎙️ اتكلم بالألماني</button><button class="btn-primary" style="margin-top:10px" onclick="checkLessonPractice('${currentLesson.id}')">🤖 راجع الجملة</button><div id="lessonPracticeFeedback" class="lesson-feedback"></div></div>`;
         if (body.dataset.done !== "true") next.disabled = true;
       }
       bindSpeakButtons(target);
       document.getElementById("lessonOverlay").scrollTop = 0;
+    }
+
+    function speakLetterBtn(btn, letter) {
+      document.querySelectorAll(".alpha-btn").forEach(b => b.classList.remove("speaking"));
+      btn.classList.add("speaking");
+      speakGerman(letter, 0.85);
+      setTimeout(() => btn.classList.remove("speaking"), 750);
     }
 
     function moveLessonStep() {
@@ -2059,6 +2505,7 @@
       const body = document.getElementById("overlayBody");
       if (body) body.dataset.practiceDone = String(hasAnswer);
     }
+
     function selectWordToken(btn) {
       const tileArea = btn.parentElement;
       const built = document.getElementById("wordOrderBuilt");
@@ -2075,9 +2522,8 @@
         const feedback = document.getElementById("wordOrderFeedback");
         if (actual === expected) {
           built.dataset.solved = "true";
-          built.classList.add("solved");
+          built.classList.add("solved", "pop-anim");
           document.getElementById("lessonNextBtn").disabled = false;
-          built.classList.add("pop-anim");
           feedback.innerHTML = `<span style="color:var(--success)">✅ ${pickRandom(PRAISE_CORRECT)} الجملة مترتبة صح 100%!</span>`;
         } else {
           feedback.innerHTML = `<span style="color:var(--danger)">قربت! اضغط إعادة الترتيب وحاول تاني.</span>`;
@@ -2093,10 +2539,11 @@
       document.querySelectorAll(".word-chip").forEach(btn => { btn.disabled = false; btn.classList.remove("used"); });
       document.getElementById("wordOrderFeedback").textContent = "";
     }
+
     function checkQuiz(btn) {
       const parent = btn.parentElement;
       const options = parent.querySelectorAll(".quiz-opt");
-      options.forEach(option => option.classList.remove("correct", "wrong"));
+      options.forEach(option => option.classList.remove("correct", "wrong", "pop-anim", "shake-anim"));
       const correct = Array.from(options).find(option => option.dataset.correct === "true");
       const feedback = document.getElementById("quizFeedback");
       const slide = lessonSlides[Number(document.getElementById("overlayBody").dataset.step)];
@@ -2115,6 +2562,7 @@
         feedback.innerHTML = `<span style="color:var(--accent)">💡 ${pickRandom(ENCOURAGE_RETRY)}<br><strong style="color:var(--success)">الإجابة الصحيحة: ${correct ? correct.textContent : ""}</strong></span>`;
       }
     }
+
     async function checkLessonPractice(lessonId) {
       const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
       const input = document.getElementById("lessonPracticeInput");
@@ -2123,16 +2571,16 @@
       output.style.display = "block";
       if (!answer) { output.textContent = "اكتب جملة أو جملتين بالألماني الأول، وبعدها أراجعهم لك."; return; }
       output.textContent = "⏳ المدرّب بيراجع إجابتك...";
-      const prompt = `الدرس: ${lesson.title}\\nالشرح: ${lesson.grammar}\\nالكلمات: ${lesson.vocab.map(v => v.de).join(", ")}\\nإجابة المتعلم: ${answer}`;
-      const result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني مشجع ودود لمتعلم عربي في مستوى A1. ابدأ بجملة تحفيزية قصيرة بالعامية المصرية، ثم اكتب الجملة المصححة، واشرح أي خطأ ببساطة ولطف، ثم أعطه مثالاً واحداً مشابهاً. لا تستخدم قواعد أعلى من A1.");
+      const prompt = `الدرس: ${lesson.title}\nالشرح: ${lesson.grammar}\nالكلمات: ${lesson.vocab.map(v => v.de).join(", ")}\nإجابة المتعلم: ${answer}`;
+      const result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني مشجع ودود لمتعلم عربي في مستوى A1. ابدأ بجملة تحفيزية قصيرة بالعامية المصرية، ثم اكتب الجملة المصححة، واشرح أي خطأ ببساطة ولطف، ثم أعطه مثالاً واحداً مشابهاً.");
       output.textContent = result;
     }
+
     async function explainGrammarAI(lessonId) {
       const lesson = CURRICULUM.flatMap(u => u.nodes).find(n => n.id === lessonId);
       const box = document.getElementById("grammar-ai-box");
       box.style.display = "block";
       box.textContent = "⏳ جاري تحضير شرح مبسط...";
-
       const prompt = `اشرح هذه القاعدة الألمانية لمستوى A1 بالعامية المصرية البسيطة مع 3 أمثلة ألمانية مترجمة للعربية:\nالدرس: ${lesson.title}\nالقاعدة: ${lesson.grammar}`;
       const reply = await callAI([{ role: "user", content: prompt }], "أنت معلم لغة ألمانية تشرح بالعامية المصرية بوضوح واختصار.");
       box.textContent = reply;
@@ -2144,7 +2592,6 @@
       const box = document.getElementById(`vocab-ai-${lessonId}-${idx}`);
       box.style.display = "block";
       box.textContent = "⏳ جاري توليد جملتين من الحياة اليومية...";
-
       const prompt = `أعطني جملتين قصيرتين جداً بالألمانية (مستوى A1) تستخدم فيهما: "${item.de}" (${item.ar}) مع الترجمة العربية لكل جملة.`;
       const reply = await callAI([{ role: "user", content: prompt }], "أنت معلم ألماني لمستوى A1. أجب باختصار شديد.");
       box.textContent = reply;
@@ -2156,9 +2603,7 @@
       document.getElementById("overlayXp").textContent = `+${cp.xp} XP`;
 
       if (!state.cpChats[cp.id] || state.cpChats[cp.id].length === 0) {
-        state.cpChats[cp.id] = [
-          { role: "ai", de: cp.starterDe, ar: cp.starterAr }
-        ];
+        state.cpChats[cp.id] = [{ role: "ai", de: cp.starterDe, ar: cp.starterAr }];
         saveState(false);
       }
 
@@ -2213,9 +2658,7 @@
       history.push({ role: "ai", de: "...", ar: "يكتب الرد..." });
       renderMessages("cpMessages", history);
 
-      const sys = `${activeCheckpoint.systemPrompt}
-التنسيق الإلزامي لردك:
-اكتب ردك باللغة الألمانية أولاً في سطر واحد، ثم اكتب تحته علامة ||| ثم اكتب الترجمة العربية + أي تصحيح لغوي بسيط إن وجد.`;
+      const sys = `${activeCheckpoint.systemPrompt}\nالتنسيق الإلزامي لردك:\nاكتب ردك باللغة الألمانية أولاً في سطر واحد، ثم اكتب تحته علامة ||| ثم اكتب الترجمة العربية + أي تصحيح لغوي بسيط إن وجد.`;
 
       const apiMsgs = history.slice(0, -1).map(m => ({
         role: m.role === "user" ? "user" : "assistant",
@@ -2235,6 +2678,7 @@
 
     function completeNode(id, xp) {
       updateDailyStreak();
+      launchConfetti();
       if (!state.completed.includes(id)) {
         const lesson = CURRICULUM.flatMap(unit => unit.nodes).find(node => node.id === id && node.type === "lesson");
         state.completed.push(id);
@@ -2257,7 +2701,8 @@
       renderPath();
       closeOverlay();
     }
-        function closeOverlay() {
+
+    function closeOverlay() {
       clearInterval(mockTimerId);
       document.getElementById("lessonOverlay").classList.remove("open");
       activeCheckpoint = null;
@@ -2277,9 +2722,7 @@
       renderMessages("freeChatMessages", state.freeChat);
     }
 
-    function resetFreeChat() {
-      initFreeChat();
-    }
+    function resetFreeChat() { initFreeChat(); }
 
     document.getElementById("scenarioChips").addEventListener("click", e => {
       if (!e.target.classList.contains("chip")) return;
@@ -2329,7 +2772,6 @@
         if (m.role === "user") {
           div.innerHTML = `<div class="ltr">${escapeHtml(m.text)}</div>`;
         } else {
-
           div.innerHTML = `
             <div class="msg-de">${m.de === "..." ? '<div class="typing-dots"><span></span><span></span><span></span></div>' : escapeHtml(m.de)}</div>
             ${m.ar ? `<div class="msg-ar">${escapeHtml(m.ar)}</div>` : ""}
@@ -2360,14 +2802,8 @@
 
     function toggleMic(target) {
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!SpeechRec) {
-        alert("المتصفح لا يدعم التعرف على الصوت. استخدم Google Chrome.");
-        return;
-      }
-      if (recognition && activeMicTarget === target) {
-        recognition.stop();
-        return;
-      }
+      if (!SpeechRec) { alert("المتصفح لا يدعم التعرف على الصوت. استخدم Google Chrome."); return; }
+      if (recognition && activeMicTarget === target) { recognition.stop(); return; }
       if (recognition) recognition.stop();
       recognition = new SpeechRec();
       recognition.lang = "de-DE";
@@ -2380,6 +2816,7 @@
 
       recognition.onresult = e => {
         document.getElementById(inputId).value = e.results[0][0].transcript;
+        if (target === "lesson") updateWritingNext();
       };
       recognition.onerror = recognition.onend = () => {
         document.getElementById(btnId).classList.remove("recording");
@@ -2398,21 +2835,17 @@
       const isLocalhost = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
 
       if (aiMode === "ollama" || (aiMode === "auto" && isLocalhost)) {
-        try {
-          return await fetchOllama(ollamaUrl, ollamaModel, messages, systemInstruction);
-        } catch (e) {
-          if (aiMode === "ollama") return "⚠️ تعذر الاتصال بـ Ollama المحلي.";
-        }
+        try { return await fetchOllama(ollamaUrl, ollamaModel, messages, systemInstruction); }
+        catch (e) { if (aiMode === "ollama") return "⚠️ تعذر الاتصال بـ Ollama المحلي."; }
       }
 
-      if (!geminiKey) return "⚠️ أضف مفتاح Gemini API في تبويب الإعدادات.";
+      if (!geminiKey) return "⚠️ أضف مفتاح Gemini API في تبويب الإعدادات أو اختر الخادم الآمن.";
 
       const modelsToTry = [geminiModel, "gemini-3.5-flash-lite"].filter((v, i, a) => v && a.indexOf(v) === i);
       let lastErr = "";
       for (const model of modelsToTry) {
-        try {
-          return await fetchGemini(geminiKey, model, messages, systemInstruction);
-        } catch (err) { lastErr = err.message; }
+        try { return await fetchGemini(geminiKey, model, messages, systemInstruction); }
+        catch (err) { lastErr = err.message; }
       }
       return `⚠️ تعذر الاتصال بالسيرفر حالياً (${lastErr}).`;
     }
@@ -2434,6 +2867,7 @@
       if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
       return data.text || "لم يصل رد من الخادم.";
     }
+
     async function fetchOllama(url, model, messages, systemInstruction) {
       const res = await fetch(`${url.replace(/\/$/, "")}/api/chat`, {
         method: "POST",
@@ -2576,7 +3010,7 @@
         setAuthStatus("سجّل الدخول أولاً عشان تصفّر تقدم حسابك السحابي.");
         return;
       }
-      const confirmed = window.confirm("هتبدأ من الصفر؟ هيتصفّر تقدم حسابك الحالي فقط: الدروس المكتملة، النقاط، المحادثات والمراجعات. حساب الدخول وإعدادات AI مش هيتحذفوا. لا يمكن التراجع عن التصفير.");
+      const confirmed = window.confirm("هتبدأ من الصفر؟ هيتصفّر تقدم حسابك الحالي فقط: الدروس المكتملة، النقاط، المحادثات والمراجعات. حساب الدخول وإعدادات AI مش هيتحذفوا.");
       if (!confirmed) return;
       const previousState = JSON.parse(JSON.stringify(state));
       clearTimeout(supabaseSyncTimer);
@@ -2601,7 +3035,7 @@
         state = previousState;
         renderPath();
         updateHeaderUI();
-        setAuthStatus("ماقدرناش نحفظ التصفير. تقدمك القديم ما زال محفوظًا؛ جرّب مرة ثانية مع اتصال الإنترنت.");
+        setAuthStatus("ماقدرناش نحفظ التصفير. تقدمك القديم ما زال محفوظًا.");
         return;
       }
       try { localStorage.removeItem(LOCAL_PROGRESS_KEY); } catch {}
@@ -2658,6 +3092,7 @@
       setAuthGateVisible(false);
       updateHeaderUI();
     }
+
     function populateSettingsUI() {
       const s = state.settings;
       document.getElementById("aiMode").value = s.aiMode;
@@ -2702,38 +3137,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
