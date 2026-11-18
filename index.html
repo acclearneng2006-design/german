@@ -57,6 +57,28 @@
       padding: 12px 16px;
     }
 
+    .auth-gate {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(11, 17, 32, 0.98);
+    }
+    .auth-gate[hidden] { display: none !important; }
+    .auth-card {
+      width: min(100%, 430px);
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 24px 80px rgba(0,0,0,.4);
+    }
+    .auth-card h2 { margin-bottom: 8px; font-size: 22px; }
+    .auth-card p { margin-bottom: 18px; color: var(--muted); font-size: 14px; }
+    .auth-card .row-2 { margin-top: 12px; }
+
     .header-top {
       max-width: 720px;
       margin: 0 auto;
@@ -875,6 +897,18 @@
 </head>
 <body>
 
+  <div class="auth-gate" id="authGate">
+    <div class="auth-card">
+      <h2>👋 أهلاً بيك في Deutsch A1 Coach</h2>
+      <p>سجّل دخولك أو أنشئ حسابًا. تقدمك ودروسك المحفوظة هتكون مرتبطة بحسابك وتظهر على أجهزتك.</p>
+      <div class="form-group"><label for="supabaseEmail">البريد الإلكتروني</label><input id="supabaseEmail" type="email" class="form-control ltr" autocomplete="email" placeholder="name@example.com" /></div>
+      <div class="form-group"><label for="supabasePassword">كلمة المرور</label><input id="supabasePassword" type="password" class="form-control ltr" autocomplete="current-password" placeholder="8 أحرف على الأقل" /></div>
+      <div class="row-2"><button class="btn-primary" onclick="signInSupabase()">دخول</button><button class="btn-ghost" onclick="signUpSupabase()">إنشاء حساب</button></div>
+      <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="syncSupabase(true)">إعادة محاولة تحميل التقدم</button>
+      <div class="status-text" id="authGateStatus" role="status" aria-live="polite">جاري الاتصال بخدمة الحسابات...</div>
+    </div>
+  </div>
+
   <header class="app-header">
     <div class="header-top">
       <div class="brand">
@@ -888,7 +922,7 @@
         <div class="pill" title="نقاط الخبرة">⚡ <span id="xpCount">0</span> XP</div>
         <div class="pill" title="حالة المزامنة السحابية">
           <span class="sync-dot" id="syncDot"></span>
-          <span id="syncLabel">محلي</span>
+          <span id="syncLabel">سحابي</span>
         </div>
       </div>
     </div>
@@ -936,7 +970,7 @@
     <section id="view-settings" class="view">
       <div class="card">
         <h4>🤖 إعدادات الذكاء الاصطناعي (AI)</h4>
-        <div class="ai-security-note" style="padding:10px 12px;margin-bottom:12px;border:1px solid rgba(245,158,11,.45);border-radius:12px;background:rgba(245,158,11,.08);font-size:12.5px;line-height:1.8">🔐 المفتاح يُحفظ في متصفحك فقط. لا تضع مفتاحًا داخل ملفات الموقع التي ترفعها على GitHub. للموقع المنشور للعامة استخدم وسيطًا خلفيًا يحتفظ بالمفتاح كسرّ.</div>
+        <div class="ai-security-note" style="padding:10px 12px;margin-bottom:12px;border:1px solid rgba(16,185,129,.4);border-radius:12px;background:rgba(16,185,129,.08);font-size:12.5px;line-height:1.8">🔐 يستخدم التطبيق خادمًا آمنًا للذكاء الاصطناعي؛ لا تحتاج لإدخال مفتاح Gemini هنا.</div>
         <div class="form-group">
           <label>وضع التشغيل</label>
           <select id="aiMode" class="form-control">
@@ -947,12 +981,12 @@
           </select>
         </div>
         <div class="form-group">
-          <label>مفتاح Google Gemini API (مجاني من Google AI Studio)</label>
+          <label>مفتاح Google Gemini API (اختياري لو اخترت Gemini مباشر)</label>
           <input type="password" id="geminiKey" class="form-control ltr" placeholder="AIzaSy..." />
         </div>
         <div class="form-group">
-          <label>عنوان خادم AI الآمن (Cloudflare Worker)</label>
-          <input type="url" id="aiProxyUrl" class="form-control ltr" placeholder="https://...workers.dev/api/chat" />
+          <label>خادم AI الآمن (مُعدّ تلقائياً)</label>
+          <input type="url" id="aiProxyUrl" class="form-control ltr" placeholder="رابط Cloudflare Worker" />
         </div>
         <div class="form-group">
           <label>موديل Gemini</label>
@@ -969,39 +1003,17 @@
           </div>
         </div>
         <div class="row-2">
-          <button class="btn-primary" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+          <button class="btn-primary" onclick="saveSettings()">تطبيق الإعدادات</button>
           <button class="btn-ghost" style="margin-top:8px" onclick="testAI()">🧪 اختبار الاتصال</button>
         </div>
         <div class="status-text" id="aiStatus"></div>
       </div>
 
       <div class="card">
-        <h4>☁️ المزامنة السحابية (GitHub Gist)</h4>
-        <p style="padding:10px 12px;margin-bottom:10px;border:1px solid rgba(245,158,11,.45);border-radius:12px;background:rgba(245,158,11,.08);font-size:12.5px;line-height:1.8">⚠️ Gist خيار قديم؛ رمز GitHub يُحفظ في المتصفح. للمزامنة بحسابات متعددة استخدم Supabase أدناه، ولا ترفع أي رمز إلى GitHub.</p>
-        <div class="form-group">
-          <label>GitHub Personal Access Token (صلاحية gist)</label>
-          <input type="password" id="gistToken" class="form-control ltr" placeholder="ghp_..." />
-        </div>
-        <div class="form-group">
-          <label>Gist ID</label>
-          <input type="text" id="gistId" class="form-control ltr" placeholder="معرّف الـ Gist..." />
-        </div>
-        <div class="row-2">
-          <button class="btn-primary success" onclick="syncNow(true)">🔄 حفظ ومزامنة الآن</button>
-          <button class="btn-ghost" style="margin-top:8px" onclick="createNewGist()">✨ إنشاء Gist جديد</button>
-        </div>
-        <div class="status-text" id="syncStatus"></div>
-        <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
-          <h4>🔐 مزامنة آمنة بحساب شخصي (Supabase)</h4>
-          <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px">كل حساب يرى تقدمه فقط. أدخل رابط المشروع ومفتاحه العام بعد تطبيق مخطط قاعدة البيانات المرفق.</p>
-          <div class="form-group"><label>Project URL</label><input id="supabaseUrl" class="form-control ltr" placeholder="https://xxxx.supabase.co" /></div>
-          <div class="form-group"><label>Publishable / anon key (عام)</label><input id="supabaseAnonKey" class="form-control ltr" placeholder="sb_publishable_..." /></div>
-          <div class="form-group"><label>البريد الإلكتروني</label><input id="supabaseEmail" type="email" class="form-control ltr" autocomplete="email" /></div>
-          <div class="form-group"><label>كلمة المرور</label><input id="supabasePassword" type="password" class="form-control ltr" autocomplete="current-password" /></div>
-          <div class="row-2"><button class="btn-primary" onclick="signInSupabase()">دخول</button><button class="btn-ghost" onclick="signUpSupabase()">إنشاء حساب</button></div>
-          <div class="row-2"><button class="btn-primary success" onclick="syncSupabase(true)">مزامنة الآن</button><button class="btn-ghost" onclick="signOutSupabase()">تسجيل خروج</button></div>
-          <div class="status-text" id="supabaseStatus">غير مربوط</div>
-        </div>
+        <h4>☁️ حسابك وحفظ التقدم</h4>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8">تقدمك محفوظ في حسابك السحابي، ويمكنك فتحه من أي جهاز بعد تسجيل الدخول.</p>
+        <div class="status-text" id="supabaseStatus">غير مسجل الدخول</div>
+        <button class="btn-ghost" style="margin-top:10px" onclick="signOutSupabase()">تسجيل خروج</button>
       </div>
 
         <div class="card"><h4>💾 نسخة احتياطية</h4><p>صدّر تقدمك أو استورده. لا يحتوي الملف على مفاتيح AI أو رموز GitHub.</p><div class="row-2"><button class="btn-primary" onclick="exportProgress()">تنزيل النسخة</button><label class="btn-ghost" style="text-align:center;padding:12px">استيراد JSON<input type="file" accept="application/json,.json" onchange="importProgress(this)" hidden /></label></div></div>
@@ -1564,6 +1576,11 @@
       `;
     }
 
+    const DEFAULT_AI_PROXY_URL = "https://deutsch-a1-ai.deutsch-a1-coach-h3544.workers.dev/api/chat";
+    const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
+    const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
+
     const DEFAULT_STATE = {
       streakDays: 1,
       lastActiveDate: "",
@@ -1575,50 +1592,50 @@
       mistakes: [],
       lessonProgress: {},
       settings: {
-        aiMode: "auto",
+        aiMode: "proxy",
         geminiKey: "",
         geminiModel: "gemini-2.5-flash",
-        aiProxyUrl: "",
-        supabaseUrl: "",
-        supabaseAnonKey: "",
+        aiProxyUrl: DEFAULT_AI_PROXY_URL,
         ollamaUrl: "http://localhost:11434",
-        ollamaModel: "qwen3:14b",
-        gistToken: "",
-        gistId: ""
+        ollamaModel: "qwen3:14b"
       }
     };
 
+    let legacyProgressPending = false;
     let state = loadState();
     let activeCheckpoint = null;
     let currentFreeTopic = "محادثة عامة حرة بمستوى A1 باستخدام كل ما تعلمه الطالب";
     let supabaseClient = null;
     let supabaseSession = null;
-    let supabaseClientConfig = "";
     let supabaseSyncTimer = null;
     let recognition = null;
     let activeMicTarget = null;
 
     function loadState() {
       try {
-        const raw = localStorage.getItem("deutsch_a1_v2");
+        const raw = localStorage.getItem(LOCAL_PROGRESS_KEY);
         if (!raw) return JSON.parse(JSON.stringify(DEFAULT_STATE));
         const parsed = JSON.parse(raw);
-        return {
+        legacyProgressPending = Boolean(
+          (parsed.completed || []).length || parsed.xp || (parsed.reviewQueue || []).length ||
+          Object.keys(parsed.lessonProgress || {}).length || (parsed.mistakes || []).length ||
+          Object.keys(parsed.cpChats || {}).length
+        );
+        const mergedState = {
           ...DEFAULT_STATE,
           ...parsed,
-          settings: { ...DEFAULT_STATE.settings, ...(parsed.settings || {}) }
+          settings: { ...DEFAULT_STATE.settings }
         };
+        if (!mergedState.settings.aiProxyUrl) mergedState.settings.aiProxyUrl = DEFAULT_AI_PROXY_URL;
+        if (mergedState.settings.aiMode === "auto" && !mergedState.settings.geminiKey) mergedState.settings.aiMode = "proxy";
+        return mergedState;
       } catch {
         return JSON.parse(JSON.stringify(DEFAULT_STATE));
       }
     }
 
     function saveState(autoCloud = true) {
-      localStorage.setItem("deutsch_a1_v2", JSON.stringify(state));
       updateHeaderUI();
-      if (autoCloud && !supabaseSession && state.settings.gistToken && state.settings.gistId) {
-        debouncedCloudPush();
-      }
       if (autoCloud && supabaseSession) debouncedSupabasePush();
     }
 
@@ -1633,12 +1650,12 @@
 
       const dot = document.getElementById("syncDot");
       const lbl = document.getElementById("syncLabel");
-      if (supabaseSession || (state.settings.gistToken && state.settings.gistId)) {
+      if (supabaseSession) {
         dot.className = "sync-dot ok";
         lbl.textContent = "متزامن";
       } else {
         dot.className = "sync-dot";
-        lbl.textContent = "محلي";
+        lbl.textContent = "سحابي";
       }
 
       const summary = document.getElementById("summaryStats");
@@ -2375,50 +2392,78 @@
       return data.candidates[0].content.parts[0].text;
     }
 
+    function setAuthStatus(message) {
+      ["authGateStatus", "supabaseStatus"].forEach(id => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = message;
+      });
+    }
+
+    function setAuthGateVisible(visible) {
+      const gate = document.getElementById("authGate");
+      if (gate) gate.hidden = !visible;
+    }
+
+    function resetProgressState() {
+      state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      renderPath();
+      updateHeaderUI();
+    }
+
     function initializeSupabase() {
-      const { supabaseUrl, supabaseAnonKey } = state.settings;
-      if (!supabaseUrl || !supabaseAnonKey || !window.supabase?.createClient) return null;
-      const config = `${supabaseUrl}|${supabaseAnonKey}`;
-      if (supabaseClient && config === supabaseClientConfig) return supabaseClient;
-      supabaseClient = window.supabase.createClient(supabaseUrl, supabaseAnonKey);
-      supabaseClientConfig = config;
+      if (!window.supabase?.createClient) {
+        setAuthStatus("تعذر تحميل خدمة الحسابات. تأكد من اتصال الإنترنت ثم حدّث الصفحة.");
+        return null;
+      }
+      if (supabaseClient) return supabaseClient;
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+      });
       supabaseClient.auth.onAuthStateChange((event, session) => {
         supabaseSession = session;
-        updateHeaderUI();
-        const status = document.getElementById("supabaseStatus");
-        if (status) status.textContent = session ? `مسجل الدخول: ${session.user.email}` : "غير مسجل الدخول";
-        if (event === "SIGNED_IN" || event === "INITIAL_SESSION") setTimeout(() => syncSupabase(false), 0);
+        if (session) {
+          setAuthGateVisible(true);
+          setAuthStatus(`جاري تحميل تقدم حساب ${session.user.email}...`);
+          updateHeaderUI();
+          if (event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") {
+            setTimeout(() => syncSupabase(false), 0);
+          }
+        } else {
+          if (event === "SIGNED_OUT") resetProgressState();
+          setAuthGateVisible(true);
+          setAuthStatus(event === "INITIAL_SESSION" ? "سجّل الدخول أو أنشئ حسابًا للبدء." : "تم تسجيل الخروج.");
+          updateHeaderUI();
+        }
       });
       return supabaseClient;
     }
 
     async function signUpSupabase() {
-      saveSettings();
       const client = initializeSupabase();
       const email = document.getElementById("supabaseEmail").value.trim();
       const password = document.getElementById("supabasePassword").value;
-      const status = document.getElementById("supabaseStatus");
-      if (!client || !email || password.length < 8) { status.textContent = "أدخل إعدادات المشروع وبريدًا وكلمة مرور من 8 أحرف على الأقل."; return; }
+      if (!client) return;
+      if (!email || password.length < 8) { setAuthStatus("اكتب بريدًا صحيحًا وكلمة مرور من 8 أحرف على الأقل."); return; }
+      setAuthStatus("جاري إنشاء الحساب...");
       const { data, error } = await client.auth.signUp({ email, password });
-      status.textContent = error ? error.message : data.session ? "تم إنشاء الحساب وتسجيل الدخول." : "تم إنشاء الحساب؛ راجع بريدك لتأكيده.";
+      if (error) setAuthStatus(error.message);
+      else if (data.session) setAuthStatus("تم إنشاء الحساب. جاري تحميل تقدمك...");
+      else setAuthStatus("تم إنشاء الحساب. افتح رسالة التأكيد في بريدك ثم ارجع وسجّل الدخول.");
     }
 
     async function signInSupabase() {
-      saveSettings();
       const client = initializeSupabase();
-      const status = document.getElementById("supabaseStatus");
-      if (!client) { status.textContent = "أدخل Project URL والمفتاح العام أولاً."; return; }
-      const { error } = await client.auth.signInWithPassword({ email: document.getElementById("supabaseEmail").value.trim(), password: document.getElementById("supabasePassword").value });
-      if (error) status.textContent = error.message;
-      else await syncSupabase(true);
+      const email = document.getElementById("supabaseEmail").value.trim();
+      const password = document.getElementById("supabasePassword").value;
+      if (!client) return;
+      if (!email || !password) { setAuthStatus("اكتب البريد الإلكتروني وكلمة المرور."); return; }
+      setAuthStatus("جاري تسجيل الدخول...");
+      const { error } = await client.auth.signInWithPassword({ email, password });
+      if (error) setAuthStatus(error.message);
     }
 
     async function signOutSupabase() {
       if (supabaseClient) await supabaseClient.auth.signOut();
-      supabaseSession = null;
-      updateHeaderUI();
-      const status = document.getElementById("supabaseStatus");
-      if (status) status.textContent = "تم تسجيل الخروج.";
     }
 
     function debouncedSupabasePush() {
@@ -2427,22 +2472,21 @@
     }
 
     async function pushSupabaseProgress() {
-      if (!supabaseClient || !supabaseSession) return;
+      if (!supabaseClient || !supabaseSession) return false;
       const { error } = await supabaseClient.from("user_progress").upsert({ user_id: supabaseSession.user.id, payload: getSyncPayload(), updated_at: new Date().toISOString() }, { onConflict: "user_id" });
-      const status = document.getElementById("supabaseStatus");
-      if (status && error) status.textContent = `فشل حفظ التقدم: ${error.message}`;
+      if (error) { setAuthStatus(`فشل حفظ التقدم: ${error.message}`); return false; }
+      return true;
     }
 
     async function syncSupabase(manual = true) {
       const client = initializeSupabase();
-      const status = document.getElementById("supabaseStatus");
-      if (!client) { if (status) status.textContent = "أدخل إعدادات المشروع أولاً."; return; }
+      if (!client) return;
       const { data: sessionData } = await client.auth.getSession();
       supabaseSession = sessionData.session;
-      if (!supabaseSession) { if (status) status.textContent = "سجل الدخول أولاً."; return; }
-      if (status) status.textContent = "جاري دمج التقدم وحفظه...";
+      if (!supabaseSession) { setAuthGateVisible(true); setAuthStatus("سجّل الدخول أو أنشئ حسابًا للبدء."); return; }
+      setAuthStatus("جاري تحميل تقدمك وحفظه...");
       const { data, error } = await client.from("user_progress").select("payload").eq("user_id", supabaseSession.user.id).maybeSingle();
-      if (error) { if (status) status.textContent = `تعذرت قراءة التقدم: ${error.message}`; return; }
+      if (error) { setAuthGateVisible(true); setAuthStatus(`تعذر تحميل التقدم: ${error.message}`); return; }
       if (data?.payload) {
         const remote = data.payload;
         state.completed = Array.from(new Set([...(state.completed || []), ...(remote.completed || [])]));
@@ -2452,11 +2496,17 @@
         state.mistakes = Array.from(new Map([...(remote.mistakes || []), ...(state.mistakes || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item])).values());
         const reviewMap = new Map([...(remote.reviewQueue || []), ...(state.reviewQueue || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item]));
         state.reviewQueue = Array.from(reviewMap.values());
-        saveState(false);
-        renderPath();
+        if ((remote.lastActiveDate || "") >= (state.lastActiveDate || "")) state.streakDays = remote.streakDays || state.streakDays || 1;
+        state.lastActiveDate = [remote.lastActiveDate, state.lastActiveDate].filter(Boolean).sort().at(-1) || "";
       }
-      await pushSupabaseProgress();
-      if (status) status.textContent = "✅ التقدم متزامن لهذا الحساب.";
+      updateDailyStreak();
+      renderPath();
+      const saved = await pushSupabaseProgress();
+      if (!saved) { setAuthGateVisible(true); return; }
+      try { localStorage.removeItem(LOCAL_PROGRESS_KEY); } catch {}
+      legacyProgressPending = false;
+      setAuthStatus(`✅ تم تحميل وحفظ تقدم ${supabaseSession.user.email} على السحابة.`);
+      setAuthGateVisible(false);
       updateHeaderUI();
     }
     function populateSettingsUI() {
@@ -2467,10 +2517,6 @@
       document.getElementById("aiProxyUrl").value = s.aiProxyUrl || "";
       document.getElementById("ollamaUrl").value = s.ollamaUrl;
       document.getElementById("ollamaModel").value = s.ollamaModel;
-      document.getElementById("gistToken").value = s.gistToken;
-      document.getElementById("gistId").value = s.gistId;
-      document.getElementById("supabaseUrl").value = s.supabaseUrl || "";
-      document.getElementById("supabaseAnonKey").value = s.supabaseAnonKey || "";
     }
 
     function saveSettings() {
@@ -2480,12 +2526,8 @@
       state.settings.aiProxyUrl = document.getElementById("aiProxyUrl").value.trim();
       state.settings.ollamaUrl = document.getElementById("ollamaUrl").value.trim() || "http://localhost:11434";
       state.settings.ollamaModel = document.getElementById("ollamaModel").value.trim() || "qwen3:14b";
-      state.settings.gistToken = document.getElementById("gistToken").value.trim();
-      state.settings.gistId = document.getElementById("gistId").value.trim();
-      state.settings.supabaseUrl = document.getElementById("supabaseUrl").value.trim();
-      state.settings.supabaseAnonKey = document.getElementById("supabaseAnonKey").value.trim();
       saveState(false);
-      document.getElementById("aiStatus").innerHTML = `<span style="color:var(--success)">✅ تم حفظ الإعدادات بنجاح.</span>`;
+      document.getElementById("aiStatus").innerHTML = `<span style="color:var(--success)">✅ تم تطبيق الإعدادات لهذه الجلسة.</span>`;
     }
 
     async function testAI() {
@@ -2496,106 +2538,18 @@
       st.innerHTML = res.startsWith("⚠️") ? `<span style="color:var(--danger)">${res}</span>` : `<span style="color:var(--success)">✅ الاتصال ناجح! الرد: ${res}</span>`;
     }
 
-    let syncTimer = null;
-    function debouncedCloudPush() {
-      clearTimeout(syncTimer);
-      syncTimer = setTimeout(() => pushToGist(), 1500);
-    }
-
-    async function createNewGist() {
-      saveSettings();
-      const st = document.getElementById("syncStatus");
-      if (!state.settings.gistToken) {
-        st.innerHTML = `<span style="color:var(--danger)">⚠️ أدخل GitHub Token أولاً.</span>`;
-        return;
-      }
-      st.textContent = "⏳ جاري إنشاء سحابة Gist...";
-      try {
-        const res = await fetch("https://api.github.com/gists", {
-          method: "POST",
-          headers: { "Authorization": `token ${state.settings.gistToken}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ description: "Deutsch A1 Coach Sync", public: false, files: { "german_a1_sync.json": { content: JSON.stringify(getSyncPayload()) } } })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || "Error");
-        state.settings.gistId = data.id;
-        document.getElementById("gistId").value = data.id;
-        saveState(false);
-        st.innerHTML = `<span style="color:var(--success)">✅ تم إنشاء Gist وربطه بنجاح!</span>`;
-      } catch (e) {
-        st.innerHTML = `<span style="color:var(--danger)">❌ فشل الإنشاء: ${e.message}</span>`;
-      }
-    }
-
     function getSyncPayload() {
-      return { completed: state.completed, xp: state.xp, cpChats: state.cpChats, reviewQueue: state.reviewQueue || [], lessonProgress: state.lessonProgress || {}, mistakes: state.mistakes || [], updatedAt: Date.now() };
-    }
-
-    async function pushToGist() {
-      const { gistToken, gistId } = state.settings;
-      if (!gistToken || !gistId) return;
-      document.getElementById("syncDot").className = "sync-dot busy";
-      try {
-        const res = await fetch(`https://api.github.com/gists/${gistId}`, {
-          method: "PATCH",
-          headers: { "Authorization": `token ${gistToken}`, "Content-Type": "application/json" },
-          body: JSON.stringify({ files: { "german_a1_sync.json": { content: JSON.stringify(getSyncPayload()) } } })
-        });
-        if (!res.ok) throw new Error("Sync failed");
-        document.getElementById("syncDot").className = "sync-dot ok";
-        document.getElementById("syncLabel").textContent = "متزامن";
-      } catch {
-        document.getElementById("syncDot").className = "sync-dot err";
-        document.getElementById("syncLabel").textContent = "خطأ مزامنة";
-      }
-    }
-
-    async function pullFromGist(manual = false) {
-      const { gistToken, gistId } = state.settings;
-      if (!gistToken || !gistId) return;
-      const st = document.getElementById("syncStatus");
-      document.getElementById("syncDot").className = "sync-dot busy";
-      try {
-        const res = await fetch(`https://api.github.com/gists/${gistId}`, { headers: { "Authorization": `token ${gistToken}` }, cache: "no-store" });
-        const data = await res.json();
-        const rawFile = data.files?.["german_a1_sync.json"]?.content;
-        if (rawFile) {
-          const remote = JSON.parse(rawFile);
-          if (remote && Array.isArray(remote.completed)) {
-            state.completed = Array.from(new Set([...state.completed, ...remote.completed]));
-            state.xp = Math.max(state.xp, remote.xp || 0);
-            state.cpChats = { ...remote.cpChats, ...state.cpChats };
-            state.lessonProgress = { ...(remote.lessonProgress || {}), ...(state.lessonProgress || {}) };
-        state.mistakes = Array.from(new Map([...(remote.mistakes || []), ...(state.mistakes || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item])).values());
-            const reviewMap = new Map([...(remote.reviewQueue || []), ...(state.reviewQueue || [])].map(item => [`${item.lessonId}:${item.vocabIndex}`, item]));
-            state.reviewQueue = Array.from(reviewMap.values());
-            saveState(false);
-            renderPath();
-          }
-        }
-        await pushToGist();
-        if (manual && st) st.innerHTML = `<span style="color:var(--success)">✅ تمت المزامنة بين الأجهزة بنجاح!</span>`;
-      } catch (e) {
-        document.getElementById("syncDot").className = "sync-dot err";
-        if (manual && st) st.innerHTML = `<span style="color:var(--danger)">❌ تعذرت المزامنة: ${e.message}</span>`;
-      }
-    }
-
-    function syncNow(manual) {
-      saveSettings();
-      if (supabaseSession) syncSupabase(manual); else pullFromGist(manual);
+      return { completed: state.completed, xp: state.xp, streakDays: state.streakDays || 1, lastActiveDate: state.lastActiveDate || "", cpChats: state.cpChats, reviewQueue: state.reviewQueue || [], lessonProgress: state.lessonProgress || {}, mistakes: state.mistakes || [], updatedAt: Date.now() };
     }
 
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") { if (supabaseSession) syncSupabase(false); else pullFromGist(false); }
+      if (document.visibilityState === "visible" && supabaseSession) syncSupabase(false);
     });
 
-    updateDailyStreak();
     populateSettingsUI();
     initializeSupabase();
     renderPath();
     updateHeaderUI();
-    if (state.settings.gistToken && state.settings.gistId) pullFromGist(false);
   </script>
 </body>
 </html>
