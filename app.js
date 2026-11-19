@@ -274,7 +274,10 @@ const MOTIVATION_QUOTES = [
 
     function openFlashcardsModal() {
       const unitFilter = document.getElementById("vocabUnitFilter")?.value || "all";
-      const all = getAllVocabulary().filter(item => unitFilter === "all" || Number(unitFilter) === item.unitIndex);
+      const all = getAllVocabulary().filter(item =>
+        state.completed.includes(item.lessonId) &&
+        (unitFilter === "all" || Number(unitFilter) === item.unitIndex)
+      );
       flashcardDeck = all.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]).slice(0, 20);
       flashcardIndex = 0;
       document.getElementById("overlayTitle").textContent = "🎴 بطاقات المراجعة السريعة";
@@ -286,7 +289,7 @@ const MOTIVATION_QUOTES = [
     function renderFlashcardView() {
       const body = document.getElementById("overlayBody");
       if (!flashcardDeck.length) {
-        body.innerHTML = `<div class="card"><p>لا توجد بطاقات متاحة في هذا الفلتر.</p></div>`;
+        body.innerHTML = `<div class="card"><h4>لسه مفيش كلمات للمراجعة</h4><p>البطاقات بتظهر للكلمات الموجودة في الدروس اللي أنهيتها. خلّص أول درس وارجع هنا 🎴</p></div>`;
         return;
       }
       if (flashcardIndex >= flashcardDeck.length) {
@@ -389,15 +392,18 @@ const MOTIVATION_QUOTES = [
 
         unit.nodes.forEach(node => {
           const isDone = state.completed.includes(node.id);
+          const isLocked = !isPathItemUnlocked(node.id);
           const card = document.createElement("div");
           const isSpecial = node.type === "checkpoint" || node.type === "reading" || node.type === "writing_exam";
-          card.className = `node-card ${isSpecial ? "checkpoint" : ""} ${isDone ? "done" : ""}`;
+          card.className = `node-card ${isSpecial ? "checkpoint" : ""} ${isDone ? "done" : ""} ${isLocked ? "locked" : ""}`;
           card.style.animationDelay = `${Math.min(animDelay * 35, 420)}ms`;
           animDelay++;
 
-          card.tabIndex = 0; card.setAttribute("role", "button");
+          card.tabIndex = isLocked ? -1 : 0; card.setAttribute("role", "button");
+          if (isLocked) card.setAttribute("aria-disabled", "true");
           card.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); card.click(); } });
           card.onclick = () => {
+            if (isLocked) { showToast("كمّل المحطة المفتوحة الأول عشان تفتح اللي بعدها 🔒", "default", "🔒"); return; }
             if (node.type === "checkpoint") openCheckpoint(node);
             else if (node.type === "reading") openReadingLesson(node);
             else if (node.type === "writing_exam") openWritingExamLesson(node);
@@ -406,11 +412,12 @@ const MOTIVATION_QUOTES = [
 
           const badgeText = isDone
             ? "✓ مكتمل"
+            : isLocked ? "🔒 مقفول"
             : (node.type === "checkpoint" ? "محادثة AI" : `+${node.xp} XP`);
 
           card.innerHTML = `
             <div class="node-left">
-              <div class="node-icon">${isDone ? "✅" : node.icon}</div>
+              <div class="node-icon">${isDone ? "✅" : isLocked ? "🔒" : node.icon}</div>
               <div class="node-info">
                 <h3>${node.title}</h3>
                 <p>${node.desc}</p>
@@ -426,28 +433,36 @@ const MOTIVATION_QUOTES = [
         const unitTest = UNIT_TESTS[unitIndex];
         if (unitTest) {
           const testDone = state.completed.includes(unitTest.id);
+          const testLocked = !isPathItemUnlocked(unitTest.id);
           const testCard = document.createElement("div");
-          testCard.className = `node-card exam-node ${testDone ? "done" : ""}`;
+          testCard.className = `node-card exam-node ${testDone ? "done" : ""} ${testLocked ? "locked" : ""}`;
           testCard.style.marginTop = "10px";
-          testCard.onclick = () => openUnitTest(unitTest);
-          testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : "📝"}</div><div class="node-info"><h3>${unitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : `+${unitTest.xp} XP`}</span>`;
+          testCard.tabIndex = testLocked ? -1 : 0;
+          if (testLocked) testCard.setAttribute("aria-disabled", "true");
+          testCard.onclick = () => testLocked ? showToast("كمّل دروس الوحدة الأول عشان تفتح الاختبار 🔒", "default", "🔒") : openUnitTest(unitTest);
+          testCard.innerHTML = `<div class="node-left"><div class="node-icon">${testDone ? "✅" : testLocked ? "🔒" : "📝"}</div><div class="node-info"><h3>${unitTest.title}</h3><p>مراجعة قصيرة • 5 أسئلة • النجاح من 4 إجابات صحيحة</p></div></div><span class="node-badge">${testDone ? "✓ اجتزت الاختبار" : testLocked ? "🔒 مقفول" : `+${unitTest.xp} XP`}</span>`;
           container.appendChild(testCard);
         }
       });
 
+      const courseUnlocked = isCoursePathComplete();
       const mockDone = state.completed.includes("mock-final");
       const mockCard = document.createElement("div");
-      mockCard.className = `node-card checkpoint ${mockDone ? "done" : ""}`;
+      mockCard.className = `node-card checkpoint ${mockDone ? "done" : ""} ${courseUnlocked ? "" : "locked"}`;
       mockCard.style.marginTop = "20px";
-      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">${mockDone ? "🏆" : "🏁"}</div><div class="node-info"><h3>محاكاة A1 النهائية الشاملة</h3><p>25 سؤالًا من جميع الوحدات • 25 دقيقة • النجاح من 18/25</p></div></div><span class="node-badge">${mockDone ? "✓ ناجح (+100 XP)" : "ابدأ المحاكاة"}</span>`;
-      mockCard.onclick = openMockExam;
+      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">${mockDone ? "🏆" : courseUnlocked ? "🏁" : "🔒"}</div><div class="node-info"><h3>محاكاة A1 النهائية الشاملة</h3><p>25 سؤالًا من جميع الوحدات • 25 دقيقة • النجاح من 18/25</p></div></div><span class="node-badge">${mockDone ? "✓ ناجح (+100 XP)" : courseUnlocked ? "ابدأ المحاكاة" : "🔒 بعد إنهاء المنهج"}</span>`;
+      mockCard.onclick = () => courseUnlocked ? openMockExam() : showToast("المحاكاة النهائية تفتح بعد إنهاء الدروس واختبارات الوحدات 🔒", "default", "🔒");
       container.appendChild(mockCard);
       const gDone = state.completed.includes("goethe-mock");
       const gCard = document.createElement("div");
-      gCard.className = `node-card exam-node ${gDone ? "done" : ""}`; gCard.style.marginTop = "10px"; gCard.tabIndex = 0;
+      gCard.className = `node-card exam-node ${gDone ? "done" : ""} ${courseUnlocked ? "" : "locked"}`; gCard.style.marginTop = "10px"; gCard.tabIndex = 0;
       gCard.innerHTML = `<div class="node-left"><div class="node-icon">${gDone ? "🏆" : "🎓"}</div><div class="node-info"><h3>تدريب بشكل امتحان Goethe A1</h3><p>استماع + قراءة + كتابة + محادثة، كل جزء بدرجته</p></div></div><span class="node-badge">${gDone ? "✓ ناجح" : "+100 XP"}</span>`;
-      gCard.onclick = openGoetheExam; gCard.addEventListener("keydown", e => { if (e.key === "Enter") openGoetheExam(); });
+      gCard.onclick = () => courseUnlocked ? openGoetheExam() : showToast("تدريب Goethe يفتح بعد إنهاء المنهج واختباراته 🔒", "default", "🔒");
+      gCard.tabIndex = courseUnlocked ? 0 : -1;
+      if (!courseUnlocked) gCard.setAttribute("aria-disabled", "true");
+      gCard.addEventListener("keydown", e => { if (e.key === "Enter" && courseUnlocked) openGoetheExam(); });
       container.appendChild(gCard);
+      refreshChatTopics();
     }
 
     // Reading Lesson (Lesen: Richtig / Falsch)
@@ -1019,27 +1034,36 @@ const MOTIVATION_QUOTES = [
       history.push({ role: "ai", de: "...", ar: "يكتب الرد..." });
       renderMessages("cpMessages", history);
 
-      const sys = `${activeCheckpoint.systemPrompt}\nالتنسيق الإلزامي لردك:\nاكتب ردك باللغة الألمانية أولاً في سطر واحد، ثم اكتب تحته علامة ||| ثم اكتب الترجمة العربية + أي تصحيح لغوي بسيط إن وجد.`;
+      const sys = `${activeCheckpoint.systemPrompt}
+${getStudiedSummary()}
+التزم بالكلمات والقواعد التي أتمها الطالب فقط. لا تستعمل موضوعاً أو قاعدة من درس لم ينهه.
+اكتب جملة ألمانية قصيرة مناسبة A1، ثم ||| في سطر مستقل، ثم ترجمتها العربية وتصحيحاً لطيفاً إن لزم. ممنوع Markdown والنجمتان ** وأي عناوين أو قوائم.`;
 
       const apiMsgs = history.slice(0, -1).slice(-12).map(m => ({
         role: m.role === "user" ? "user" : "assistant",
         content: m.role === "user" ? m.text : m.de
       }));
 
-      const rawReply = await callAI(apiMsgs, sys);
-      if (rawReply.startsWith("⚠️")) { state.freeChat.pop(); renderMessages("freeChatMessages", state.freeChat); showToast(rawReply, "default", "⚠️"); return; }
-      if (rawReply.startsWith("⚠️")) { history.pop(); renderMessages("cpMessages", history); showToast(rawReply, "default", "⚠️"); return; }
-      const parts = rawReply.split("|||");
-      const dePart = parts[0].trim();
-      const arPart = parts[1] ? parts[1].trim() : "";
-
+      let rawReply = "";
+      try { rawReply = await callAI(apiMsgs, sys); }
+      catch (error) { rawReply = `⚠️ ${error.message || "تعذر الاتصال بالمدرب"}`; }
+      if (rawReply.startsWith("⚠️")) {
+        history[history.length - 1] = { role: "ai", de: rawReply, ar: "" };
+        renderMessages("cpMessages", history);
+        return;
+      }
+      const { de: dePart, ar: arPart } = parseAIChatReply(rawReply);
       history[history.length - 1] = { role: "ai", de: dePart, ar: arPart };
       saveState();
       renderMessages("cpMessages", history);
-      speakGerman(dePart);
+      if (dePart) speakGerman(dePart);
     }
 
     function completeNode(id, xp) {
+      if (!state.completed.includes(id) && !isPathItemUnlocked(id)) {
+        showToast("كمّل المحطة المفتوحة الأول عشان تفتح اللي بعدها 🔒", "default", "🔒");
+        return;
+      }
       if (!state.completed.includes(id)) {
         if (activeCheckpoint && !(state.cpChats[id] || []).some(m => m.role === "user")) { showToast("ابعت رد واحد على الأقل للمدرب الأول", "default", "💬"); return; }
         const rd = document.querySelectorAll(".reading-item");
@@ -1078,8 +1102,51 @@ const MOTIVATION_QUOTES = [
 
     function getStudiedSummary() {
       const doneNodes = CURRICULUM.flatMap(u => u.nodes).filter(n => state.completed.includes(n.id) && n.type === "lesson");
-      if (doneNodes.length === 0) return "الطالب في بداية مستوى A1.";
-      return "الدروس التي أتمها الطالب حتى الآن: " + doneNodes.map(n => `${n.title} (${n.desc})`).join("، ");
+      if (doneNodes.length === 0) return "الطالب في بداية مستوى A1 ولم ينهِ أي درس بعد. ابدأ بتحية بسيطة جداً، ولا تستخدم قواعد أو كلمات من دروس مقفولة.";
+      const learnedWords = doneNodes.flatMap(n => n.vocab.map(v => `${v.de} = ${v.ar}`)).slice(-120);
+      const learnedRules = doneNodes.slice(-18).map(n => `${n.title}: ${n.grammar.replace(/\s+/g, " ").slice(0, 180)}`);
+      return `المحتوى الذي درسه الطالب وأتمه فقط (التزم به ولا تفترض أنه درس أي شيء آخر):
+القواعد والدروس: ${learnedRules.join(" | ")}
+الكلمات والعبارات التي يعرفها: ${learnedWords.join("؛ ")}
+إذا احتجت كلمة جديدة لإكمال الحوار، قدّم كلمة واحدة فقط مع معناها بالعربية واشرحها باختصار قبل مواصلة الحوار.`.slice(0, 7000);
+    }
+
+    function getLearningSequence() {
+      const sequence = [];
+      CURRICULUM.forEach((unit, index) => {
+        sequence.push(...unit.nodes);
+        if (UNIT_TESTS[index]) sequence.push(UNIT_TESTS[index]);
+      });
+      return sequence;
+    }
+
+    function isPathItemUnlocked(id) {
+      const sequence = getLearningSequence();
+      const index = sequence.findIndex(item => item.id === id);
+      if (index < 0) return false;
+      return state.completed.includes(id) || sequence.slice(0, index).every(item => state.completed.includes(item.id));
+    }
+
+    function isCoursePathComplete() {
+      return getLearningSequence().every(item => state.completed.includes(item.id));
+    }
+
+    function refreshChatTopics() {
+      const chips = document.querySelectorAll("#scenarioChips .chip");
+      chips.forEach(chip => {
+        const topic = chip.dataset.topic || "";
+        let required = [];
+        if (topic.includes("عطلة نهاية الأسبوع")) required = ["l25"];
+        else if (topic.includes("المقهى")) required = ["l4"];
+        else if (topic.includes("التعارف")) required = ["l1"];
+        else if (topic.includes("التسوق")) required = ["l5", "l6"];
+        else if (topic.includes("الاتجاهات")) required = ["l10", "l15"];
+        const locked = required.some(id => !state.completed.includes(id));
+        chip.disabled = locked;
+        chip.setAttribute("aria-disabled", String(locked));
+        chip.title = locked ? "افتح الموضوع بعد إنهاء دروسه في المسار" : "";
+        chip.classList.toggle("locked", locked);
+      });
     }
 
     function initFreeChat() {
@@ -1093,7 +1160,7 @@ const MOTIVATION_QUOTES = [
     function resetFreeChat() { initFreeChat(); }
 
     document.getElementById("scenarioChips").addEventListener("click", e => {
-      if (!e.target.classList.contains("chip")) return;
+      if (!e.target.classList.contains("chip") || e.target.disabled) return;
       document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
       e.target.classList.add("active");
       currentFreeTopic = e.target.dataset.topic;
@@ -1112,22 +1179,45 @@ const MOTIVATION_QUOTES = [
       state.freeChat.push({ role: "ai", de: "...", ar: "جاري الرد..." });
       renderMessages("freeChatMessages", state.freeChat);
 
-      const sys = `أنت مدرب محادثة لغة ألمانية لمستوى A1. موضوع الحوار الحالي: ${currentFreeTopic}. ${getStudiedSummary()} تحدث مع الطالب بالألمانية البسيطة (A1). التنسيق الإلزامي: اكتب الرد الألماني أولاً، ثم ||| ثم الترجمة العربية مع كلمة تشجيع خفيفة وتصحيح أي خطأ بلطف.`;
+      const sys = `أنت مدرب ألماني A1 لطيف. موضوع الحوار: ${currentFreeTopic}. ${getStudiedSummary()}
+استخدم أساساً الكلمات والقواعد المكتوبة ضمن ما أتمه الطالب فقط. لا تدخل موضوعات أو قواعد من دروس لم ينهها. اجعل ردك قصيراً: جملة ألمانية واحدة مناسبة للمستوى، ثم اكتب ||| في سطر مستقل، ثم ترجمتها بالعربية وتصحيحاً بسيطاً عند الحاجة. ممنوع استخدام Markdown أو النجمتين ** أو العناوين والقوائم. إذا لم ينه الطالب أي درس، ابدأ بتحية سهلة جداً وعلّمه كلمة واحدة فقط.`;
 
       const apiMsgs = state.freeChat.slice(0, -1).slice(-12).map(m => ({
         role: m.role === "user" ? "user" : "assistant",
         content: m.role === "user" ? m.text : m.de
       }));
 
-      const rawReply = await callAI(apiMsgs, sys);
-      const parts = rawReply.split("|||");
-      const dePart = parts[0].trim();
-      const arPart = parts[1] ? parts[1].trim() : "";
-
+      let rawReply = "";
+      try { rawReply = await callAI(apiMsgs, sys); }
+      catch (error) { rawReply = `⚠️ ${error.message || "تعذر الاتصال بالمدرب"}`; }
+      if (rawReply.startsWith("⚠️")) {
+        state.freeChat[state.freeChat.length - 1] = { role: "ai", de: rawReply, ar: "" };
+        renderMessages("freeChatMessages", state.freeChat);
+        return;
+      }
+      const { de: dePart, ar: arPart } = parseAIChatReply(rawReply);
       state.freeChat[state.freeChat.length - 1] = { role: "ai", de: dePart, ar: arPart };
       saveState();
       renderMessages("freeChatMessages", state.freeChat);
-      speakGerman(dePart);
+      if (dePart) speakGerman(dePart);
+    }
+
+    function parseAIChatReply(raw) {
+      const clean = value => String(value || "")
+        .replace(/\\([*_#])/g, "$1")
+        .replace(/```[\s\S]*?```/g, block => block.replace(/```\w*/g, ""))
+        .replace(/\*\*|__|~~|`/g, "")
+        .replace(/(^|\n)\s{0,3}#{1,6}\s*/g, "$1")
+        .replace(/(^|\n)\s*[-*+]\s+/g, "$1")
+        .replace(/[ \t]+\n/g, "\n")
+        .trim();
+      const text = clean(raw);
+      const divider = text.indexOf("|||");
+      if (divider >= 0) return { de: clean(text.slice(0, divider)), ar: clean(text.slice(divider + 3)) };
+      const lines = text.split(/\n+/).map(line => line.trim()).filter(Boolean);
+      const arabicLine = lines.findIndex(line => /[\u0600-\u06FF]/.test(line));
+      if (arabicLine > 0) return { de: clean(lines.slice(0, arabicLine).join(" ")), ar: clean(lines.slice(arabicLine).join(" ")) };
+      return { de: text, ar: "" };
     }
 
     function renderMessages(containerId, list) {
