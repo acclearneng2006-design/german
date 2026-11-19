@@ -71,7 +71,7 @@ const MOTIVATION_QUOTES = [
     function renderMotivationBanner() {
       const box = document.getElementById("motivationBanner");
       if (!box) return;
-      const allNodes = CURRICULUM.flatMap(u => u.nodes).concat(UNIT_TESTS);
+      const allNodes = CURRICULUM.flatMap(u => u.nodes).concat(UNIT_TESTS, [{ id: "mock-final" }, { id: "goethe-mock" }]);
       const doneCount = state.completed.length;
       const pct = Math.min(100, Math.round((doneCount / allNodes.length) * 100));
       const dayIndex = new Date().getDate() % MOTIVATION_QUOTES.length;
@@ -107,7 +107,7 @@ const MOTIVATION_QUOTES = [
     const SUPABASE_URL = "https://wvejscyxfsgmcecljpga.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_FK4nXbtN4s3BYmraYqUjew_UIg4AAtx";
     const LOCAL_PROGRESS_KEY = "deutsch_a1_v2";
-    const LESSON_FLOW_VERSION = 6;
+    const LESSON_FLOW_VERSION = 7;
 
     const DEFAULT_STATE = {
       lessonFlowVersion: LESSON_FLOW_VERSION,
@@ -177,7 +177,7 @@ const MOTIVATION_QUOTES = [
       const streakEl = document.getElementById("streakCount");
       if (streakEl) streakEl.textContent = state.streakDays || 1;
       renderMotivationBanner();
-      const allNodes = CURRICULUM.flatMap(u => u.nodes).concat(UNIT_TESTS);
+      const allNodes = CURRICULUM.flatMap(u => u.nodes).concat(UNIT_TESTS, [{ id: "mock-final" }, { id: "goethe-mock" }]);
       const pct = Math.min(100, Math.round((state.completed.length / allNodes.length) * 100));
       document.getElementById("globalProgress").style.width = pct + "%";
 
@@ -213,10 +213,12 @@ const MOTIVATION_QUOTES = [
     }
 
     function getChoices(correct, lesson, index, getter) {
-      const all = getAllVocabulary().map(getter);
+      const eligible = getAllVocabulary()
+        .filter(item => item.lessonId === lesson.id || state.completed.includes(item.lessonId))
+        .map(getter);
       const local = lesson.vocab.filter((_, i) => i !== index).map(getter);
       const choices = [correct];
-      [...local, ...all].forEach(value => { if (choices.length < 3 && value !== correct && !choices.includes(value)) choices.push(value); });
+      [...local, ...eligible].forEach(value => { if (choices.length < 3 && value !== correct && !choices.includes(value)) choices.push(value); });
       return choices.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
     }
 
@@ -450,13 +452,13 @@ const MOTIVATION_QUOTES = [
       const mockCard = document.createElement("div");
       mockCard.className = `node-card checkpoint ${mockDone ? "done" : ""} ${courseUnlocked ? "" : "locked"}`;
       mockCard.style.marginTop = "20px";
-      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">${mockDone ? "🏆" : courseUnlocked ? "🏁" : "🔒"}</div><div class="node-info"><h3>محاكاة A1 النهائية الشاملة</h3><p>25 سؤالًا من جميع الوحدات • 25 دقيقة • النجاح من 18/25</p></div></div><span class="node-badge">${mockDone ? "✓ ناجح (+100 XP)" : courseUnlocked ? "ابدأ المحاكاة" : "🔒 بعد إنهاء المنهج"}</span>`;
+      mockCard.innerHTML = `<div class="node-left"><div class="node-icon">${mockDone ? "🏆" : courseUnlocked ? "🏁" : "🔒"}</div><div class="node-info"><h3>اختبار مراجعة A1 الشامل</h3><p>25 سؤالًا من جميع الوحدات • 25 دقيقة • النجاح من 18/25</p></div></div><span class="node-badge">${mockDone ? "✓ ناجح (+100 XP)" : courseUnlocked ? "ابدأ المحاكاة" : "🔒 بعد إنهاء المنهج"}</span>`;
       mockCard.onclick = () => courseUnlocked ? openMockExam() : showToast("المحاكاة النهائية تفتح بعد إنهاء الدروس واختبارات الوحدات 🔒", "default", "🔒");
       container.appendChild(mockCard);
       const gDone = state.completed.includes("goethe-mock");
       const gCard = document.createElement("div");
       gCard.className = `node-card exam-node ${gDone ? "done" : ""} ${courseUnlocked ? "" : "locked"}`; gCard.style.marginTop = "10px"; gCard.tabIndex = 0;
-      gCard.innerHTML = `<div class="node-left"><div class="node-icon">${gDone ? "🏆" : "🎓"}</div><div class="node-info"><h3>تدريب بشكل امتحان Goethe A1</h3><p>استماع + قراءة + كتابة + محادثة، كل جزء بدرجته</p></div></div><span class="node-badge">${gDone ? "✓ ناجح" : "+100 XP"}</span>`;
+      gCard.innerHTML = `<div class="node-left"><div class="node-icon">${gDone ? "🏆" : "🎓"}</div><div class="node-info"><h3>تدريب الاستماع والقراءة A1</h3><p>استماع + قراءة + كتابة + محادثة، كل جزء بدرجته</p></div></div><span class="node-badge">${gDone ? "✓ ناجح" : "+50 XP"}</span>`;
       gCard.onclick = () => courseUnlocked ? openGoetheExam() : showToast("تدريب Goethe يفتح بعد إنهاء المنهج واختباراته 🔒", "default", "🔒");
       gCard.tabIndex = courseUnlocked ? 0 : -1;
       if (!courseUnlocked) gCard.setAttribute("aria-disabled", "true");
@@ -597,10 +599,10 @@ const MOTIVATION_QUOTES = [
     function openMockExam() {
       const pool = UNIT_TESTS.flatMap(test => test.questions.map(q => ({ ...q, source: test.title })));
       const selected = pool.map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]).slice(0, 25);
-      document.getElementById("overlayTitle").textContent = "محاكاة تدريبية لامتحان A1";
+      document.getElementById("overlayTitle").textContent = "اختبار مراجعة شامل لمستوى A1";
       document.getElementById("overlayXp").textContent = "25 دقيقة";
       const body = document.getElementById("overlayBody");
-      body.innerHTML = `<div class="card"><h4>🏁 محاكاة تدريبية شاملة</h4><p style="font-size:13.5px;color:var(--muted)">25 سؤالًا من جميع الوحدات الثمانية. الوقت 25 دقيقة. النجاح التدريبي من 18/25.</p><strong id="mockTimer" style="font-size:18px;color:var(--accent)">25:00</strong></div>${selected.map((q, i) => {const opts=q.opts.map((text,j)=>({text,correct:j===q.ans})).map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);return `<div class="card unit-test-q" data-answer=""><h4>السؤال ${i+1}/25</h4><p style="font-weight:700">${escapeHtml(q.q)}</p>${opts.map(o=>`<button class="quiz-opt" data-correct="${o.correct}" onclick="selectUnitAnswer(this)">${escapeHtml(o.text)}</button>`).join("")}</div>`}).join("")}<button class="btn-primary" onclick="submitMockExam()">إنهاء الاختبار</button><div id="mockResult" class="lesson-feedback"></div>`;
+      body.innerHTML = `<div class="card"><h4>🏁 مراجعة شاملة اختيار من متعدد</h4><p style="font-size:13.5px;color:var(--muted)">25 سؤال اختيار من متعدد من الوحدات الثمانية • 25 دقيقة • النجاح من 18/25. اختبار مراجعة وليس محاكاة Goethe كاملة.</p><strong id="mockTimer" style="font-size:18px;color:var(--accent)">25:00</strong></div>${selected.map((q, i) => {const opts=q.opts.map((text,j)=>({text,correct:j===q.ans})).map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);return `<div class="card unit-test-q" data-answer=""><h4>السؤال ${i+1}/25</h4><p style="font-weight:700">${escapeHtml(q.q)}</p>${opts.map(o=>`<button class="quiz-opt" data-correct="${o.correct}" onclick="selectUnitAnswer(this)">${escapeHtml(o.text)}</button>`).join("")}</div>`}).join("")}<button class="btn-primary" onclick="submitMockExam()">إنهاء الاختبار</button><div id="mockResult" class="lesson-feedback"></div>`;
       mockSecondsLeft = 25 * 60;
       clearInterval(mockTimerId);
       mockTimerId = setInterval(() => {
@@ -796,6 +798,7 @@ const MOTIVATION_QUOTES = [
       const resumeStep = !isDone ? (state.lessonProgress?.[lesson.id] || 0) : 0;
       const writingStep = lessonSlides.findIndex(slide => slide.type === "writing");
       body.dataset.practiceDone = String(isDone || resumeStep > writingStep);
+      body.dataset.practiceReviewed = String(isDone || resumeStep > writingStep);
       document.getElementById("lessonOverlay").classList.add("open");
       showLessonStep(resumeStep);
     }
@@ -847,8 +850,8 @@ const MOTIVATION_QUOTES = [
         target.innerHTML = `<div class="card"><h4>🎧 اسمع واكتب</h4><p style="color:var(--muted);font-size:13px">اسمع الجملة واكتبها زي ما سمعتها. الحروف الكبيرة والترقيم مش مهمين، وتقدر تكتب ae بدل ä.</p><div class="vocab-actions">${speakerMarkup(slide.item.de)}</div><input id="dictInput" class="form-control ltr" style="margin-top:10px" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Schreib hier..." /><button class="btn-primary" onclick="checkDictation()">✅ تحقق</button><div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
         next.disabled = true;
       } else if (slide.type === "writing") {
-        target.innerHTML = `<div class="card"><h4>✍️ طبّق اللي اتعلمته</h4><p class="lesson-practice-prompt">اكتب جملة واحدة بالألماني عن موضوع الدرس. تقدر تتكلم بالميكروفون أو تكتبها.</p><textarea id="lessonPracticeInput" class="lesson-textarea" placeholder="Schreib deinen Satz hier..." oninput="updateWritingNext()"></textarea><button id="lessonMicBtn" class="mic-btn" style="margin-top:8px" onclick="toggleMic(&quot;lesson&quot;)">🎙️ اتكلم بالألماني</button><button class="btn-primary" style="margin-top:10px" onclick="checkLessonPractice('${currentLesson.id}')">🤖 راجع الجملة</button><div id="lessonPracticeFeedback" class="lesson-feedback"></div></div>`;
-        if (body.dataset.done !== "true") next.disabled = true;
+        target.innerHTML = `<div class="card"><h4>✍️ طبّق اللي اتعلمته</h4><p class="lesson-practice-prompt">اكتب جملة واحدة بالألماني عن موضوع الدرس. تقدر تتكلم بالميكروفون أو تكتبها.</p><textarea id="lessonPracticeInput" class="lesson-textarea" placeholder="Schreib deinen Satz hier..." oninput="invalidateLessonPractice()"></textarea><button id="lessonMicBtn" class="mic-btn" style="margin-top:8px" onclick="toggleMic(&quot;lesson&quot;)">🎙️ اتكلم بالألماني</button><button class="btn-primary" style="margin-top:10px" onclick="checkLessonPractice('${currentLesson.id}')">🤖 راجع الجملة</button><div id="lessonPracticeFeedback" class="lesson-feedback"></div></div>`;
+        if (body.dataset.done !== "true") next.disabled = body.dataset.practiceReviewed !== "true";
       }
       bindSpeakButtons(target);
       document.getElementById("lessonOverlay").scrollTop = 0;
@@ -873,13 +876,23 @@ const MOTIVATION_QUOTES = [
       showLessonStep(index + 1);
     }
 
+    function invalidateLessonPractice() {
+      const body = document.getElementById("overlayBody");
+      if (body && body.dataset.done !== "true") {
+        body.dataset.practiceReviewed = "false";
+        body.dataset.practiceDone = "false";
+      }
+      updateWritingNext();
+    }
+
     function updateWritingNext() {
       const input = document.getElementById("lessonPracticeInput");
       const hasAnswer = Boolean(input?.value.trim());
-      const next = document.getElementById("lessonNextBtn");
-      if (next) next.disabled = !hasAnswer;
       const body = document.getElementById("overlayBody");
-      if (body) body.dataset.practiceDone = String(hasAnswer);
+      const approved = hasAnswer && body?.dataset.practiceReviewed === "true";
+      const next = document.getElementById("lessonNextBtn");
+      if (next) next.disabled = !approved;
+      if (body) body.dataset.practiceDone = String(approved);
     }
 
     function selectWordToken(btn) {
@@ -948,8 +961,21 @@ const MOTIVATION_QUOTES = [
       if (!answer) { output.textContent = "اكتب جملة أو جملتين بالألماني الأول، وبعدها أراجعهم لك."; return; }
       output.textContent = "⏳ المدرّب بيراجع إجابتك...";
       const prompt = `الدرس: ${lesson.title}\nالشرح: ${lesson.grammar}\nالكلمات: ${lesson.vocab.map(v => v.de).join(", ")}\nإجابة المتعلم: ${answer}`;
-      const result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني مشجع ودود لمتعلم عربي في مستوى A1. ابدأ بجملة تحفيزية قصيرة بالعامية المصرية، ثم اكتب الجملة المصححة، واشرح أي خطأ ببساطة ولطف، ثم أعطه مثالاً واحداً مشابهاً.");
+      let result;
+      try {
+        result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني مشجع لمتعلم عربي A1. راجع الجملة وصححها واشرح الخطأ بالعربية ببساطة، ثم أعط مثالاً قصيراً. لا تستخدم Markdown.");
+      } catch (error) {
+        result = `⚠️ تعذر مراجعة الجملة: ${error.message || "خطأ اتصال"}`;
+      }
       output.textContent = result;
+      if (String(result).startsWith("⚠️")) {
+        document.getElementById("overlayBody").dataset.practiceReviewed = "false";
+        invalidateLessonPractice();
+        return;
+      }
+      document.getElementById("overlayBody").dataset.practiceReviewed = "true";
+      output.textContent = "✅ راجع المدرب جملتك.\n" + result;
+      updateWritingNext();
     }
 
     async function explainGrammarAI(lessonId) {
@@ -1035,9 +1061,8 @@ const MOTIVATION_QUOTES = [
       renderMessages("cpMessages", history);
 
       const sys = `${activeCheckpoint.systemPrompt}
-${getStudiedSummary()}
-التزم بالكلمات والقواعد التي أتمها الطالب فقط. لا تستعمل موضوعاً أو قاعدة من درس لم ينهه.
-اكتب جملة ألمانية قصيرة مناسبة A1، ثم ||| في سطر مستقل، ثم ترجمتها العربية وتصحيحاً لطيفاً إن لزم. ممنوع Markdown والنجمتان ** وأي عناوين أو قوائم.`;
+اكتب جملة ألمانية قصيرة ثم ||| ثم ترجمتها بالعربية. استخدم ما أتمه الطالب فقط. لا Markdown أو ** أو عناوين أو قوائم.
+${getStudiedSummary()}`;
 
       const apiMsgs = history.slice(0, -1).slice(-12).map(m => ({
         role: m.role === "user" ? "user" : "assistant",
@@ -1102,13 +1127,10 @@ ${getStudiedSummary()}
 
     function getStudiedSummary() {
       const doneNodes = CURRICULUM.flatMap(u => u.nodes).filter(n => state.completed.includes(n.id) && n.type === "lesson");
-      if (doneNodes.length === 0) return "الطالب في بداية مستوى A1 ولم ينهِ أي درس بعد. ابدأ بتحية بسيطة جداً، ولا تستخدم قواعد أو كلمات من دروس مقفولة.";
-      const learnedWords = doneNodes.flatMap(n => n.vocab.map(v => `${v.de} = ${v.ar}`)).slice(-120);
-      const learnedRules = doneNodes.slice(-18).map(n => `${n.title}: ${n.grammar.replace(/\s+/g, " ").slice(0, 180)}`);
-      return `المحتوى الذي درسه الطالب وأتمه فقط (التزم به ولا تفترض أنه درس أي شيء آخر):
-القواعد والدروس: ${learnedRules.join(" | ")}
-الكلمات والعبارات التي يعرفها: ${learnedWords.join("؛ ")}
-إذا احتجت كلمة جديدة لإكمال الحوار، قدّم كلمة واحدة فقط مع معناها بالعربية واشرحها باختصار قبل مواصلة الحوار.`.slice(0, 7000);
+      if (!doneNodes.length) return "المتعلم في بداية A1 ولم ينهِ درساً بعد. لا تستخدم محتوى الدروس المقفولة.";
+      const learnedWords = doneNodes.flatMap(n => n.vocab.map(v => `${v.de}=${v.ar}`)).slice(-28);
+      const learnedLessons = doneNodes.slice(-10).map(n => n.title);
+      return `الدروس التي أتمها: ${learnedLessons.join("، ")}. الكلمات التي تعلمها: ${learnedWords.join("؛ ")}. علّمه كلمة جديدة واحدة فقط إذا احتاجها.`.slice(0, 1100);
     }
 
     function getLearningSequence() {
@@ -1179,8 +1201,9 @@ ${getStudiedSummary()}
       state.freeChat.push({ role: "ai", de: "...", ar: "جاري الرد..." });
       renderMessages("freeChatMessages", state.freeChat);
 
-      const sys = `أنت مدرب ألماني A1 لطيف. موضوع الحوار: ${currentFreeTopic}. ${getStudiedSummary()}
-استخدم أساساً الكلمات والقواعد المكتوبة ضمن ما أتمه الطالب فقط. لا تدخل موضوعات أو قواعد من دروس لم ينهها. اجعل ردك قصيراً: جملة ألمانية واحدة مناسبة للمستوى، ثم اكتب ||| في سطر مستقل، ثم ترجمتها بالعربية وتصحيحاً بسيطاً عند الحاجة. ممنوع استخدام Markdown أو النجمتين ** أو العناوين والقوائم. إذا لم ينه الطالب أي درس، ابدأ بتحية سهلة جداً وعلّمه كلمة واحدة فقط.`;
+      const sys = `أنت مدرب ألماني A1. موضوع الحوار: ${currentFreeTopic}.
+اكتب جملة ألمانية قصيرة ثم ||| ثم ترجمتها بالعربية. استخدم أساساً ما أتمه الطالب. لا Markdown أو ** أو عناوين أو قوائم. إن احتجت كلمة جديدة، علّم كلمة واحدة مع ترجمتها.
+${getStudiedSummary()}`;
 
       const apiMsgs = state.freeChat.slice(0, -1).slice(-12).map(m => ({
         role: m.role === "user" ? "user" : "assistant",
@@ -1275,7 +1298,7 @@ ${getStudiedSummary()}
 
       recognition.onresult = e => {
         document.getElementById(inputId).value = e.results[0][0].transcript;
-        if (target === "lesson") updateWritingNext();
+        if (target === "lesson") invalidateLessonPractice();
       };
       recognition.onerror = recognition.onend = () => {
         document.getElementById(btnId).classList.remove("recording");
@@ -1649,8 +1672,8 @@ function openGoetheExam() {
       ["Hallo, ich bin Maria. Ich komme aus Italien und wohne seit zwei Jahren in Berlin.", "Maria wohnt in Italien.", false, "خطأ: ماريا من إيطاليا لكنها تسكن في برلين."]
     ]
   };
-  document.getElementById("overlayTitle").textContent = "تدريب بشكل امتحان Goethe A1";
-  document.getElementById("overlayXp").textContent = "+100 XP";
+  document.getElementById("overlayTitle").textContent = "تدريب الاستماع والقراءة A1";
+  document.getElementById("overlayXp").textContent = "+50 XP";
   const body = document.getElementById("overlayBody");
   body.innerHTML = `<div class="card"><h4>🎓 تدريب شامل</h4><p style="font-size:13.5px;color:var(--muted);line-height:1.8">الاستماع: اسمع بدون نص (تقدر تعيد). القراءة: نص قصير ثم صح/خطأ. تحتاج 3/5 في كل جزء. بعدها تدرّب على الكتابة والمحادثة من الأزرار تحت. هذا تدريب وليس الامتحان الرسمي.</p></div>` +
     Object.entries(G).map(([sec, arr]) => arr.map((q, i) => `<div class="card gx-item" data-sec="${sec}" data-ok="${q[2]}" data-e="${escapeHtml(q[3])}"><h4><span>${sec} ${i + 1}/5</span><span class="vocab-actions">${sec === "Hören" ? speakerMarkup(q[0]) : ""}</span></h4>${sec === "Hören" ? "" : `<div class="reading-passage">${escapeHtml(q[0])}</div>`}<p style="font-weight:700;margin-top:8px">الجملة: <span class="ltr" style="color:var(--accent)">${escapeHtml(q[1])}</span></p><div class="rf-row"><button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerGx(this, true)">✅ Richtig</button><button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerGx(this, false)">❌ Falsch</button></div><div class="quiz-feedback"></div></div>`).join("")).join("") +
@@ -1671,7 +1694,7 @@ function finishGx() {
   const h = sc("Hören"), l = sc("Lesen"), pass = h >= 3 && l >= 3, r = document.getElementById("gxResult");
   r.style.display = "block";
   r.innerHTML = `<strong>استماع ${h}/5 • قراءة ${l}/5</strong><br>${pass ? "🎉 اجتزت الجزءين. كمّل تدريب الكتابة والمحادثة." : "تحتاج 3/5 على الأقل في كل جزء، راجع الدروس وجرب تاني."}<br><small>${h < 3 ? "قوّي الاستماع: كرر الجمل بالنطق البطيء. " : ""}${l < 3 ? "قوّي القراءة: راجع الأرقام والأوقات والكلمات." : ""}</small>`;
-  if (pass) { launchConfetti(); if (!state.completed.includes("goethe-mock")) { state.completed.push("goethe-mock"); state.xp += 100; saveState(); renderPath(); } }
+  if (pass) { launchConfetti(); if (!state.completed.includes("goethe-mock")) { state.completed.push("goethe-mock"); state.xp += 50; saveState(); renderPath(); } }
 }
 
 function normGerman(t) {
