@@ -1,0 +1,1 @@
+{ "name": "deutsch-a1-coach", "private": true, "scripts": { "test": "node tests/run.js" } }

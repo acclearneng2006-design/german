@@ -1,5 +1,5 @@
-const C = "a1-v1";
-self.addEventListener("install", e => { e.waitUntil(caches.open(C).then(c => c.addAll(["./", "index.html", "manifest.webmanifest", "icon.svg"]))); self.skipWaiting(); });
+const C = "a1-v3";
+self.addEventListener("install", e => { e.waitUntil(caches.open(C).then(c => c.addAll(["./", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png", "curriculum.js", "app.js", "style.css"]))); self.skipWaiting(); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== C).map(x => caches.delete(x))))); self.clients.claim(); });
 self.addEventListener("fetch", e => {
   const r = e.request;
