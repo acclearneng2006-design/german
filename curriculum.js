@@ -22,7 +22,9 @@ const CURRICULUM = [
               { de: "Ö ö – schön", ar: "Ö: صوت أمامي — جميل" },
               { de: "Ü ü – fünf", ar: "Ü: صوت أمامي — خمسة" },
               { de: "ß – Straße", ar: "ß يُنطق ss — شارع" },
-              { de: "Schule / mein / sieben", ar: "شوله / ماين / زيبن" },
+              { de: "Schule", ar: "مدرسة (sch تُنطق ش)" },
+              { de: "mein", ar: "لي/خاصتي (ei تُنطق آي)" },
+              { de: "sieben", ar: "سبعة (ie تُنطق إي طويلة)" },
               { de: "Ich spreche Deutsch.", ar: "أنا أتحدث الألمانية." }
             ],
             quiz: { q: "كيف يُنطق المقطع sch غالباً؟", opts: ["ش", "ف", "ك"], ans: 0 }
@@ -37,7 +39,8 @@ const CURRICULUM = [
             desc: "Hallo, Guten Tag, Ich heiße..., Wie geht's?", xp: 20,
             grammar: "للتعريف عن النفس نستخدم: Ich heiße أو Ich bin. للسؤال باحترام نستخدم Sie.",
             vocab: [
-              { de: "Hallo / Guten Tag", ar: "مرحباً / نهارك سعيد" },
+              { de: "Hallo", ar: "مرحباً" },
+              { de: "Guten Tag", ar: "نهارك سعيد" },
               { de: "Ich heiße Ahmed.", ar: "أنا اسمي أحمد." },
               { de: "Wie heißen Sie?", ar: "ما اسم حضرتك؟" },
               { de: "Wie geht es dir?", ar: "كيف حالك؟" }
@@ -69,10 +72,22 @@ const CURRICULUM = [
             desc: "0 bis 100, Wie alt bist du?", xp: 20,
             grammar: "للسؤال عن العمر نستخدم فعل sein: Wie alt bist du? -> Ich bin 20 Jahre alt.",
             vocab: [
-              { de: "eins, zwei, drei, vier, fünf", ar: "1، 2، 3، 4، 5" },
-              { de: "sechs, sieben, acht, neun, zehn", ar: "6، 7، 8، 9، 10" },
+              { de: "eins", ar: "واحد" },
+              { de: "zwei", ar: "اثنان" },
+              { de: "drei", ar: "ثلاثة" },
+              { de: "vier", ar: "أربعة" },
+              { de: "fünf", ar: "خمسة" },
+              { de: "sechs", ar: "ستة" },
+              { de: "sieben", ar: "سبعة" },
+              { de: "acht", ar: "ثمانية" },
+              { de: "neun", ar: "تسعة" },
+              { de: "zehn", ar: "عشرة" },
               { de: "Wie alt sind Sie?", ar: "كم عمر حضرتك؟" },
-              { de: "elf, zwölf, zwanzig, dreißig, hundert", ar: "11، 12، 20، 30، 100" },
+              { de: "elf", ar: "أحد عشر" },
+              { de: "zwölf", ar: "اثنا عشر" },
+              { de: "zwanzig", ar: "عشرون" },
+              { de: "dreißig", ar: "ثلاثون" },
+              { de: "hundert", ar: "مئة" },
               { de: "Meine Telefonnummer ist null eins sieben sechs.", ar: "رقم هاتفي صفر واحد سبعة ستة." }
             ],
             quiz: { q: "أي فعل نستخدمه للتعبير عن العمر؟", opts: ["haben", "sein", "wohnen"], ans: 1 }
@@ -157,9 +172,12 @@ const CURRICULUM = [
             desc: "der, die, das / ein, eine / kein", xp: 35,
             grammar: "der مذكر، die مؤنث، das محايد. في المفعول المباشر Akkusativ يتغير المذكر: der/ein يصبح den/einen، بينما المؤنث والمحايد لا يتغيران.",
             vocab: [
-              { de: "der Mann – die Männer", ar: "الرجل – الرجال" },
-              { de: "die Frau – die Frauen", ar: "المرأة – النساء" },
-              { de: "das Kind – die Kinder", ar: "الطفل – الأطفال" },
+              { de: "der Mann", ar: "الرجل" },
+              { de: "die Männer", ar: "الرجال" },
+              { de: "die Frau", ar: "المرأة" },
+              { de: "die Frauen", ar: "النساء" },
+              { de: "das Kind", ar: "الطفل" },
+              { de: "die Kinder", ar: "الأطفال" },
               { de: "Ich kaufe einen Apfel.", ar: "أشتري تفاحة." },
               { de: "Ich sehe eine Tasche.", ar: "أرى حقيبة." }
             ],
@@ -312,7 +330,12 @@ const CURRICULUM = [
               { de: "Ich suche eine Hose.", ar: "أنا أبحث عن بنطلون." },
               { de: "Welche Größe haben Sie?", ar: "ما هو مقاس حضرتك؟" },
               { de: "Das T-Shirt kostet 15 Euro.", ar: "هذا القميص يكلف 15 يورو." },
-              { de: "rot, blau, grün, gelb, schwarz, weiß", ar: "أحمر، أزرق، أخضر، أصفر، أسود، أبيض" },
+              { de: "rot", ar: "أحمر" },
+              { de: "blau", ar: "أزرق" },
+              { de: "grün", ar: "أخضر" },
+              { de: "gelb", ar: "أصفر" },
+              { de: "schwarz", ar: "أسود" },
+              { de: "weiß", ar: "أبيض" },
               { de: "Die Jacke ist blau.", ar: "الجاكيت زرقاء." }
             ],
             quiz: { q: "كيف تسأل عن مقاس الملابس؟", opts: ["Welche Größe haben Sie?", "Wie spät ist es?", "Woher kommst du?"], ans: 0 }
@@ -408,7 +431,7 @@ const CURRICULUM = [
         unit: "الوحدة الثامنة: إتقان A1 والامتحان الدولي (Perfekt, Lesen & Schreiben)",
         nodes: [
           {
-            id: "l25", type: "lesson", icon: "⏳", title: "1. الماضي التام البسيط (Perfekt)",
+            id: "l25", type: "lesson", icon: "⏳", title: "1. الماضي المركب المستخدم في المحادثة (Perfekt)",
             desc: "haben / sein + Partizip II (ge-...-t / ge-...-en)", xp: 40,
             grammar: "للتحدث عن الماضي في المحادثات نستخدم Perfekt: الفعل المساعد (haben أو sein) في المركز الثاني، والتصريف الثالث (Partizip II) في آخر الجملة.\nنستخدم sein مع أفعال الحركة وتغيير المكان (gehen, fahren, fliegen): Ich bin nach Berlin gefahren.\nونستخدم haben مع باقي الأفعال: Ich habe Deutsch gelernt.",
             vocab: [
@@ -449,8 +472,18 @@ const CURRICULUM = [
             desc: "Januar bis Dezember, am 5. Mai", xp: 35,
             grammar: "للشهر نستخدم im: im Mai. لتاريخ محدد نستخدم am + رقم ترتيبي: am 5. Mai (am fünften Mai).\nللسؤال: Wann hast du Geburtstag؟ أو Der Wievielte ist heute؟",
             vocab: [
-              { de: "Januar, Februar, März, April, Mai, Juni", ar: "يناير، فبراير، مارس، أبريل، مايو، يونيو" },
-              { de: "Juli, August, September, Oktober, November, Dezember", ar: "يوليو، أغسطس، سبتمبر، أكتوبر، نوفمبر، ديسمبر" },
+              { de: "Januar", ar: "يناير" },
+              { de: "Februar", ar: "فبراير" },
+              { de: "März", ar: "مارس" },
+              { de: "April", ar: "أبريل" },
+              { de: "Mai", ar: "مايو" },
+              { de: "Juni", ar: "يونيو" },
+              { de: "Juli", ar: "يوليو" },
+              { de: "August", ar: "أغسطس" },
+              { de: "September", ar: "سبتمبر" },
+              { de: "Oktober", ar: "أكتوبر" },
+              { de: "November", ar: "نوفمبر" },
+              { de: "Dezember", ar: "ديسمبر" }
               { de: "Mein Geburtstag ist am 5. Mai.", ar: "عيد ميلادي يوم 5 مايو." },
               { de: "Wann hast du Geburtstag?", ar: "متى عيد ميلادك؟" }
             ],
@@ -466,7 +499,7 @@ const CURRICULUM = [
             ]
           },
           {
-            id: "l27", type: "reading", icon: "📰", title: "3. تدريب القراءة والفهم (Lesen: Richtig / Falsch)",
+            id: "l27", type: "reading", icon: "📰", title: "6. تدريب القراءة والفهم (Lesen: Richtig / Falsch)",
             desc: "اقرأ رسائل ولافتات وإعلانات حقيقية وجاوب صح أم خطأ", xp: 50,
             passages: [
               {
@@ -493,7 +526,7 @@ const CURRICULUM = [
             ]
           },
           {
-            id: "l28", type: "writing_exam", icon: "✍️", title: "4. تدريب الكتابة الرسمي (Schreiben: Formular & E-Mail)",
+            id: "l28", type: "writing_exam", icon: "✍️", title: "7. تدريب الكتابة الرسمي (Schreiben: Formular & E-Mail)",
             desc: "املأ استمارة بيانات واكتب إيميل امتحان A1 بتقييم AI", xp: 60,
             formStory: "اسم صديقك Karim Hassan، عمره 24 سنة، يسكن في شارع Gartenstraße 12 في مدينة Bonn (الرمز البريدي 53111)، وهو من مصر (Ägypten) ويريد حجز كورس لغة ألمانية مسائي (Abendkurs) ويدفع نقداً (Bar).",
             formFields: [
