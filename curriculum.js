@@ -483,7 +483,7 @@ const CURRICULUM = [
               { de: "September", ar: "سبتمبر" },
               { de: "Oktober", ar: "أكتوبر" },
               { de: "November", ar: "نوفمبر" },
-              { de: "Dezember", ar: "ديسمبر" }
+              { de: "Dezember", ar: "ديسمبر" },
               { de: "Mein Geburtstag ist am 5. Mai.", ar: "عيد ميلادي يوم 5 مايو." },
               { de: "Wann hast du Geburtstag?", ar: "متى عيد ميلادك؟" }
             ],
