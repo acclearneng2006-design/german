@@ -1128,9 +1128,9 @@ ${getStudiedSummary()}`;
     function getStudiedSummary() {
       const doneNodes = CURRICULUM.flatMap(u => u.nodes).filter(n => state.completed.includes(n.id) && n.type === "lesson");
       if (!doneNodes.length) return "المتعلم في بداية A1 ولم ينهِ درساً بعد. لا تستخدم محتوى الدروس المقفولة.";
-      const learnedWords = doneNodes.flatMap(n => n.vocab.map(v => `${v.de}=${v.ar}`)).slice(-28);
-      const learnedLessons = doneNodes.slice(-10).map(n => n.title);
-      return `الدروس التي أتمها: ${learnedLessons.join("، ")}. الكلمات التي تعلمها: ${learnedWords.join("؛ ")}. علّمه كلمة جديدة واحدة فقط إذا احتاجها.`.slice(0, 1100);
+      const learnedWords = doneNodes.flatMap(n => n.vocab.map(v => `${v.de}=${v.ar}`)).slice(-22);
+      const learnedRules = doneNodes.slice(-8).map(n => `${n.title}: ${n.grammar.replace(/\s+/g, " ").slice(0, 75)}`);
+      return `قواعد ودروس مكتملة: ${learnedRules.join(" | ")}. كلمات تعلمها: ${learnedWords.join("؛ ")}. علّمه كلمة واحدة جديدة مع معناها فقط عند الحاجة.`.slice(0, 1250);
     }
 
     function getLearningSequence() {
