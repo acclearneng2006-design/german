@@ -890,3 +890,59 @@
 .node-card.locked:hover { transform: none; }
 .node-card.locked .node-badge { color: var(--muted); }
 #scenarioChips .chip:disabled { opacity: .42; cursor: not-allowed; filter: grayscale(.35); }
+
+
+/* Alphabet lesson: large, evenly spaced, touch-friendly letter buttons */
+.alpha-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+  direction: ltr;
+}
+.alpha-btn {
+  min-width: 0;
+  min-height: 84px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform .16s ease, border-color .16s ease, background .16s ease, box-shadow .16s ease;
+}
+.alpha-btn strong {
+  font-size: clamp(30px, 4vw, 40px);
+  line-height: 1;
+  font-weight: 800;
+}
+.alpha-btn span { font-size: 14px; line-height: 1; }
+.alpha-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+  background: var(--surface);
+}
+.alpha-btn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+.alpha-btn.speaking {
+  transform: scale(1.05);
+  border-color: var(--accent);
+  background: rgba(245, 158, 11, .14);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, .14);
+}
+@media (max-width: 640px) {
+  .alpha-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .alpha-btn { min-height: 76px; border-radius: 12px; }
+  .alpha-btn strong { font-size: 34px; }
+}
+@media (max-width: 380px) {
+  .alpha-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .alpha-btn { min-height: 70px; }
+}
