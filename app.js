@@ -768,17 +768,6 @@ const MOTIVATION_QUOTES = [
       });
       const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
-      lessonSlides.push({ type: "reviewIntro", title: "مراجعة بعد الدرس" });
-      const reviewItems = lesson.vocab.map((item, index) => ({ item, index })).map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
-      reviewItems.forEach(({ item, index }, reviewIndex) => {
-        if (reviewIndex < 0) {
-          const options = getChoices(item.de, lesson, index, entry => entry.de);
-          lessonSlides.push({ type: "quiz", title: `مراجعة كلمة ${index + 1}`, question: item.ar, options, answer: options.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
-        } else {
-          const meanings = getChoices(item.ar, lesson, index, entry => entry.ar);
-          lessonSlides.push({ type: "listening", title: `مراجعة استماع ${index + 1}`, item, options: meanings, answer: meanings.indexOf(item.ar), vocabIndex: index });
-        }
-      });
       const dictIdx = lesson.vocab.findIndex(v => v.kind !== "letter" && !/[\/,–]/.test(v.de) && v.de.split(/\s+/).length >= 2);
       if (dictIdx >= 0) lessonSlides.push({ type: "dictation", title: "إملاء من السمع", item: lesson.vocab[dictIdx], vocabIndex: dictIdx, tries: 0 });
       if (orderSource) {
