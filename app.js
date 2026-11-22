@@ -762,9 +762,18 @@ const MOTIVATION_QUOTES = [
         { type: "grammar", title: "افهم القاعدة" }
       ];
       if (lesson.id === "l16") lessonSlides.push({ type: "alphabet", title: "اسمع الحروف واحدًا واحدًا" });
-      lesson.vocab.forEach((item, index) => {
-        const opts = getChoices(item.de, lesson, index, e => e.de);
-        lessonSlides.push({ type: "vocabPractice", title: `كلمة وسؤال ${index + 1} من ${lesson.vocab.length}`, item, index, question: `ما الألماني الصحيح لـ: ${item.ar}`, options: opts, answer: opts.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
+      for (let start = 0; start < lesson.vocab.length; start += 3) {
+        const items = lesson.vocab.slice(start, start + 3).map((item, offset) => ({ item, index: start + offset }));
+        lessonSlides.push({ type: "vocabBatch", title: `مجموعة كلمات ${Math.floor(start / 3) + 1}`, items });
+      }
+      const questionOrder = lesson.vocab.map((item, index) => ({ item, index })).map(item => [Math.random(), item]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
+      if (questionOrder.length > 1 && questionOrder[0].index >= lesson.vocab.length - (lesson.vocab.length % 3 || 3)) {
+        const firstEarlier = questionOrder.findIndex(item => item.index < lesson.vocab.length - (lesson.vocab.length % 3 || 3));
+        if (firstEarlier > 0) [questionOrder[0], questionOrder[firstEarlier]] = [questionOrder[firstEarlier], questionOrder[0]];
+      }
+      questionOrder.forEach(({ item, index }, questionIndex) => {
+        const options = getChoices(item.de, lesson, index, entry => entry.de);
+        lessonSlides.push({ type: "quiz", title: `سؤال ${questionIndex + 1} من ${questionOrder.length}`, question: `ما الألماني الصحيح لـ: ${item.ar}`, options, answer: options.indexOf(item.de), vocabIndex: index, explanation: `${item.de} = ${item.ar}` });
       });
       const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
@@ -832,12 +841,12 @@ const MOTIVATION_QUOTES = [
         target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
         target.innerHTML = `<div class="card"><h4>📖 شرح القاعدة</h4><p style="white-space:pre-line;line-height:1.95">${currentLesson.grammar}</p><button class="btn-ghost" style="margin-top:12px" onclick="explainGrammarAI('${currentLesson.id}')">✨ شرح إضافي من المدرّب</button><div id="grammar-ai-box" class="ai-box" style="display:none"></div></div>`;
-      } else if (slide.type === "vocabPractice") {
-        target.innerHTML = `<div class="card" id="vocabLearnCard"><h4>📖 تعلّم الكلمة</h4><div class="vocab-de ltr" style="font-size:24px;margin:16px 0">${colorGermanArticles(slide.item.de)}</div><p>${escapeHtml(slide.item.ar)}</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(slide.item))}</div><button class="btn-primary" style="margin-top:14px" onclick="startVocabQuiz()">اختبر نفسي ←</button></div><div class="card" id="vocabQuizCard" hidden><h4>🧠 سؤال واحد على الكلمة</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${slide.question}</p>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
-        next.disabled = true;
+      } else if (slide.type === "vocabBatch") {
+        target.innerHTML = `<div class="card"><h4>📚 تعلّم المجموعة</h4><p style="color:var(--muted);margin-bottom:12px">اسمع الكلمات وافهمها. الأسئلة هتيجي بعد ما تخلص كلمات الدرس وبترتيب مختلف.</p>${slide.items.map(({ item }) => `<div class="vocab-learning-row"><div class="vocab-de ltr" style="font-size:21px">${colorGermanArticles(item.de)}</div><p>${escapeHtml(item.ar)}</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(item))}</div></div>`).join("")}</div>`;
+
       } else if (slide.type === "quiz" || slide.type === "listening") {
         const listening = slide.type === "listening";
-        target.innerHTML = `<div class="card"><h4>${listening ? "👂 استماع فقط" : "🧠 سؤال واحد"}</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${listening ? "اسمع الجملة واختر معناها" : slide.question}</p><div class="vocab-actions">${listening ? speakerMarkup(vocabSpeech(slide.item)) : (slide.vocabIndex !== undefined ? speakerMarkup(slide.speakText || slide.options[slide.answer]) : "")}</div>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
+        target.innerHTML = `<div class="card"><h4>${listening ? "👂 استماع فقط" : "🧠 سؤال واحد"}</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${listening ? "اسمع الجملة واختر معناها" : slide.question}</p><div class="vocab-actions">${listening ? speakerMarkup(vocabSpeech(slide.item)) : ""}</div>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
         next.disabled = true;
       } else if (slide.type === "wordOrder") {
         target.innerHTML = `<div class="card"><h4>🧩 رتّب الكلمات لتكوين جملة</h4><p>${escapeHtml(slide.translation)}</p><div id="wordOrderBuilt" class="word-order-built" data-target="${escapeHtml(slide.tokens.join(" "))}" data-solved="false">اضغط الكلمات بالترتيب</div><div class="word-order-tiles">${slide.scrambled.map(word => `<button class="word-chip" onclick="selectWordToken(this)">${escapeHtml(word)}</button>`).join("")}</div><button class="btn-ghost" onclick="resetWordOrder()">إعادة المحاولة</button><div id="wordOrderFeedback" class="quiz-feedback"></div></div>`;
@@ -923,14 +932,6 @@ const MOTIVATION_QUOTES = [
       built.textContent = "اضغط الكلمات بالترتيب";
       document.querySelectorAll(".word-chip").forEach(btn => { btn.disabled = false; btn.classList.remove("used"); });
       document.getElementById("wordOrderFeedback").textContent = "";
-    }
-
-    function startVocabQuiz() {
-      const learn = document.getElementById("vocabLearnCard");
-      const quiz = document.getElementById("vocabQuizCard");
-      if (!learn || !quiz) return;
-      learn.hidden = true;
-      quiz.hidden = false;
     }
 
     function checkQuiz(btn) {
