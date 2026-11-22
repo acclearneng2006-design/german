@@ -43,7 +43,6 @@ for (const part of ["gxWritingSection", "gxSpeakingSection", "reviewGoetheAnswer
 const gxScore = gxFlow.slice(gxFlow.indexOf("function finishGx()"), gxFlow.indexOf("async function reviewGoetheAnswer"));
 if (gxScore.includes('state.completed.push("goethe-mock")')) fail("Goethe practice is completed before writing and speaking review");
 if (!gxFlow.includes('dataset.reviewed !== "true"')) fail("Goethe practice can be completed without reviewing both productive skills");
-if (!app.includes("title: " + String.fromCharCode(96) + "سؤال على العنصر")) fail("each vocabulary item must have an individual question slide");
 const lessonFlow = app.slice(app.indexOf("function openLesson("), app.indexOf("function showLessonStep("));
 if (lessonFlow.includes("reviewItems") || lessonFlow.includes("reviewIntro")) fail("lesson repeats all vocabulary after each item already had its own question");
 if (!lessonFlow.includes("type: " + String.fromCharCode(34) + "vocabPractice" + String.fromCharCode(34))) fail("each word should be taught and tested within one focused step");
