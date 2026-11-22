@@ -241,6 +241,8 @@ const MOTIVATION_QUOTES = [
       });
     }
 
+    function vocabSpeech(item) { return item && typeof item === "object" ? (item.speak || item.de || "") : String(item || ""); }
+
     function speakerMarkup(text) {
       const safe = escapeHtml(text);
       return `<button class="icon-btn" data-speak="${safe}" data-rate="0.92" title="نطق عادي">🔊</button><button class="icon-btn" data-speak="${safe}" data-rate="0.6" title="نطق بطيء">🐢</button>`;
@@ -266,7 +268,7 @@ const MOTIVATION_QUOTES = [
         const error = (state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex);
         return (unitFilter === "all" || Number(unitFilter) === item.unitIndex) && (!errorsOnly || error) && (!query || `${item.de} ${item.ar} ${item.lessonTitle}`.toLowerCase().includes(query));
       });
-      list.innerHTML = vocab.length ? vocab.map(item => `<div class="card vocab-bank-item"><div class="vocab-de ltr">${colorGermanArticles(item.de)}</div><div class="vocab-ar">${escapeHtml(item.ar)}</div><small style="color:var(--muted)">${escapeHtml(item.lessonTitle)}${(state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex) ? " • ⚠️ راجعها" : ""}</small><div class="vocab-actions">${speakerMarkup(item.de)}</div></div>`).join("") : `<div class="card">مفيش كلمات مطابقة للفلاتر دي.</div>`;
+      list.innerHTML = vocab.length ? vocab.map(item => `<div class="card vocab-bank-item"><div class="vocab-de ltr">${colorGermanArticles(item.de)}</div><div class="vocab-ar">${escapeHtml(item.ar)}</div><small style="color:var(--muted)">${escapeHtml(item.lessonTitle)}${(state.mistakes || []).some(m => m.lessonId === item.lessonId && m.vocabIndex === item.vocabIndex) ? " • ⚠️ راجعها" : ""}</small><div class="vocab-actions">${speakerMarkup(vocabSpeech(item))}</div></div>`).join("") : `<div class="card">مفيش كلمات مطابقة للفلاتر دي.</div>`;
       bindSpeakButtons(list);
     }
 
@@ -320,7 +322,7 @@ const MOTIVATION_QUOTES = [
           <div class="flashcard-inner" id="activeFlashcard" onclick="this.classList.toggle('flipped')">
             <div class="flashcard-face front">
               <div class="vocab-de ltr" style="font-size:24px;text-align:center">${colorGermanArticles(card.de)}</div>
-              <div class="vocab-actions" style="margin-top:14px" onclick="event.stopPropagation()">${speakerMarkup(card.de)}</div>
+              <div class="vocab-actions" style="margin-top:14px" onclick="event.stopPropagation()">${speakerMarkup(vocabSpeech(card))}</div>
               <div class="flashcard-hint">👆 اضغط على البطاقة لقلبها ومعرفة المعنى</div>
             </div>
             <div class="flashcard-face back">
@@ -337,7 +339,7 @@ const MOTIVATION_QUOTES = [
         </div>
       `;
       bindSpeakButtons(body);
-      speakGerman(card.de, 0.92);
+      speakGerman(vocabSpeech(card), 0.92);
     }
 
     function nextFlashcard(known) {
@@ -702,7 +704,7 @@ const MOTIVATION_QUOTES = [
         if (!lesson || !lesson.vocab[item.vocabIndex]) return "";
         const vocab = lesson.vocab[item.vocabIndex];
         const options = getChoices(vocab.de, lesson, item.vocabIndex, entry => entry.de);
-        return `<div class="card review-question" data-lesson-id="${lesson.id}" data-vocab-index="${item.vocabIndex}" data-answered="false"><h4>مراجعة ${qi + 1} • ${lesson.title}</h4><p style="margin-bottom:8px">${vocab.ar}</p><span class="vocab-actions">${speakerMarkup(vocab.de)}</span>${options.map(option => `<button class="quiz-opt ltr" data-correct="${option === vocab.de}" onclick="answerReview(this)">${option}</button>`).join("")}<div class="quiz-feedback"></div></div>`;
+        return `<div class="card review-question" data-lesson-id="${lesson.id}" data-vocab-index="${item.vocabIndex}" data-answered="false"><h4>مراجعة ${qi + 1} • ${lesson.title}</h4><p style="margin-bottom:8px">${vocab.ar}</p><span class="vocab-actions">${speakerMarkup(vocabSpeech(vocab))}</span>${options.map(option => `<button class="quiz-opt ltr" data-correct="${option === vocab.de}" onclick="answerReview(this)">${option}</button>`).join("")}<div class="quiz-feedback"></div></div>`;
       }).join("");
       document.getElementById("overlayTitle").textContent = "مراجعة ذكية";
       document.getElementById("overlayXp").textContent = `${due.length} كلمات`;
@@ -762,7 +764,7 @@ const MOTIVATION_QUOTES = [
       lesson.vocab.forEach((item, index) => {
         lessonSlides.push({ type: "vocab", title: `كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
         const opts = getChoices(item.de, lesson, index, e => e.de);
-        lessonSlides.push({ type: "quiz", title: `سؤال على العنصر ${index + 1}`, question: `ما الألماني الصحيح لـ: ${item.ar}`, options: opts, answer: opts.indexOf(item.de), vocabIndex: index, explanation: `${item.de} = ${item.ar}` });
+        lessonSlides.push({ type: "quiz", title: `سؤال على العنصر ${index + 1}`, question: `ما الألماني الصحيح لـ: ${item.ar}`, options: opts, answer: opts.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
       });
       const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
@@ -771,13 +773,13 @@ const MOTIVATION_QUOTES = [
       reviewItems.forEach(({ item, index }, reviewIndex) => {
         if (reviewIndex < 0) {
           const options = getChoices(item.de, lesson, index, entry => entry.de);
-          lessonSlides.push({ type: "quiz", title: `مراجعة كلمة ${index + 1}`, question: item.ar, options, answer: options.indexOf(item.de), vocabIndex: index, explanation: `${item.de} = ${item.ar}` });
+          lessonSlides.push({ type: "quiz", title: `مراجعة كلمة ${index + 1}`, question: item.ar, options, answer: options.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
         } else {
           const meanings = getChoices(item.ar, lesson, index, entry => entry.ar);
           lessonSlides.push({ type: "listening", title: `مراجعة استماع ${index + 1}`, item, options: meanings, answer: meanings.indexOf(item.ar), vocabIndex: index });
         }
       });
-      const dictIdx = lesson.vocab.findIndex(v => !/[\/,–]/.test(v.de) && v.de.split(/\s+/).length >= 2);
+      const dictIdx = lesson.vocab.findIndex(v => v.kind !== "letter" && !/[\/,–]/.test(v.de) && v.de.split(/\s+/).length >= 2);
       if (dictIdx >= 0) lessonSlides.push({ type: "dictation", title: "إملاء من السمع", item: lesson.vocab[dictIdx], vocabIndex: dictIdx, tries: 0 });
       if (orderSource) {
         const tokens = orderSource.de.match(/\S+/g);
@@ -842,16 +844,16 @@ const MOTIVATION_QUOTES = [
       } else if (slide.type === "grammar") {
         target.innerHTML = `<div class="card"><h4>📖 شرح القاعدة</h4><p style="white-space:pre-line;line-height:1.95">${currentLesson.grammar}</p><button class="btn-ghost" style="margin-top:12px" onclick="explainGrammarAI('${currentLesson.id}')">✨ شرح إضافي من المدرّب</button><div id="grammar-ai-box" class="ai-box" style="display:none"></div></div>`;
       } else if (slide.type === "vocab") {
-        target.innerHTML = `<div class="card"><h4>🗣️ كلمة وجملة</h4><div class="vocab-de ltr" style="font-size:22px;margin:16px 0">${colorGermanArticles(slide.item.de)}</div><p>${escapeHtml(slide.item.ar)}</p><div class="vocab-actions">${speakerMarkup(slide.item.de)}</div><button class="btn-ghost" style="margin-top:10px" onclick="explainVocabAI('${currentLesson.id}',${slide.index})">✨ مثال إضافي</button><div id="vocab-ai-${currentLesson.id}-${slide.index}" class="ai-box" style="display:none"></div></div>`;
+        target.innerHTML = `<div class="card"><h4>🗣️ كلمة وجملة</h4><div class="vocab-de ltr" style="font-size:22px;margin:16px 0">${colorGermanArticles(slide.item.de)}</div><p>${escapeHtml(slide.item.ar)}</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(slide.item))}</div><button class="btn-ghost" style="margin-top:10px" onclick="explainVocabAI('${currentLesson.id}',${slide.index})">✨ مثال إضافي</button><div id="vocab-ai-${currentLesson.id}-${slide.index}" class="ai-box" style="display:none"></div></div>`;
       } else if (slide.type === "quiz" || slide.type === "listening") {
         const listening = slide.type === "listening";
-        target.innerHTML = `<div class="card"><h4>${listening ? "👂 استماع فقط" : "🧠 سؤال واحد"}</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${listening ? "اسمع الجملة واختر معناها" : slide.question}</p><div class="vocab-actions">${listening ? speakerMarkup(slide.item.de) : (slide.vocabIndex !== undefined ? speakerMarkup(slide.options[slide.answer]) : "")}</div>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
+        target.innerHTML = `<div class="card"><h4>${listening ? "👂 استماع فقط" : "🧠 سؤال واحد"}</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${listening ? "اسمع الجملة واختر معناها" : slide.question}</p><div class="vocab-actions">${listening ? speakerMarkup(vocabSpeech(slide.item)) : (slide.vocabIndex !== undefined ? speakerMarkup(slide.speakText || slide.options[slide.answer]) : "")}</div>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
         next.disabled = true;
       } else if (slide.type === "wordOrder") {
         target.innerHTML = `<div class="card"><h4>🧩 رتّب الكلمات لتكوين جملة</h4><p>${escapeHtml(slide.translation)}</p><div id="wordOrderBuilt" class="word-order-built" data-target="${escapeHtml(slide.tokens.join(" "))}" data-solved="false">اضغط الكلمات بالترتيب</div><div class="word-order-tiles">${slide.scrambled.map(word => `<button class="word-chip" onclick="selectWordToken(this)">${escapeHtml(word)}</button>`).join("")}</div><button class="btn-ghost" onclick="resetWordOrder()">إعادة المحاولة</button><div id="wordOrderFeedback" class="quiz-feedback"></div></div>`;
         next.disabled = true;
       } else if (slide.type === "dictation") {
-        target.innerHTML = `<div class="card"><h4>🎧 اسمع واكتب</h4><p style="color:var(--muted);font-size:13px">اسمع الجملة واكتبها زي ما سمعتها. الحروف الكبيرة والترقيم مش مهمين، وتقدر تكتب ae بدل ä.</p><div class="vocab-actions">${speakerMarkup(slide.item.de)}</div><input id="dictInput" class="form-control ltr" style="margin-top:10px" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Schreib hier..." /><button class="btn-primary" onclick="checkDictation()">✅ تحقق</button><div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
+        target.innerHTML = `<div class="card"><h4>🎧 اسمع واكتب</h4><p style="color:var(--muted);font-size:13px">اسمع الجملة واكتبها زي ما سمعتها. الحروف الكبيرة والترقيم مش مهمين، وتقدر تكتب ae بدل ä.</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(slide.item))}</div><input id="dictInput" class="form-control ltr" style="margin-top:10px" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Schreib hier..." /><button class="btn-primary" onclick="checkDictation()">✅ تحقق</button><div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
         next.disabled = true;
       } else if (slide.type === "writing") {
         target.innerHTML = `<div class="card"><h4>✍️ طبّق اللي اتعلمته</h4><p class="lesson-practice-prompt">اكتب جملة واحدة بالألماني عن موضوع الدرس. تقدر تتكلم بالميكروفون أو تكتبها.</p><textarea id="lessonPracticeInput" class="lesson-textarea" placeholder="Schreib deinen Satz hier..." oninput="invalidateLessonPractice()"></textarea><button id="lessonMicBtn" class="mic-btn" style="margin-top:8px" onclick="toggleMic(&quot;lesson&quot;)">🎙️ اتكلم بالألماني</button><button class="btn-primary" style="margin-top:10px" onclick="checkLessonPractice('${currentLesson.id}')">🤖 راجع الجملة</button><div id="lessonPracticeFeedback" class="lesson-feedback"></div></div>`;
