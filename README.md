@@ -1,35 +1,36 @@
 # Deutsch A1 Coach
 
-تطبيق ويب (PWA) لتعلم الألماني مستوى A1 بالعربي: دروس، مراجعة متباعدة، بطاقات، اختبارات، ومدرب محادثة AI.
+تطبيق ويب لتعلم الألمانية A1 بالعربية، يعمل كتطبيق ويب تقدمي (PWA) ويضم دروسًا متدرجة، سؤالًا مستقلًا بعد كل مفردة، اختبارات وحدات، مراجعة متباعدة، محادثة AI، ومزامنة تقدم الحساب.
 
-## التشغيل
-افتح `index.html` من خادم ثابت (GitHub Pages مثلاً). الملفات: `index.html`, `sw.js`, `manifest.webmanifest`, `icon.svg`.
+## التشغيل والرفع
+ارفع الملفات الموجودة في هذا المستودع مع الحفاظ على المجلدات كما هي. GitHub Pages ينشر الواجهة والملفات الثابتة؛ خادم الذكاء الاصطناعي على Cloudflare Worker خدمة منفصلة ولا يُنشر تلقائيًا مع Pages.
 
-## إعداد Supabase (مهم للأمان)
-```sql
-create table if not exists user_progress (user_id uuid primary key references auth.users(id), payload jsonb, updated_at timestamptz);
-alter table user_progress enable row level security;
-create policy "own row" on user_progress for all using (auth.uid() = user_id) with check (auth.uid() = user_id);
+## Supabase
+شغّل مخطط قاعدة البيانات في SQL Editor، وفعّل RLS لجدول `user_progress`. اجعل سياسات القراءة والكتابة على صف صاحب الحساب فقط. في Authentication → URL Configuration أضف رابط GitHub Pages إلى Site URL وRedirect URLs حتى تعمل روابط تأكيد البريد واستعادة كلمة المرور.
+
+المفتاح الموجود في الواجهة هو Publishable key فقط. لا تضع `service_role` أو مفتاح Gemini داخل ملفات المتصفح أو GitHub.
+
+## Cloudflare Worker الآمن
+الملف `worker.example.js` قالب للخادم، وليس نشرًا تلقائيًا. قبل تفعيل إرسال توكن Supabase من الواجهة:
+
+1. انشر هذا الـWorker في Cloudflare.
+2. خزّن `GEMINI_API_KEY` كـ Secret، واضبط `SUPABASE_URL` و`SUPABASE_PUBLISHABLE_KEY` و`ALLOWED_ORIGIN` كمتغيرات.
+3. اربط محدد الطلبات باسم `CHAT_LIMITER` (20 طلبًا لكل مستخدم في الدقيقة). القالب يرفض التشغيل إذا لم يتوفر المحدد.
+4. اختبر `/api/chat` بعد تسجيل الدخول.
+5. بعدها فقط غيّر `SEND_AUTH_TO_PROXY` إلى `true` في `app.js` وارفع التغيير. يجب أن يسمح CORS بترويسة `Authorization`.
+
+إلى أن تنشر Worker بهذا الشكل، اترك الخيار `false` حتى لا يتعطل اتصال الموقع الحالي. لا تعتمد على CORS وحده لحماية المفتاح؛ التحقق من جلسة المستخدم ومحدد الطلبات هما الحماية.
+
+## Ollama على جهازك
+استخدم نموذجًا مثبتًا عندك، مثل `qwen3:14b`، والعنوان `http://localhost:11434`. إذا فتحت التطبيق من GitHub Pages وظهر خطأ CORS، أضف أصل الموقع نفسه إلى قائمة Ollama المسموحة؛ لا تستخدم `*`:
+
+```powershell
+[Environment]::SetEnvironmentVariable('OLLAMA_ORIGINS', 'https://acclearneng2006-design.github.io', 'User')
 ```
 
-## خادم الـ AI (Cloudflare Worker)
-- خزّن مفتاح Gemini كـ secret في الـ Worker فقط.
-- تحقق من توكن Supabase (`Authorization: Bearer`) وحدّد عدد الطلبات لكل مستخدم، وقيّد CORS على نطاق موقعك.
-
-## الملفات
-`index.html` + `style.css` + `app.js` + `sw.js` + `manifest.webmanifest` + `icon.svg` (ارفعها كلها في نفس المجلد).
-
-## خطوات في Supabase
-Authentication → URL Configuration: أضف رابط الموقع في Site URL وRedirect URLs حتى يعمل رابط استعادة كلمة المرور.
-
-## تأمين خادم الـ AI
-`worker.example.js` مثال جاهز: يتحقق من مستخدم Supabase، يحدّ 20 طلب/دقيقة، يقيّد CORS ويحدّ طول الرسائل. بعد نشره غيّر `SEND_AUTH_TO_PROXY` إلى `true` في `app.js`.
+أغلق Ollama بالكامل من شريط النظام ثم افتحه مجددًا. أصل الموقع هو اسم النطاق فقط بدون `/german`. التشغيل من localhost مسموح افتراضيًا عادةً.
 
 ## الاختبارات
-`node tests/run.js` يفحص صياغة الملفات، وسلامة المنهج (معرّفات، إجابات، خيارات)، وتطابق أدوات المذكر/المؤنث/المحايد مع الأسماء، ودوال التلوين والإملاء. يعمل تلقائياً على GitHub من `.github/workflows/test.yml`.
-المنهج الآن في `curriculum.js` (يُحمَّل قبل `app.js`).
+شغّل `npm test` أو `node tests/run.js`. الاختبارات تتحقق من صياغة JavaScript، ترتيب الوحدات والاختبارات، سلامة الأسئلة والمفردات، أدوات التعريف، أسئلة كل مفردة، وبوابة التدريب النهائي للمهارات الأربع. يعمل الفحص تلقائيًا عبر GitHub Actions.
 
-## SRI لمكتبة Supabase
-شغّل هذا الأمر مرة واحدة، وضع الناتج في `integrity` بوسم السكربت في `index.html` مع `crossorigin="anonymous"`:
-`curl -s https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js | openssl dgst -sha384 -binary | openssl base64 -A`
-(الوسم يبقى بنفس الرابط الحالي، وقيمة integrity = `sha384-` + الناتج).
+المنهج في `curriculum.js`، ويُحمّل قبل `app.js`.
