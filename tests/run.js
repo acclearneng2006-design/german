@@ -5,6 +5,11 @@ const bad = []; const fail = m => bad.push(m);
 for (const f of ["app.js", "curriculum.js", "sw.js"]) { try { cp.execFileSync("node", ["--check", path.join(__dirname, "..", f)], { stdio: "pipe" }); } catch (e) { fail("syntax " + f); } }
 const { CURRICULUM, UNIT_TESTS } = new Function(R("curriculum.js") + ";return {CURRICULUM,UNIT_TESTS}")();
 const nodes = CURRICULUM.flatMap(u => u.nodes), ids = nodes.map(n => n.id);
+const alphabetLesson = nodes.find(n => n.id === "l16"), introLesson = nodes.find(n => n.id === "l1"), specialLettersLesson = nodes.find(n => n.id === "l17");
+if (!alphabetLesson || alphabetLesson.vocab.some(v => /Wie schreibt man Ihren Namen|Mein Name ist Sara/.test(v.de))) fail("name introduction phrases should be in the introduction lesson, not the alphabet lesson");
+if (!introLesson || !introLesson.vocab.some(v => v.de === "Wie schreibt man Ihren Namen?")) fail("name spelling phrase is missing from the introduction lesson");
+if (!specialLettersLesson || !["Ä", "Ö", "Ü", "ß"].every(letter => specialLettersLesson.vocab.some(v => v.de === letter && v.kind === "letter" && v.speak))) fail("special letters must be separate from their example words");
+if (!specialLettersLesson.vocab.some(v => v.de === "Mädchen") || specialLettersLesson.vocab.some(v => /–/.test(v.de))) fail("letter example words must have their own separate cards");
 if (CURRICULUM.length !== 11) fail("expected ten focused A1 units plus exam unit");
 if (UNIT_TESTS.length !== CURRICULUM.length) fail("unit test count does not match unit count");
 const allIds = [...ids, ...UNIT_TESTS.map(t => t.id)];
