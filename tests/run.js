@@ -45,8 +45,9 @@ if (gxScore.includes('state.completed.push("goethe-mock")')) fail("Goethe practi
 if (!gxFlow.includes('dataset.reviewed !== "true"')) fail("Goethe practice can be completed without reviewing both productive skills");
 const lessonFlow = app.slice(app.indexOf("function openLesson("), app.indexOf("function showLessonStep("));
 if (lessonFlow.includes("reviewItems") || lessonFlow.includes("reviewIntro")) fail("lesson repeats all vocabulary after each item already had its own question");
-if (!lessonFlow.includes("type: " + String.fromCharCode(34) + "vocabPractice" + String.fromCharCode(34))) fail("each word should be taught and tested within one focused step");
+if (!lessonFlow.includes("type: " + String.fromCharCode(34) + "vocabBatch" + String.fromCharCode(34)) || !lessonFlow.includes("questionOrder")) fail("vocabulary questions should follow word groups in shuffled order");
 if (!app.includes('parent.dataset.answered = "true"')) fail("lesson quiz allows the same question to be answered repeatedly");
+if (app.includes("speakerMarkup(slide.speakText || slide.options[slide.answer])")) fail("vocabulary quiz reveals the correct option with audio before the answer");
 const worker = R("worker.example.js");
 if (!worker.includes("/auth/v1/user") || !worker.includes("CHAT_LIMITER.limit({ key: user.id })")) fail("AI Worker must verify the account and rate-limit by user");
 if (R("README.md").includes('OLLAMA_ORIGINS "*"')) fail("Ollama setup must not enable wildcard origins");
