@@ -1292,13 +1292,14 @@ ${getStudiedSummary()}`;
       recognition.interimResults = false;
       activeMicTarget = target;
 
-      const btnId = target === "cp" ? "cpMicBtn" : target === "lesson" ? "lessonMicBtn" : "freeMicBtn";
-      const inputId = target === "cp" ? "cpInput" : target === "lesson" ? "lessonPracticeInput" : "freeChatInput";
+      const btnId = target === "cp" ? "cpMicBtn" : target === "lesson" ? "lessonMicBtn" : target === "goethe" ? "gxMicBtn" : "freeMicBtn";
+      const inputId = target === "cp" ? "cpInput" : target === "lesson" ? "lessonPracticeInput" : target === "goethe" ? "gxSpeakingInput" : "freeChatInput";
       document.getElementById(btnId).classList.add("recording");
 
       recognition.onresult = e => {
         document.getElementById(inputId).value = e.results[0][0].transcript;
         if (target === "lesson") invalidateLessonPractice();
+        if (target === "goethe") { const fb = document.getElementById("gxSpeakingFeedback"); if (fb) { fb.dataset.reviewed = "false"; fb.textContent = ""; } }
       };
       recognition.onerror = recognition.onend = () => {
         document.getElementById(btnId).classList.remove("recording");
@@ -1672,12 +1673,24 @@ function openGoetheExam() {
       ["Hallo, ich bin Maria. Ich komme aus Italien und wohne seit zwei Jahren in Berlin.", "Maria wohnt in Italien.", false, "خطأ: ماريا من إيطاليا لكنها تسكن في برلين."]
     ]
   };
-  document.getElementById("overlayTitle").textContent = "تدريب الاستماع والقراءة A1";
+  document.getElementById("overlayTitle").textContent = "تدريب نهائي على مهارات A1 الأربع";
   document.getElementById("overlayXp").textContent = "+50 XP";
   const body = document.getElementById("overlayBody");
-  body.innerHTML = `<div class="card"><h4>🎓 تدريب شامل</h4><p style="font-size:13.5px;color:var(--muted);line-height:1.8">الاستماع: اسمع بدون نص (تقدر تعيد). القراءة: نص قصير ثم صح/خطأ. تحتاج 3/5 في كل جزء. بعدها تدرّب على الكتابة والمحادثة من الأزرار تحت. هذا تدريب وليس الامتحان الرسمي.</p></div>` +
+  body.innerHTML = `<div class="card"><h4>🎓 تدريب نهائي متكامل</h4><p style="font-size:13.5px;color:var(--muted);line-height:1.8">هتعدّي على أربع مهارات: الاستماع بدون نص، القراءة، كتابة رسالة قصيرة، ثم تقديم نفسك بالألماني. جاوب على الأقسام بالترتيب؛ تحتاج 3/5 في الاستماع والقراءة، وإجابة يراجعها المدرب في الكتابة والمحادثة. ده تدريب تعليمي وليس امتحان Goethe رسمي.</p></div>` +
     Object.entries(G).map(([sec, arr]) => arr.map((q, i) => `<div class="card gx-item" data-sec="${sec}" data-ok="${q[2]}" data-e="${escapeHtml(q[3])}"><h4><span>${sec} ${i + 1}/5</span><span class="vocab-actions">${sec === "Hören" ? speakerMarkup(q[0]) : ""}</span></h4>${sec === "Hören" ? "" : `<div class="reading-passage">${escapeHtml(q[0])}</div>`}<p style="font-weight:700;margin-top:8px">الجملة: <span class="ltr" style="color:var(--accent)">${escapeHtml(q[1])}</span></p><div class="rf-row"><button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerGx(this, true)">✅ Richtig</button><button class="quiz-opt" style="text-align:center;font-weight:800" onclick="answerGx(this, false)">❌ Falsch</button></div><div class="quiz-feedback"></div></div>`).join("")).join("") +
-    `<button class="btn-primary" onclick="finishGx()">اعرض نتيجتي</button><div id="gxResult" class="lesson-feedback"></div><div class="row-2" style="margin-top:12px"><button class="btn-ghost" onclick="openNodeById('l28')">✍️ تدريب الكتابة</button><button class="btn-ghost" onclick="openNodeById('cp7')">🎙️ تدريب المحادثة</button></div>`;
+    `<button class="btn-primary" onclick="finishGx()">اعرض نتيجة الاستماع والقراءة</button><div id="gxResult" class="lesson-feedback"></div>
+    <section id="gxWritingSection" class="card" style="display:none;margin-top:12px">
+      <h3>✍️ 3) الكتابة</h3><p>اكتب رسالة قصيرة لصديق: اقترح مقابلة، اذكر اليوم والوقت، واطلب منه الرد.</p>
+      <textarea id="gxWritingInput" class="lesson-textarea ltr" rows="5" placeholder="Hallo ..."></textarea>
+      <button id="gxWritingReviewBtn" class="btn-primary" onclick="reviewGoetheAnswer('writing')">🤖 راجع كتابتي</button><div id="gxWritingFeedback" class="lesson-feedback"></div>
+    </section>
+    <section id="gxSpeakingSection" class="card" style="display:none;margin-top:12px">
+      <h3>🎙️ 4) المحادثة والنطق</h3><p>عرّف بنفسك بالألماني: اسمك، بلدك، مكان سكنك، لغتك، وما تحب. تقدر تكتب أو تستخدم الميكروفون.</p>
+      <textarea id="gxSpeakingInput" class="lesson-textarea ltr" rows="4" placeholder="Ich heiße ..."></textarea>
+      <button id="gxMicBtn" class="mic-btn" style="margin-top:8px" onclick="toggleMic('goethe')">🎙️ سجّل إجابتك بالألمانية</button>
+      <button id="gxSpeakingReviewBtn" class="btn-primary" onclick="reviewGoetheAnswer('speaking')">🤖 راجع إجابتي</button><div id="gxSpeakingFeedback" class="lesson-feedback"></div>
+    </section>
+    <div id="gxFinalWrap" style="display:none;margin-top:12px"><button class="btn-primary" onclick="finishGoetheSkills()">إنهاء التدريب واستلام الشارة</button><div id="gxFinalResult" class="lesson-feedback"></div></div>`;
   bindSpeakButtons(body);
   document.getElementById("lessonOverlay").classList.add("open");
 }
@@ -1693,8 +1706,51 @@ function finishGx() {
   const sc = sec => items.filter(i => i.dataset.sec === sec && i.dataset.score === "1").length;
   const h = sc("Hören"), l = sc("Lesen"), pass = h >= 3 && l >= 3, r = document.getElementById("gxResult");
   r.style.display = "block";
-  r.innerHTML = `<strong>استماع ${h}/5 • قراءة ${l}/5</strong><br>${pass ? "🎉 اجتزت الجزءين. كمّل تدريب الكتابة والمحادثة." : "تحتاج 3/5 على الأقل في كل جزء، راجع الدروس وجرب تاني."}<br><small>${h < 3 ? "قوّي الاستماع: كرر الجمل بالنطق البطيء. " : ""}${l < 3 ? "قوّي القراءة: راجع الأرقام والأوقات والكلمات." : ""}</small>`;
-  if (pass) { launchConfetti(); if (!state.completed.includes("goethe-mock")) { state.completed.push("goethe-mock"); state.xp += 50; saveState(); renderPath(); } }
+  r.innerHTML = `<strong>الاستماع ${h}/5 • القراءة ${l}/5</strong><br>${pass ? "🎉 ممتاز! افتح قسمي الكتابة والمحادثة بالأسفل عشان تكمل المهارتين." : "تحتاج 3/5 على الأقل في كل جزء. راجع الدروس ثم أعد التدريب."}<br><small>${h < 3 ? "قوّي الاستماع: اسمع الجمل بتركيز وكررها. " : ""}${l < 3 ? "قوّي القراءة: راجع الكلمات والأوقات." : ""}</small>`;
+  const writing = document.getElementById("gxWritingSection"), speaking = document.getElementById("gxSpeakingSection"), final = document.getElementById("gxFinalWrap");
+  writing.style.display = pass ? "block" : "none";
+  speaking.style.display = pass ? "block" : "none";
+  final.style.display = pass ? "block" : "none";
+  if (!pass) { writing.style.display = "none"; speaking.style.display = "none"; }
+}
+async function reviewGoetheAnswer(skill) {
+  const writing = skill === "writing";
+  const input = document.getElementById(writing ? "gxWritingInput" : "gxSpeakingInput");
+  const output = document.getElementById(writing ? "gxWritingFeedback" : "gxSpeakingFeedback");
+  const button = document.getElementById(writing ? "gxWritingReviewBtn" : "gxSpeakingReviewBtn");
+  const answer = input.value.trim(), words = answer.split(/\s+/).filter(Boolean).length;
+  output.style.display = "block";
+  if (words < (writing ? 15 : 10)) { output.textContent = writing ? "اكتب 15 كلمة ألمانية على الأقل عشان تكون الرسالة قابلة للمراجعة." : "اكتب أو قل 10 كلمات ألمانية على الأقل عشان نراجع التعريف بنفسك."; return; }
+  button.disabled = true; output.textContent = "⏳ المدرب بيراجع إجابتك...";
+  const task = writing
+    ? "المطلوب: رسالة قصيرة لصديق تقترح فيها مقابلة، وتحدد اليوم والوقت، وتطلب الرد. قيّم إنجاز هذه النقاط ووضوح الرسالة والقواعد الأساسية."
+    : "المطلوب: تعريف بالنفس يتضمن الاسم والبلد ومكان السكن واللغة وشيئاً يحبه المتعلم. قيّم اكتمال المعلومات والنطق الكتابي والقواعد البسيطة.";
+  const prompt = `المهارة: ${writing ? "الكتابة" : "إجابة محادثة مكتوبة/مفرغة صوتياً"}\n${task}\nنص المتعلم: ${answer}\nقدّم ملاحظتين محددتين بالعربية ثم نسخة ألمانية مصححة قصيرة. لا Markdown.`;
+  let result;
+  try { result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني A1. شجّع المتعلم وكن دقيقاً. لا تمنح شهادة أو درجة رسمية؛ وضّح ما أتقنه وما يحسّنه. لا تستخدم Markdown أو علامات النجمة."); }
+  catch (error) { result = `⚠️ تعذر مراجعة الإجابة: ${error.message || "خطأ اتصال"}`; }
+  button.disabled = false;
+  output.textContent = result;
+  if (String(result).startsWith("⚠️")) return;
+  output.textContent = "✅ تمت مراجعة إجابتك.\n" + result;
+  output.dataset.reviewed = "true";
+  input.oninput = () => { output.dataset.reviewed = "false"; document.getElementById("gxFinalResult").textContent = "عدّلت إجابتك؛ راجعها مرة أخرى قبل الإنهاء."; };
+}
+function finishGoetheSkills() {
+  const items = [...document.querySelectorAll(".gx-item")];
+  if (items.some(i => !i.dataset.done)) { showToast("جاوب على أسئلة الاستماع والقراءة كلها.", "default", "📝"); return; }
+  const score = sec => items.filter(i => i.dataset.sec === sec && i.dataset.score === "1").length;
+  const h = score("Hören"), l = score("Lesen");
+  if (h < 3 || l < 3) { showToast("أعد الاستماع والقراءة واجتز 3 من 5 في كل قسم.", "default", "🔁"); return; }
+  if (document.getElementById("gxWritingFeedback").dataset.reviewed !== "true" || document.getElementById("gxSpeakingFeedback").dataset.reviewed !== "true") {
+    showToast("أرسل الكتابة والمحادثة للمدرب للمراجعة أولاً.", "default", "🤖"); return;
+  }
+  const result = document.getElementById("gxFinalResult");
+  result.style.display = "block";
+  if (!state.completed.includes("goethe-mock")) {
+    state.completed.push("goethe-mock"); state.xp += 50; updateDailyStreak(); saveState(); renderPath(); launchConfetti();
+  }
+  result.innerHTML = `🏅 اكتمل تدريبك على المهارات الأربع!<br>الاستماع ${h}/5 • القراءة ${l}/5 • الكتابة تمت مراجعتها • المحادثة تمت مراجعتها.<br><small>حصلت على 50 XP. التدريب لا يُعد شهادة أو نتيجة رسمية من Goethe.</small>`;
 }
 
 function normGerman(t) {
