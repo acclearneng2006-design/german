@@ -947,6 +947,7 @@ const MOTIVATION_QUOTES = [
         document.getElementById("lessonNextBtn").disabled = false;
         feedback.innerHTML = `<span style="color:var(--success)">✅ ${pickRandom(PRAISE_CORRECT)}<br><small style="color:var(--text);font-weight:500">${slide.explanation || (slide.item ? `${slide.item.de} = ${slide.item.ar}` : "")}</small></span>`;
       } else {
+        document.getElementById("lessonNextBtn").disabled = false;
         btn.classList.add("wrong", "shake-anim");
         if (correct) correct.classList.add("correct");
         if (slide.vocabIndex !== undefined) {
