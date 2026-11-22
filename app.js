@@ -458,7 +458,7 @@ const MOTIVATION_QUOTES = [
       const gDone = state.completed.includes("goethe-mock");
       const gCard = document.createElement("div");
       gCard.className = `node-card exam-node ${gDone ? "done" : ""} ${courseUnlocked ? "" : "locked"}`; gCard.style.marginTop = "10px"; gCard.tabIndex = 0;
-      gCard.innerHTML = `<div class="node-left"><div class="node-icon">${gDone ? "🏆" : "🎓"}</div><div class="node-info"><h3>تدريب الاستماع والقراءة A1</h3><p>استماع + قراءة + كتابة + محادثة، كل جزء بدرجته</p></div></div><span class="node-badge">${gDone ? "✓ ناجح" : "+50 XP"}</span>`;
+      gCard.innerHTML = `<div class="node-left"><div class="node-icon">${gDone ? "🏆" : "🎓"}</div><div class="node-info"><h3>تدريب مهارات A1 الأربع</h3><p>استماع + قراءة + كتابة + محادثة، كل جزء بدرجته</p></div></div><span class="node-badge">${gDone ? "✓ ناجح" : "+50 XP"}</span>`;
       gCard.onclick = () => courseUnlocked ? openGoetheExam() : showToast("تدريب Goethe يفتح بعد إنهاء المنهج واختباراته 🔒", "default", "🔒");
       gCard.tabIndex = courseUnlocked ? 0 : -1;
       if (!courseUnlocked) gCard.setAttribute("aria-disabled", "true");
@@ -787,6 +787,10 @@ const MOTIVATION_QUOTES = [
       }
       const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
       lessonSlides.push({ type: "quiz", title: "مراجعة القاعدة", question: lesson.quiz.q, options: grammarOptions.map(o => o.text), answer: grammarOptions.findIndex(o => o.correct), explanation: lesson.grammar });
+      (lesson.extra || []).forEach(ex => {
+        const o = ex.opts.map((text, index) => ({ text, correct: index === ex.ans })).map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+        lessonSlides.push({ type: "quiz", title: "تدريب إضافي", question: ex.q, options: o.map(x => x.text), answer: o.findIndex(x => x.correct), explanation: ex.e || lesson.grammar });
+      });
       lessonSlides.push({ type: "recap", title: "خلاصة الدرس" });
 
       document.getElementById("overlayTitle").textContent = lesson.title;
@@ -1357,9 +1361,12 @@ ${getStudiedSummary()}`;
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ model, stream: false, messages: [{ role: "system", content: systemInstruction }, ...messages] })
       });
-      if (!res.ok) throw new Error("Ollama HTTP " + res.status);
-      const data = await res.json();
-      return data.message.content;
+      let data = null;
+      try { data = await res.json(); } catch (e) {}
+      if (!res.ok) throw new Error((data && data.error) || ("Ollama HTTP " + res.status));
+      const text = data && data.message && data.message.content;
+      if (!text) throw new Error("رد فاضي من الموديل");
+      return text;
     }
 
     async function fetchGemini(key, model, messages, systemInstruction) {
@@ -1730,6 +1737,7 @@ async function reviewGoetheAnswer(skill) {
   try { result = await callAI([{ role: "user", content: prompt }], "أنت مدرس ألماني A1. شجّع المتعلم وكن دقيقاً. لا تمنح شهادة أو درجة رسمية؛ وضّح ما أتقنه وما يحسّنه. لا تستخدم Markdown أو علامات النجمة."); }
   catch (error) { result = `⚠️ تعذر مراجعة الإجابة: ${error.message || "خطأ اتصال"}`; }
   button.disabled = false;
+  if (input.value.trim() !== answer) { output.dataset.reviewed = "false"; output.textContent = "اتغيرت الإجابة أثناء المراجعة؛ ابعتها للمدرب مرة أخرى."; return; }
   output.textContent = result;
   if (String(result).startsWith("⚠️")) return;
   output.textContent = "✅ تمت مراجعة إجابتك.\n" + result;
