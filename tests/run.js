@@ -29,6 +29,15 @@ const app = R("app.js");
 if (!app.includes('item.lessonId === lesson.id || state.completed.includes(item.lessonId)')) fail("unlearned future vocabulary is used as distractors");
 if (!app.includes('body?.dataset.practiceReviewed === "true"')) fail("lesson writing can be completed without AI review");
 if (!app.includes("function parseAIChatReply")) fail("AI chat response formatting cleaner is missing");
+const gxStart = app.indexOf("function openGoetheExam()");
+const gxEnd = app.indexOf("function normGerman(t)", gxStart);
+const gxFlow = app.slice(gxStart, gxEnd);
+for (const part of ["gxWritingSection", "gxSpeakingSection", "reviewGoetheAnswer", "finishGoetheSkills"]) {
+  if (!gxFlow.includes(part)) fail("four-skill practice is missing " + part);
+}
+const gxScore = gxFlow.slice(gxFlow.indexOf("function finishGx()"), gxFlow.indexOf("async function reviewGoetheAnswer"));
+if (gxScore.includes('state.completed.push("goethe-mock")')) fail("Goethe practice is completed before writing and speaking are reviewed");
+if (!gxFlow.includes('dataset.reviewed !== "true"')) fail("Goethe practice can be completed without reviewing both productive skills");
 const fn = name => (app.match(new RegExp("function " + name + "[\\s\\S]*?\\n    }\\n")) || app.match(new RegExp("function " + name + "[\\s\\S]*?\\n}\\n")))[0];
 const env = new Function(fn("escapeHtml") + fn("colorGermanArticles") + fn("normGerman") + ";return {colorGermanArticles,normGerman}")();
 const eq = (a, b, m) => { if (a !== b) fail(m + `: ${a} ≠ ${b}`); };
