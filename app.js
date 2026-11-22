@@ -515,6 +515,7 @@ const MOTIVATION_QUOTES = [
         btn.classList.add("correct", "pop-anim");
         fb.innerHTML = `<span style="color:var(--success)">✅ ${pickRandom(PRAISE_CORRECT)}<br><small style="color:var(--text);font-weight:500">${explanation}</small></span>`;
       } else {
+        document.getElementById("lessonNextBtn").disabled = false;
         btn.classList.add("wrong", "shake-anim");
         fb.innerHTML = `<span style="color:var(--accent)">💡 ${pickRandom(ENCOURAGE_RETRY)}<br><small style="color:var(--text);font-weight:500">${explanation}</small></span>`;
       }
@@ -762,9 +763,8 @@ const MOTIVATION_QUOTES = [
       ];
       if (lesson.id === "l16") lessonSlides.push({ type: "alphabet", title: "اسمع الحروف واحدًا واحدًا" });
       lesson.vocab.forEach((item, index) => {
-        lessonSlides.push({ type: "vocab", title: `كلمة ${index + 1} من ${lesson.vocab.length}`, item, index });
         const opts = getChoices(item.de, lesson, index, e => e.de);
-        lessonSlides.push({ type: "quiz", title: `سؤال على العنصر ${index + 1}`, question: `ما الألماني الصحيح لـ: ${item.ar}`, options: opts, answer: opts.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
+        lessonSlides.push({ type: "vocabPractice", title: `كلمة وسؤال ${index + 1} من ${lesson.vocab.length}`, item, index, question: `ما الألماني الصحيح لـ: ${item.ar}`, options: opts, answer: opts.indexOf(item.de), vocabIndex: index, speakText: vocabSpeech(item), explanation: `${item.de} = ${item.ar}` });
       });
       const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
@@ -832,8 +832,9 @@ const MOTIVATION_QUOTES = [
         target.innerHTML = `<div class="card"><h4>🧠 وقت المراجعة</h4><p>خدت وقتك في التعلم والتطبيق. دلوقتي راجع الكلمات والقاعدة بأسئلة متفرقة، سؤال واحد في كل مرة.</p></div>`;
       } else if (slide.type === "grammar") {
         target.innerHTML = `<div class="card"><h4>📖 شرح القاعدة</h4><p style="white-space:pre-line;line-height:1.95">${currentLesson.grammar}</p><button class="btn-ghost" style="margin-top:12px" onclick="explainGrammarAI('${currentLesson.id}')">✨ شرح إضافي من المدرّب</button><div id="grammar-ai-box" class="ai-box" style="display:none"></div></div>`;
-      } else if (slide.type === "vocab") {
-        target.innerHTML = `<div class="card"><h4>🗣️ كلمة وجملة</h4><div class="vocab-de ltr" style="font-size:22px;margin:16px 0">${colorGermanArticles(slide.item.de)}</div><p>${escapeHtml(slide.item.ar)}</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(slide.item))}</div><button class="btn-ghost" style="margin-top:10px" onclick="explainVocabAI('${currentLesson.id}',${slide.index})">✨ مثال إضافي</button><div id="vocab-ai-${currentLesson.id}-${slide.index}" class="ai-box" style="display:none"></div></div>`;
+      } else if (slide.type === "vocabPractice") {
+        target.innerHTML = `<div class="card" id="vocabLearnCard"><h4>📖 تعلّم الكلمة</h4><div class="vocab-de ltr" style="font-size:24px;margin:16px 0">${colorGermanArticles(slide.item.de)}</div><p>${escapeHtml(slide.item.ar)}</p><div class="vocab-actions">${speakerMarkup(vocabSpeech(slide.item))}</div><button class="btn-primary" style="margin-top:14px" onclick="startVocabQuiz()">اختبر نفسي ←</button></div><div class="card" id="vocabQuizCard" hidden><h4>🧠 سؤال واحد على الكلمة</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${slide.question}</p>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
+        next.disabled = true;
       } else if (slide.type === "quiz" || slide.type === "listening") {
         const listening = slide.type === "listening";
         target.innerHTML = `<div class="card"><h4>${listening ? "👂 استماع فقط" : "🧠 سؤال واحد"}</h4><p style="font-size:17px;font-weight:700;margin:12px 0">${listening ? "اسمع الجملة واختر معناها" : slide.question}</p><div class="vocab-actions">${listening ? speakerMarkup(vocabSpeech(slide.item)) : (slide.vocabIndex !== undefined ? speakerMarkup(slide.speakText || slide.options[slide.answer]) : "")}</div>${slide.options.map((option, optionIndex) => `<button class="quiz-opt" data-correct="${optionIndex === slide.answer}" onclick="checkQuiz(this)">${escapeHtml(option)}</button>`).join("")}<div id="quizFeedback" class="quiz-feedback" aria-live="polite"></div></div>`;
@@ -924,10 +925,20 @@ const MOTIVATION_QUOTES = [
       document.getElementById("wordOrderFeedback").textContent = "";
     }
 
+    function startVocabQuiz() {
+      const learn = document.getElementById("vocabLearnCard");
+      const quiz = document.getElementById("vocabQuizCard");
+      if (!learn || !quiz) return;
+      learn.hidden = true;
+      quiz.hidden = false;
+    }
+
     function checkQuiz(btn) {
       const parent = btn.parentElement;
+      if (parent.dataset.answered === "true") return;
+      parent.dataset.answered = "true";
       const options = parent.querySelectorAll(".quiz-opt");
-      options.forEach(option => option.classList.remove("correct", "wrong", "pop-anim", "shake-anim"));
+      options.forEach(option => { option.classList.remove("correct", "wrong", "pop-anim", "shake-anim"); option.disabled = true; });
       const correct = Array.from(options).find(option => option.dataset.correct === "true");
       const feedback = document.getElementById("quizFeedback");
       const slide = lessonSlides[Number(document.getElementById("overlayBody").dataset.step)];
