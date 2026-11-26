@@ -775,22 +775,9 @@ const MOTIVATION_QUOTES = [
         const options = getChoices(item.de, lesson, index, entry => entry.de);
         lessonSlides.push({ type: "quiz", title: `سؤال ${questionIndex + 1} من ${questionOrder.length}`, question: `ما الألماني الصحيح لـ: ${item.ar}`, options, answer: options.indexOf(item.de), vocabIndex: index, explanation: `${item.de} = ${item.ar}` });
       });
-      const orderSource = lesson.vocab.find(v => !v.de.includes("/") && (v.de.match(/\S+/g) || []).length >= 3 && (v.de.match(/\S+/g) || []).every(word => word.replace(/[.,!?]/g, "").length > 1));
       lessonSlides.push({ type: "writing", title: "اكتب جملتك" });
-      const dictIdx = lesson.vocab.findIndex(v => v.kind !== "letter" && !/[\/,–]/.test(v.de) && v.de.split(/\s+/).length >= 2);
-      if (dictIdx >= 0) lessonSlides.push({ type: "dictation", title: "إملاء من السمع", item: lesson.vocab[dictIdx], vocabIndex: dictIdx, tries: 0 });
-      if (orderSource) {
-        const tokens = orderSource.de.match(/\S+/g);
-        const scrambled = [...tokens].map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
-        if (scrambled.join(" ") === tokens.join(" ")) scrambled.reverse();
-        lessonSlides.push({ type: "wordOrder", title: "ترتيب الجملة", tokens, scrambled, translation: orderSource.ar });
-      }
       const grammarOptions = lesson.quiz.opts.map((text, index) => ({ text, correct: index === lesson.quiz.ans })).map(v => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
       lessonSlides.push({ type: "quiz", title: "مراجعة القاعدة", question: lesson.quiz.q, options: grammarOptions.map(o => o.text), answer: grammarOptions.findIndex(o => o.correct), explanation: lesson.grammar });
-      (lesson.extra || []).forEach(ex => {
-        const o = ex.opts.map((text, index) => ({ text, correct: index === ex.ans })).map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
-        lessonSlides.push({ type: "quiz", title: "تدريب إضافي", question: ex.q, options: o.map(x => x.text), answer: o.findIndex(x => x.correct), explanation: ex.e || lesson.grammar });
-      });
       lessonSlides.push({ type: "recap", title: "خلاصة الدرس" });
 
       document.getElementById("overlayTitle").textContent = lesson.title;
